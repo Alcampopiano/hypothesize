@@ -89,7 +89,7 @@ target/
 .mypy_cache/
 
 # documentation build
-site/
+docs/site/
 
 # R history file
 *.Rhistory
