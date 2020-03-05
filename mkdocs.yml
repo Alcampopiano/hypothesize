@@ -1,0 +1,7 @@
+site_name: Hypothesize
+nav:
+    - Home: index.md
+    - About: about.md
+repo_name: <i class="fa fa-github"></i> Github
+repo_url: https://github.com/Alcampopiano/hypothesize
+edit_uri: ""
