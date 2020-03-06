@@ -4,7 +4,7 @@ Coming soon
 
 ## Contributing
 
-How to contribute
+How to contribute to hypothesize
 
 ## License (BSD-3)
 
