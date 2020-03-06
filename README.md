@@ -1,5 +1,5 @@
 # Hypothesize
-[![PyPI - Downloads](https://img.shields.io/pypi/dm/altair)](https://pypi.org/project/hypothesize/)
+[![PyPI - Downloads](https://img.shields.io/pypi/dm/hypothesize)](https://pypi.org/project/hypothesize/)
 
 A Python package for comparing groups and measuring associations using robust statistics.
 
