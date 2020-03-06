@@ -1,6 +1,2 @@
-# local package
--e .
-
-# external requirements
 pandas
 numpy
