@@ -1,5 +1,8 @@
 # Hypothesize
-[![PyPI - Downloads](https://img.shields.io/pypi/dm/hypothesize)](https://pypi.org/project/hypothesize/)
+[![PyPI version](https://img.shields.io/pypi/v/hypothesize?style=flat-square)](https://pypi.org/project/hypothesize/)
+[![PyPI - Downloads](https://img.shields.io/pypi/dw/hypothesize?style=flat-square)](https://pypi.org/project/hypothesize/)
+[![license](https://img.shields.io/pypi/l/hypothesize?style=flat-square)](https://github.com/Alcampopiano/hypothesize/blob/master/LICENSE)
+
 
 A Python package for comparing groups and measuring associations using robust statistics.
 
