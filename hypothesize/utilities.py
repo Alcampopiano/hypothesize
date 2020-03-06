@@ -66,7 +66,6 @@ def con2way(J,K):
             if j < jj:
                 for k in range(K):
                     for kk in range(K):
-                        print(k, kk)
                         if k < kk:
                             mat=np.zeros([J,K])
                             mat[j, k] = 1
