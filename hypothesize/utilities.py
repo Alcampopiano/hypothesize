@@ -1,4 +1,5 @@
 import numpy as np
+from scipy.stats.mstats import winsorize
 
 def con1way(J):
 
@@ -77,4 +78,46 @@ def con2way(J,K):
                         conAB[:, ic-1] = mat.reshape(conAB.shape[0]).T
 
     return conA, conB, conAB
+
+def winvar(x, tr=.2):
+    """
+    Compute the gamma Winsorized variance for the data in the vector x.
+    tr is the amount of Winsorization which defaults to .2.
+    Nan values are removed.
+
+    :param x:
+    :param tr:
+    :return:
+    """
+
+    y=winsorize(x, limits=(tr,tr))
+    wv = np.var(y, ddof=1)
+
+    # x=x[~np.isnan(x)]
+    # y=np.sort(x)
+    # n=len(x)
+    # ibot = int(np.floor(tr * n))
+    # itop = len(x) - ibot -1
+    # xbot = y[ibot]
+    # xtop = y[itop]
+    # y = np.where(y <= xbot, xbot, y)
+    # y = np.where(y >= xtop, xtop, y)
+    # wv = np.var(y, ddof=1) # DF to be consistent with Wilcox/R
+
+    return wv
+
+def trimse(x, tr=.2):
+
+    """
+    Estimate the standard error of the gamma trimmed mean
+    The default amount of trimming is tr=.2.
+
+    :param x:
+    :param tr:
+    :return:
+    """
+    #x=x[~np.isnan(x)]
+    trimse_result = np.sqrt(winvar(x, tr)) / ((1 - 2 * tr) * np.sqrt(len(x)))
+
+    return trimse_result
 
