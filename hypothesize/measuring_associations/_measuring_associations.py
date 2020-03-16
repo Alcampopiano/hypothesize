@@ -1,4 +1,4 @@
-__all__ = ["wincor", "corb"]
+__all__ = ["wincor", "pbcor", "corb"]
 
 import numpy as np
 from scipy.stats.mstats import winsorize
@@ -33,6 +33,67 @@ def wincor(x, y, tr=.2):
     sig = 2 * (1 - t.cdf(abs(test), len(x) - 2 * g - 2))
 
     return wcor, wcov, sig, nval
+
+def pbcor(x, y, beta=.2):
+
+    """
+    Compute the percentage bend correlation between x and y.
+
+    :param x: data array
+    :param y: data array
+    :param beta: bending constant for omega sub N
+    :return: percentage bend correlation
+    """
+
+    if len(x) != len(y):
+        raise Exception("The arrays do not have equal lengths")
+
+    m1 = np.c_[x, y] # cbind
+    m1 = m1[~np.isnan(m1).any(axis=1)]
+    nval = m1.shape[0]
+    x = m1[:, 0]
+    y = m1[:, 1]
+    temp = np.sort(abs(x - np.median(x)))
+    omhatx = temp[int(np.floor((1 - beta) * len(x)))-1]
+    temp = np.sort(abs(y - np.median(y)))
+    omhaty = temp[int(np.floor((1 - beta) * len(y)))-1]
+
+    a = (x - pbos(x, beta)) / omhatx
+    b = (y - pbos(y, beta)) / omhaty
+
+    a = np.where(a <= -1, -1, a)
+    a = np.where(a >= 1, 1, a)
+    b = np.where(b <= -1, -1, b)
+    b = np.where(b >= 1, 1, b)
+
+    pbcor_result = sum(a * b) / np.sqrt(sum(a ** 2) * sum(b ** 2))
+    test = pbcor_result * np.sqrt((len(x) - 2) / (1 - pbcor_result ** 2))
+    sig = 2 * (1 - t.cdf(abs(test), len(x) - 2))
+
+    return pbcor_result, test, sig, nval
+
+def pbos(x, beta=.2):
+
+    """
+    Compute the one-step percentage bend measure of location
+
+    :param x:
+    :param beta:
+    :return:
+    """
+
+    temp = np.sort(abs(x - np.median(x)))
+    omhatx = temp[int(np.floor((1 - beta) * len(x)))-1]
+    psi = (x - np.median(x)) / omhatx
+    i1 = len(psi[psi < -1])
+    i2 = len(psi[psi > 1])
+
+    sx = np.where(psi < -1, 0, x)
+    sx = np.where(psi > 1, 0, sx)
+
+    pbos_result = (sum(sx) + omhatx * (i2 - i1)) / (len(x) - i1 - i2)
+
+    return  pbos_result
 
 def corb(corfun, x, y, alpha, nboot, *args, seed=False):
 
