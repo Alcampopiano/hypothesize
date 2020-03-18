@@ -2,6 +2,8 @@ import numpy as np
 from scipy.stats.mstats import winsorize
 from scipy.stats import trim_mean
 from scipy.stats import t
+from hypothesize.measuring_associations import wincor
+import pandas as pd
 
 def con1way(J):
 
@@ -1511,4 +1513,85 @@ def trimparts(x, tr):
 def trimpartt(x, con):
     return sum(con * x)
 
+def covmtrim(x, tr):
 
+    p=len(x)
+    n=len(x[0])
+    h=len(x[0]) - 2 * np.floor(tr * len(x[0]))
+    covest = np.zeros([p, p])
+    covest[0, 0] = (n - 1) * winvar(x[0], tr) / (h * (h - 1))
+
+    for j in range(1,p):
+        covest[j, j] = (n - 1) * winvar(x[j], tr) / (h * (h - 1))
+        for k in range(j):
+            print('k', k)
+
+            covest[j, k] = (n - 1) * \
+                wincor(x[j], x[k], tr)['wcov'] / (h * (h - 1))
+
+            covest[k, j] = covest[j, k]
+
+
+    return covest
+
+def lindep(x, con, cmat, tr):
+
+    J = len(x)
+    xbar = np.zeros([1, J])
+
+    for j in range(J):
+        xbar[0,j]=trim_mean(x[j], tr)
+
+    ncon=con.shape[1]
+    psihat = np.zeros([ncon,4])
+    w = cmat
+
+    for d in range(ncon):
+        psihat[d,0]=d
+        psihat[d,1]=np.sum(con[:,d]*xbar)
+        sejk = np.sqrt(con[:,d].T @ w @ con[:,d])
+        psihat[d,2]=sejk
+        psihat[d,3]=psihat[d,1]/sejk
+
+    res=pd.DataFrame(psihat, columns=['con_num', 'psihat', 'se', 'test'])
+
+    return res
+
+def array_to_list_of_arrays(x):
+    pass
+
+def list_of_arrays_to_array(x):
+    pass
+
+def create_random_2_factor_data(within_n, between_n, K):
+
+    w_data=np.asarray([np.random.rand(within_n) for _ in range(K)])
+    b_data=np.asarray([np.random.rand(between_n) for _ in range(K)])
+
+    w_data = [i for i in w_data]
+    b_data = [i for i in b_data]
+    x = w_data + b_data
+
+    for i, xi in enumerate(x):
+        np.save(f'/home/allan/test_{i + 1}.npy', xi)
+        #x[np.random.randint(0, len(x))]=np.nan
+
+    return x
+
+def remove_nans_across_dependent_groups(x, J, K):
+
+
+    ind_low=0
+    ind_up=K
+    all_data=[]
+    for j in range(J):
+
+        x_slice=np.c_[x[ind_low:ind_up]]
+        x_slice = x_slice.T[~np.isnan(x_slice.T).any(axis=1)]
+        xx = [i for i in x_slice.T]
+        all_data += xx
+        ind_low+=ind_up
+        ind_up+=ind_up
+
+
+    return all_data

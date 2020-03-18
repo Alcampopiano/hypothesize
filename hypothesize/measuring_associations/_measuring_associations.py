@@ -32,7 +32,9 @@ def wincor(x, y, tr=.2):
     test = wcor * np.sqrt((len(x) - 2) / (1. - wcor ** 2))
     sig = 2 * (1 - t.cdf(abs(test), len(x) - 2 * g - 2))
 
-    return wcor, wcov, sig, nval
+    res={'wcor': wcor, 'wcov': wcov, 'sig': sig, 'nval': nval}
+
+    return res
 
 def pbcor(x, y, beta=.2):
 
