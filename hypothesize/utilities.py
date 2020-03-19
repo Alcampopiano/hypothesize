@@ -1522,9 +1522,10 @@ def covmtrim(x, tr):
     covest[0, 0] = (n - 1) * winvar(x[0], tr) / (h * (h - 1))
 
     for j in range(1,p):
+
         covest[j, j] = (n - 1) * winvar(x[j], tr) / (h * (h - 1))
+
         for k in range(j):
-            print('k', k)
 
             covest[j, k] = (n - 1) * \
                 wincor(x[j], x[k], tr)['wcov'] / (h * (h - 1))
@@ -1563,14 +1564,20 @@ def array_to_list_of_arrays(x):
 def list_of_arrays_to_array(x):
     pass
 
-def create_random_2_factor_data(within_n, between_n, K):
+def create_random_2_factor_data(jth_ns, k_levels):
 
-    w_data=np.asarray([np.random.rand(within_n) for _ in range(K)])
-    b_data=np.asarray([np.random.rand(between_n) for _ in range(K)])
+    # [20,15,11]
+    # 4
+    # creates 3x4 design
 
-    w_data = [i for i in w_data]
-    b_data = [i for i in b_data]
-    x = w_data + b_data
+    x=[]
+    for n in jth_ns:
+
+        data = [np.random.rand(n) for _ in range(k_levels)]
+        #data = [i for i in data]
+        x+=data
+
+
 
     for i, xi in enumerate(x):
         np.save(f'/home/allan/test_{i + 1}.npy', xi)
@@ -1590,8 +1597,8 @@ def remove_nans_across_dependent_groups(x, J, K):
         x_slice = x_slice.T[~np.isnan(x_slice.T).any(axis=1)]
         xx = [i for i in x_slice.T]
         all_data += xx
-        ind_low+=ind_up
-        ind_up+=ind_up
+        ind_low+=K
+        ind_up+=K
 
 
     return all_data

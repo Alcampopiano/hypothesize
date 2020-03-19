@@ -5,6 +5,7 @@ import pandas as pd
 from scipy.stats import trim_mean
 from hypothesize.utilities import con2way, lindep, covmtrim
 from hypothesize.utilities import remove_nans_across_dependent_groups
+# np.set_printoptions(linewidth=300)
 
 def bwmcp(J, K, x, alpha, nboot, tr=.2, seed=False):
 
@@ -15,7 +16,7 @@ def bwmcp(J, K, x, alpha, nboot, tr=.2, seed=False):
     using an appropriate linear contrast.
 
     The variable x is assumed to contain the raw
-    data stored in an array.
+    data stored in a list of arrays.
     x[[1]] contains the data
     for the first level of both factors: level 1,1.
     x[[2]] is assumed to contain the data for level 1 of the
@@ -25,25 +26,12 @@ def bwmcp(J, K, x, alpha, nboot, tr=.2, seed=False):
 
     :param J: Number of groups in Factor A
     :param K: Number of groups in Factor B
-    :param x: data array
-    :param con: contrast matrix
+    :param x: list of arrays
     :param alpha: significance level
     :param nboot: number of bootstrap samples
     :param tr: amount to trim
     :param seed: random seed for reproducibility
-    :return:
-
-
-    for dev:
-    create fake data
-    x=np.asarray([np.random.rand(20) for i in range(6)])
-    np.save('/home/allan/temp.npy', x)
-
-    In R:
-    install.packages("RcppCNPy")
-    library("RcppCNPy")
-    x=npyLoad("/home/allan/temp.npy")
-    x=listm(t(x))
+    :return: results dictionary
 
     """
 
@@ -57,8 +45,8 @@ def bwmcp(J, K, x, alpha, nboot, tr=.2, seed=False):
     iup=K
     for j in range(J):
         v[ilow:iup,ilow:iup]=covmtrim(x[ilow:iup], tr)
-        ilow+=iup
-        iup+=iup
+        ilow+=K
+        iup+=K
 
     A = lindep(x, conA, cmat = v, tr = tr)
     B = lindep(x, conB, cmat=v, tr=tr)
@@ -75,10 +63,10 @@ def bwmcp(J, K, x, alpha, nboot, tr=.2, seed=False):
         np.random.seed(seed)
 
     for ib in range(nboot):
+
+        bsam=[]
         ilow=0
         iup=K
-        bsam=[]
-
         for j in range(J):
 
             nv=len(x[ilow])
@@ -94,8 +82,8 @@ def bwmcp(J, K, x, alpha, nboot, tr=.2, seed=False):
         iup=K
         for j in range(J):
             v[ilow:iup, ilow:iup] = covmtrim(bsam[ilow:iup], tr)
-            ilow += iup
-            iup += iup
+            ilow += K
+            iup += K
 
         temp = abs(lindep(bsam, conA, cmat = v, tr = tr)['test'])
         aboot[ib,:] = temp
@@ -107,13 +95,38 @@ def bwmcp(J, K, x, alpha, nboot, tr=.2, seed=False):
         abboot[ib,:] = temp
         testAB.append(max(temp))
 
-    # YOU ARE HERE
+    pbA = []
+    pbB = []
+    pbAB = []
+    for j in range(aboot.shape[1]):
+        pbA.append(np.mean((abs(A['test'][j]) < aboot[:, j])))
 
+    for j in range(bboot.shape[1]):
+        pbB.append(np.mean((abs(B['test'][j]) < bboot[:, j])))
 
+    for j in range(abboot.shape[1]):
+        pbAB.append(np.mean((abs(AB['test'][j]) < abboot[:, j])))
 
+    critA = sorted(testA)
+    critB = sorted(testB)
+    critAB = sorted(testAB)
+    ic = int(np.floor((1-alpha) * nboot)) - 1
+    critA = critA[ic]
+    critB = critB[ic]
+    critAB = critAB[ic]
 
+    A['crit_value'] = critA
+    A=pd.concat([A, pd.Series(pbA, name='p_value')], axis=1)
 
+    B['crit_value'] = critB
+    B=pd.concat([B, pd.Series(pbB, name='p_value')], axis=1)
 
+    AB['crit_value'] = critAB
+    AB=pd.concat([AB, pd.Series(pbAB, name='p_value')], axis=1)
 
+    res={'factor_A': A, 'factor_B': B, 'factor_AB': AB,
+         'contrast_coef': {'conA': conA, 'conB': conB, 'conAB': conAB}}
+
+    return res
 
 
