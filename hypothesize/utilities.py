@@ -125,20 +125,21 @@ def trimse(x, tr=.2):
 
     return trimse_result
 
-def lincon(x, con, tr, alpha, seed=False):
+def lincon(x, con=None, tr=.2, alpha=.05, seed=False):
 
     """
     A heteroscedastic test of d linear contrasts using trimmed means.
 
     It is assumed all groups are independent.
 
-    con is a J by d matrix containing the contrast coefficients that are used.
+    con is a J by d matrix containing the contrast coefficients that are used. If con==None,
+    groups are pooled together.
 
     Missing values are automatically removed.
 
     :param x: array of data
     :param alpha: alpha value
-    :param con: contrast matrix or vector
+    :param con: contrast matrix or None (for pooled groups)
     :param tr: trim proportion
     :param seed: random seed
     :return:
@@ -147,7 +148,7 @@ def lincon(x, con, tr, alpha, seed=False):
     if tr >= .5:
       raise Exception("Use the function medpb to compare medians (it may not be implemented in this package")
 
-    flag=True if alpha != .05 and alpha != .01 else False
+    flag=True if alpha == .05 or alpha == .01 else False
 
     J = len(x)
     sam = []
@@ -163,42 +164,121 @@ def lincon(x, con, tr, alpha, seed=False):
       w[j] = ((len(x[j]) - 1) * winvar(x[j], tr)) / (h[j] * (h[j] - 1))
       xbar[j] = trim_mean(x[j], tr)
 
-    #con.shape[0]
-    if con.shape[0] != len(x):
-        raise Exception("The number of groups does not match the number of contrast coefficients.")
+    if type(con) is not np.ndarray:
+        CC = (J ** 2 - J) // 2
+        psihat=np.zeros([CC,8])
+        test=np.full([CC,6], np.nan)
 
-    #print(con)
-    psihat = np.zeros([con.shape[1], 5])
-    test = np.zeros([con.shape[1], 5])
+        jcom=0
+        for j in range(J):
+            for k in range(J):
+                if j<k:
+                    test[jcom, 2] = abs(xbar[j] - xbar[k]) / np.sqrt(w[j] + w[k])
+                    sejk = np.sqrt(w[j] + w[k])
+                    test[jcom, 4] = sejk
+                    psihat[jcom, 0] = j
+                    psihat[jcom, 1] = k
+                    test[jcom, 0] = j
+                    test[jcom, 1] = k
+                    psihat[jcom, 2] = (xbar[j] - xbar[k])
+                    df = (w[j] + w[k]) ** 2 / (w[j] ** 2 / (h[j] - 1) + w[k] ** 2 / (h[k] - 1))
+                    test[jcom, 5] = df
+                    psihat[jcom, 5] = 2 * (1 - t.cdf(test[jcom, 2], df))
+                    psihat[jcom, 6] = xbar[j]
+                    psihat[jcom, 7] = xbar[k]
 
-    for d in range(con.shape[1]):
-        psihat[d, 0] = d
-        psihat[d, 1] = sum(con[:, d] * xbar)
-        sejk = np.sqrt(sum(con[:, d] ** 2 * w))
-        test[d, 0] = d
-        test[d, 1] = sum(con[:, d] * xbar) / sejk
-        df = (sum(con[:, d] ** 2 * w)) ** 2 / sum(con[:, d] ** 4 * w ** 2 / (h - 1))
+                    if CC>20:
+                        flag=False
 
-        if flag:
+                    if flag:
 
-            if alpha == .05:
-                crit = smmcrit(df, con.shape[1])
+                        if alpha==.05:
+                            crit=smmcrit(df,CC)
 
-            if alpha == .01:
-                crit = smmcrit01(df, con.shape[1])
+                        if alpha==.01:
+                            crit=smmcrit01(df,CC)
 
-        if not flag:
-            dfvec = np.repeat(df, con.shape[1])
-            crit = smmvalv2(dfvec, alpha, seed)
+                    elif not flag or CC>28:
+                        dfvec = np.repeat(df, CC)
+                        crit=smmvalv2(dfvec, alpha, seed=seed)
 
-        test[d, 2] = crit
-        test[d, 3] = sejk
-        test[d, 4] = df
-        psihat[d, 2] = psihat[d, 1] - crit * sejk
-        psihat[d, 3] = psihat[d, 1] + crit * sejk
-        psihat[d, 4] = 2 * (1 - t.cdf(abs(test[d, 1]), df))
+                    test[jcom, 3] = crit
+                    psihat[jcom, 3] = (xbar[j] - xbar[k]) - crit * sejk
+                    psihat[jcom, 4] = (xbar[j] - xbar[k]) + crit * sejk
+                    jcom+=1
 
-    return {'sam': sam, 'test': test, 'psihat': psihat}
+        results_test = pd.DataFrame({'group_x': test[:, 0],
+                                     'group_y': test[:,1],
+                                     'test': test[:,2],
+                                     'crit': test[:, 3],
+                                     'se': test[:, 4],
+                                     'df': test[:, 5]
+                                     })
+
+        results_psihat = pd.DataFrame({'group_x': psihat[:, 0],
+                                       'group_y': psihat[:, 1],
+                                       'psihat': psihat[:, 2],
+                                       'ci_low': psihat[:,3],
+                                       'ci_up': psihat[:, 4],
+                                       'p_value': psihat[:, 5],
+                                       'est_1': psihat[:, 6],
+                                       'est_2': psihat[:, 7]
+                                       })
+
+        return {'test': results_test, 'psihat': results_psihat}
+
+    elif type(con) is np.ndarray:
+
+        if con.shape[0] != len(x):
+            raise Exception("The number of groups does not match the number of contrast coefficients.")
+
+        psihat = np.zeros([con.shape[1], 5])
+        test = np.zeros([con.shape[1], 5])
+
+        for d in range(con.shape[1]):
+            psihat[d, 0] = d
+            psihat[d, 1] = sum(con[:, d] * xbar)
+            sejk = np.sqrt(sum(con[:, d] ** 2 * w))
+            test[d, 0] = d
+            test[d, 1] = sum(con[:, d] * xbar) / sejk
+            df = (sum(con[:, d] ** 2 * w)) ** 2 / sum(con[:, d] ** 4 * w ** 2 / (h - 1))
+
+            if flag:
+
+                if alpha == .05:
+                    crit = smmcrit(df, con.shape[1])
+
+                if alpha == .01:
+                    crit = smmcrit01(df, con.shape[1])
+
+            if not flag:
+                dfvec = np.repeat(df, con.shape[1])
+                crit = smmvalv2(dfvec, alpha, seed)
+
+            test[d, 2] = crit
+            test[d, 3] = sejk
+            test[d, 4] = df
+            psihat[d, 2] = psihat[d, 1] - crit * sejk
+            psihat[d, 3] = psihat[d, 1] + crit * sejk
+            psihat[d, 4] = 2 * (1 - t.cdf(abs(test[d, 1]), df))
+
+
+        results_test = pd.DataFrame({'con_num': test[:, 0],
+                                     'test': test[:,1],
+                                     'crit': test[:,2],
+                                     'se': test[:, 3],
+                                     'df': test[:, 4]})
+
+        results_psihat = pd.DataFrame({'con_num': psihat[:, 0],
+                                       'psihat': psihat[:, 1],
+                                       'ci_low': psihat[:,2],
+                                       'ci_up': psihat[:, 3],
+                                       'p_value': psihat[:, 4]
+                                       })
+
+        results = {'n': sam, 'test': results_test, 'psihat': results_psihat}
+
+        return results
 
 def smmcrit(nuhat, C):
 

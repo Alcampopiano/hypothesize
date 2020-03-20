@@ -1,4 +1,4 @@
-__all__ = ["bwmcp"]
+__all__ = ["bwmcp", "bwamcp"]
 
 import numpy as np
 import pandas as pd
@@ -128,5 +128,8 @@ def bwmcp(J, K, x, alpha, nboot, tr=.2, seed=False):
          'contrast_coef': {'conA': conA, 'conB': conB, 'conAB': conAB}}
 
     return res
+
+def bwamcp():
+    pass
 
 

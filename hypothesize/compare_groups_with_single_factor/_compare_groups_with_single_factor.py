@@ -19,7 +19,7 @@ def yuenbt(x, y, tr=.2, alpha=.05, nboot=599, seed=False):
     :param alpha: alpha level
     :param nboot: number of bootstrap samples
     :param seed: seed value to set for reproducible results
-    :return: CI, test_stat, p_value, est_x, est_y, est_dif
+    :return: dict of CI, test_stat, p_value, est_x, est_y, est_dif
     """
 
     if seed:
@@ -57,8 +57,10 @@ def yuenbt(x, y, tr=.2, alpha=.05, nboot=599, seed=False):
     est_y = trim_mean(y, tr)
     est_dif = est_x - est_y
 
+    results = {'ci': ci, 'test_stat': test_stat, 'p_value': p_value,
+               'est_x': est_x, 'est_y': est_y, 'est_dif': est_dif}
 
-    return ci, test_stat, p_value, est_x, est_y, est_dif
+    return results
 
 def linconb(x, con, tr, alpha, nboot, seed=False):
 
