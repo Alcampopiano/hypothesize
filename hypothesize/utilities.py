@@ -1638,30 +1638,36 @@ def lindep(x, con, cmat, tr):
 
     return res
 
-def array_to_list_of_arrays(x):
-    pass
+def pandas_to_arrays(objs):
 
-def list_of_arrays_to_array(x):
-    pass
+    if type(objs) is pd.core.frame.DataFrame:
+        x=[a for a in objs.values.T]
 
-def create_random_2_factor_data(jth_ns, k_levels):
+        return x
 
-    # [20,15,11]
-    # 4
-    # creates 3x4 design
+    elif type(objs) is list:
 
-    x=[]
-    for n in jth_ns:
+        x=[]
+        for s in objs:
+            x.append(s.values)
 
-        data = [np.random.rand(n) for _ in range(k_levels)]
-        #data = [i for i in data]
-        x+=data
+        return x
 
+def create_random_2_factor_frame(within_ns, K):
 
+    J = len(within_ns)
 
-    for i, xi in enumerate(x):
-        np.save(f'/home/allan/test_{i + 1}.npy', xi)
-        #x[np.random.randint(0, len(x))]=np.nan
+    cell_str=[]
+    for i in range(1,J+1):
+        for k in range(1,K+1):
+            cell_str.append(f'cell_{i}_{k}')
+
+    max_n=max(within_ns)
+    min_n=min(within_ns)
+    x=np.random.rand(max_n,J*K)
+    x=pd.DataFrame(x, columns=cell_str)
+    size_diff=max_n-min_n
+    x.iloc[-size_diff:, K:]=np.nan
 
     return x
 

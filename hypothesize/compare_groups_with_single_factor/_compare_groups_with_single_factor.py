@@ -3,7 +3,8 @@ __all__ = ["yuenbt", "linconb"]
 import numpy as np
 import pandas as pd
 from scipy.stats import trim_mean
-from hypothesize.utilities import trimse, lincon, trimparts, trimpartt
+from hypothesize.utilities import trimse, lincon, \
+    trimparts, trimpartt, pandas_to_arrays
 
 def yuenbt(x, y, tr=.2, alpha=.05, nboot=599, seed=False):
 
@@ -21,6 +22,8 @@ def yuenbt(x, y, tr=.2, alpha=.05, nboot=599, seed=False):
     :param seed: seed value to set for reproducible results
     :return: dict of CI, test_stat, p_value, est_x, est_y, est_dif
     """
+
+    x, y=pandas_to_arrays([x, y])
 
     if seed:
         np.random.seed(seed)
@@ -95,6 +98,8 @@ def linconb(x, con, tr, alpha, nboot, seed=False):
     :return: n for each group, psihat, test statistic, critical value, contrast matrix
     """
 
+    x=pandas_to_arrays(x)
+
     J = len(x)
     x = np.asarray([j[~np.isnan(j)] for j in x])
     #Jm = J - 1
@@ -135,16 +140,23 @@ def linconb(x, con, tr, alpha, nboot, seed=False):
     for d in range(con.shape[1]):
         test[d, 0] = d
         psihat[d, 0] = d
-        #testit = lincon(x, con[:, d], tr, alpha) #np.array([con[:,0]]).T
         testit = lincon(x, np.array([con[:,d]]).T, tr, alpha) # column slice of contrast matrix
-        #print(testit)
-        test[d, 1]=testit['test'][0, 1]
-        pval = np.mean((abs(testit['test'][0, 1]) < boot[d,:]))
+        #test[d, 1]=testit['test'][0, 1]
+        test[d, 1]=testit['test']['test'][0]
+        #pval = np.mean((abs(testit['test'][0, 1]) < boot[d,:]))
+        pval = np.mean((abs(testit['test']['test'][0]) < boot[d,:]))
         test[d, 3] = pval
-        psihat[d, 2] = testit['psihat'][0, 1] - testb[ic] * testit['test'][0, 3]
-        psihat[d, 3] = testit['psihat'][0, 1] + testb[ic] * testit['test'][0, 3]
-        psihat[d, 1] = testit['psihat'][0, 1]
-        test[d, 2] = testit['test'][0, 3]
+        print(testit['test'])
+        print(testit['psihat'])
+        # psihat[d, 2] = testit['psihat'][0, 1] - testb[ic] * testit['test'][0, 3]
+        # psihat[d, 3] = testit['psihat'][0, 1] + testb[ic] * testit['test'][0, 3]
+        # psihat[d, 1] = testit['psihat'][0, 1]
+        psihat[d, 2] = testit['psihat']['psihat'][0] - testb[ic] * testit['test']['se'][0]
+        psihat[d, 3] = testit['psihat']['psihat'][0] + testb[ic] * testit['test']['se'][0]
+        psihat[d, 1] = testit['psihat']['psihat'][0]
+        #test[d, 2] = testit['test'][0, 3]
+        test[d, 2] = testit['test']['se'][0]
+
 
 
     psihat_col_names=['contrast_index', 'psihat', 'ci_low', 'ci_up']

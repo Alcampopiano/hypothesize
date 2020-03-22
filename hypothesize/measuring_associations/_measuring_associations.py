@@ -3,6 +3,7 @@ __all__ = ["wincor", "pbcor", "corb"]
 import numpy as np
 from scipy.stats.mstats import winsorize
 from scipy.stats import t
+from hypothesize.utilities import pandas_to_arrays
 
 def wincor(x, y, tr=.2):
 
@@ -18,6 +19,8 @@ def wincor(x, y, tr=.2):
     :param tr: amount of winsorization
     :return: winsorized correlation and winsorized covariance, p_value, and number of rows
     """
+
+    x, y=pandas_to_arrays([x, y])
 
     m1 = np.c_[x, y] # cbind
     m1 = m1[~np.isnan(m1).any(axis=1)]
@@ -46,6 +49,8 @@ def pbcor(x, y, beta=.2):
     :param beta: bending constant for omega sub N
     :return: percentage bend correlation
     """
+
+    x, y=pandas_to_arrays([x, y])
 
     if len(x) != len(y):
         raise Exception("The arrays do not have equal lengths")
@@ -118,6 +123,9 @@ def corb(corfun, x, y, alpha, nboot, *args, seed=False):
     :param args: list of arguments to corfun (e.g., args=[.2])
     :return: CI, p_value, correlation estimate
     """
+
+    x, y=pandas_to_arrays([x, y])
+
 
     m1 = np.c_[x, y] # cbind
     m1 = m1[~np.isnan(m1).any(axis=1)]
