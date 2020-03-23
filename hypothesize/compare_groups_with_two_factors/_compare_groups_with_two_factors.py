@@ -7,7 +7,7 @@ from hypothesize.utilities import con2way, lindep, covmtrim
 from hypothesize.utilities import remove_nans_across_dependent_groups, pandas_to_arrays
 # np.set_printoptions(linewidth=300)
 
-def bwmcp(J, K, x, alpha, nboot, tr=.2, seed=False):
+def bwmcp(J, K, x, alpha=.05, tr=.2, nboot=599, seed=False):
 
     """
     A bootstrap-t for multiple comparisons among

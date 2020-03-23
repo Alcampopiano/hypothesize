@@ -65,7 +65,7 @@ def yuenbt(x, y, tr=.2, alpha=.05, nboot=599, seed=False):
 
     return results
 
-def linconb(x, con, tr, alpha, nboot, seed=False):
+def linconb(x, con, tr=.2, alpha=.05, nboot=599, seed=False):
 
     """
     Compute a 1-alpha confidence interval for a set of d linear contrasts
@@ -146,8 +146,8 @@ def linconb(x, con, tr, alpha, nboot, seed=False):
         #pval = np.mean((abs(testit['test'][0, 1]) < boot[d,:]))
         pval = np.mean((abs(testit['test']['test'][0]) < boot[d,:]))
         test[d, 3] = pval
-        print(testit['test'])
-        print(testit['psihat'])
+        #print(testit['test'])
+        #print(testit['psihat'])
         # psihat[d, 2] = testit['psihat'][0, 1] - testb[ic] * testit['test'][0, 3]
         # psihat[d, 3] = testit['psihat'][0, 1] + testb[ic] * testit['test'][0, 3]
         # psihat[d, 1] = testit['psihat'][0, 1]

@@ -20,7 +20,8 @@ def wincor(x, y, tr=.2):
     :return: winsorized correlation and winsorized covariance, p_value, and number of rows
     """
 
-    x, y=pandas_to_arrays([x, y])
+    if type(x) is not np.ndarray:
+        x, y=pandas_to_arrays([x, y])
 
     m1 = np.c_[x, y] # cbind
     m1 = m1[~np.isnan(m1).any(axis=1)]
