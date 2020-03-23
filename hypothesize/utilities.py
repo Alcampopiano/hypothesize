@@ -2,7 +2,7 @@ import numpy as np
 from scipy.stats.mstats import winsorize
 from scipy.stats import trim_mean
 from scipy.stats import t
-from hypothesize.measuring_associations import wincor
+#from hypothesize.measuring_associations import wincor
 import pandas as pd
 
 def con1way(J):
@@ -1595,6 +1595,8 @@ def trimpartt(x, con):
 
 def covmtrim(x, tr):
 
+    from hypothesize.measuring_associations import wincor
+
     p=len(x)
     n=len(x[0])
     h=len(x[0]) - 2 * np.floor(tr * len(x[0]))
@@ -1653,7 +1655,7 @@ def pandas_to_arrays(objs):
 
         return x
 
-def create_random_2_factor_frame(within_ns, K):
+def create_random_2_factor_frame(within_ns, K, save_arrays=False):
 
     J = len(within_ns)
 
@@ -1668,6 +1670,12 @@ def create_random_2_factor_frame(within_ns, K):
     x=pd.DataFrame(x, columns=cell_str)
     size_diff=max_n-min_n
     x.iloc[-size_diff:, K:]=np.nan
+
+    if save_arrays:
+        for i, xi in enumerate(x.values.T):
+            xi=xi[~np.isnan(xi)]
+            np.save(f'/home/allan/test_{i + 1}.npy', xi)
+            # x[np.random.randint(0, len(x))]=np.nan
 
     return x
 
