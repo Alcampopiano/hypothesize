@@ -12,10 +12,8 @@ def wincor(x, y, tr=.2):
     This function also returns the winsorized covariance
     Pairwise deletion of missing values is performed.
 
-    x is a vector, or it can be a matrix with two columns when y=NULL
-
-    :param x: x is an array (n by 1)
-    :param y: y is an array (n by 1)
+    :param x: Pandas Series
+    :param y: Pandas Series
     :param tr: amount of winsorization
     :return: winsorized correlation and winsorized covariance, p_value, and number of rows
     """

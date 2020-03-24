@@ -164,7 +164,9 @@ def lincon(x, con=None, tr=.2, alpha=.05, seed=False):
       w[j] = ((len(x[j]) - 1) * winvar(x[j], tr)) / (h[j] * (h[j] - 1))
       xbar[j] = trim_mean(x[j], tr)
 
-    if type(con) is not np.ndarray:
+    #type(con) is not np.ndarray
+    if con is None:
+
         CC = (J ** 2 - J) // 2
         psihat=np.zeros([CC,8])
         test=np.full([CC,6], np.nan)
@@ -225,7 +227,7 @@ def lincon(x, con=None, tr=.2, alpha=.05, seed=False):
                                        'est_2': psihat[:, 7]
                                        })
 
-        return {'test': results_test, 'psihat': results_psihat}
+        return {'n': sam, 'test': results_test, 'psihat': results_psihat}
 
     elif type(con) is np.ndarray:
 

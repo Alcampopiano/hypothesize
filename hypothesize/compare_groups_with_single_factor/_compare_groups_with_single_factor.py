@@ -14,8 +14,8 @@ def yuenbt(x, y, tr=.2, alpha=.05, nboot=599, seed=False):
     The bootstrap-t method is used. During the bootstrapping, the absolute value of the test
     statistic is used (the "two-sided method").
 
-    :param x: group one data (array)
-    :param y: group two data (array)
+    :param x: group one data; Pandas Series
+    :param y: group two data; Pandas Series
     :param tr: proportion to trim
     :param alpha: alpha level
     :param nboot: number of bootstrap samples
@@ -74,8 +74,7 @@ def linconb(x, con, tr=.2, alpha=.05, nboot=599, seed=False):
 
     CIs are adjusted to control FWE (p values are not adjusted)
 
-    x[1] contains the data for the first group, x[2] the data
-    for the second group, etc. len(x)= the number of groups = J
+    x is a Pandas DataFrame where each column represents a group of the data.
 
     Missing values are automatically removed.
 
@@ -89,7 +88,7 @@ def linconb(x, con, tr=.2, alpha=.05, nboot=599, seed=False):
 
     The default number of bootstrap samples is nboot=599
 
-    :param x: 1 x number of groups array. x[0] contains the data for the first group, and so on
+    :param x: Pandas DataFrame
     :param tr: amount of trimming
     :param con: contrast matrix (see con1way)
     :param alpha: alpha level
