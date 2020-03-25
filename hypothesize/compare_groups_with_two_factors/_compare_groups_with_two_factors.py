@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 from scipy.stats import trim_mean
 from hypothesize.utilities import con2way, lindep, covmtrim, \
-    lincon, winvar, trimci, trimse
+    lincon, winvar,  trimse
 from hypothesize.measuring_associations import wincor
 from hypothesize.utilities import remove_nans_across_dependent_groups, pandas_to_arrays
 import more_itertools as mit
@@ -257,6 +257,8 @@ def rmmcp(x, con=None, tr=.2, alpha=.05, dif=True, hoch=True):
     :return:
     """
 
+    from hypothesize.utilities import trimci
+
     flagcon = False
     x = np.vstack(x).T
     J = x.shape[1]
@@ -270,10 +272,10 @@ def rmmcp(x, con=None, tr=.2, alpha=.05, dif=True, hoch=True):
     for j in range(J):
         xbar[j]=trim_mean(x[:,j], .2)
 
-    if sum(con**2 != 0): # is not none?
+    if con is not None: #np.sum(con**2 != 0): # is not none?
         CC=con.shape[1]
 
-    if sum(con**2)==0: # is none?
+    if con is None: #sum(con**2)==0: # is none?
         CC = (J ** 2 - J) / 2
 
     ncon=CC
@@ -316,25 +318,25 @@ def rmmcp(x, con=None, tr=.2, alpha=.05, dif=True, hoch=True):
     if alpha != .05 and alpha != .01:
         dvec = alpha / np.arange(1, ncon + 1)
 
-    if sum(con**2)==0:
+    if con is None: #sum(con**2)==0:
         flagcon=True
         psihat=np.zeros([int(CC),5])
-        test=np.zeros([int(CC),6])
+        test=np.full([int(CC),6], np.nan)#np.zeros([int(CC),6])
 
-        temp1=[0]
+        temp1=np.empty(0) #np.zeros(J*J) #np.array([0])
         jcom=0
         for j in range(J):
             for k in range(J):
                 if j<k:
                     q1 = (nrow - 1) * winvar(x[:, j], tr)
                     q2 = (nrow - 1) * winvar(x[:, k], tr)
-                    q3 = (nrow - 1) * wincor(x[:, j], x[:, k], tr)['cov']
+                    q3 = (nrow - 1) * wincor(x[:, j], x[:, k], tr)['wcov']
                     sejk = np.sqrt((q1 + q2 - 2 * q3) / (h1 * (h1 - 1)))
 
                     if not dif:
                         test[jcom, 5] = sejk
                         test[jcom, 2] = (xbar[j] - xbar[k]) / sejk
-                        temp1[jcom] = 2 * (1 - t.cdf(abs(test[jcom, 2]), df))
+                        temp1=np.append(temp1, 2 * (1 - t.cdf(abs(test[jcom, 2]), df)))
                         test[jcom, 3] = temp1[jcom]
                         psihat[jcom, 0] = j
                         psihat[jcom, 1] = k
@@ -345,24 +347,136 @@ def rmmcp(x, con=None, tr=.2, alpha=.05, dif=True, hoch=True):
                     elif dif:
                         dv = x[:, j] - x[:, k]
                         test[jcom, 5] = trimse(dv, tr)
-                        temp = trimci(dv,
-                                        alpha=alpha / CC,
-                                        pr=False,
-                                        tr=tr)
-                        test[jcom, 2] = temp['test.stat']
-                        temp1[jcom] = temp['p_value']
+                        temp = trimci(dv, alpha=alpha / CC, tr=tr)
+                        test[jcom, 2] = temp['test_stat']
+                        temp1=np.append(temp1, temp['p_value'])
                         test[jcom, 3] = temp1[jcom]
                         psihat[jcom, 0] = j
                         psihat[jcom, 1] = k
                         test[jcom, 0] = j
                         test[jcom, 1] = k
-                        psihat[jcom, 2] = np.mean(dv, tr=tr)
+                        psihat[jcom, 2] = trim_mean(dv, tr)
                         psihat[jcom, 3] = temp['ci'][0]
                         psihat[jcom, 4] = temp['ci'][1]
 
+                    jcom+=1
 
         if hoch:
-            pass
+            dvec = alpha / np.arange(1, ncon+1)
+
+        temp2=(-temp1).argsort()
+        zvec = dvec[0:int(ncon)]
+        sigvec = (test[temp2, 3] >= zvec)
+
+        if np.sum(sigvec) < ncon:
+            dd = ncon - np.sum(sigvec)
+            ddd = np.sum(sigvec) + 1
+
+        test[temp2, 4] = zvec
+
+        if not dif:
+            psihat[:, 3] = psihat[:, 2] - t.ppf(1 - test[:, 4] / 2, df) * test[:, 5]
+            psihat[:, 4] = psihat[:, 2] + t.ppf(1 - test[:, 4] / 2, df) * test[:, 5]
+
+    elif con is not None: #sum(con ** 2) > 0:
+
+        if con.shape[0] != x.shape[1]:
+            raise Exception("The number of groups does not match the number "
+                            "of contrast coefficients.")
+
+        ncon = con.shape[1]
+        psihat = np.zeros([ncon, 4])
+        test = np.zeros([ncon, 5])
+        temp1=np.empty(0)
+
+        for d in range(ncon):
+            psihat[d,0]=d
+
+            if not dif:
+                psihat[d, 1] = np.sum(con[:, d] * xbar)
+                sejk=0
+
+                for j in range(J):
+                    for k in range(J):
+                        djk = (nval - 1) * wincor(x[:, j], x[:, k], tr)['wcov'] / (h1 * (h1 - 1))
+                        sejk = sejk + con[j, d] * con[k, d] * djk
+
+                sejk = np.sqrt(sejk)
+                test[d, 0] = d
+                test[d, 1] = np.sum(con[:, d] * xbar) / sejk
+                test[d, 4] = sejk
+                temp1 = np.append(temp1, 2 * (1 - t.cdf(abs(test[d, 1]), df)))
+
+            elif dif:
+
+                for j in range(J):
+                    if j==0:
+                        dval = con[j, d] * x[:,j]
+
+                    elif j>0:
+                        dval=dval + con[j,d] * x[:,j]
+
+                temp1=np.append(temp1, trimci(dval, tr=tr)['p_value'])
+                test[d, 0] = d
+                test[d, 1] = trimci(dval, tr=tr)['test_stat']
+                test[d, 4] = trimse(dval, tr=tr)
+                psihat[d, 1] = trim_mean(dval, tr)
+
+        test[:, 2] = temp1
+        temp2 = (-temp1).argsort()
+        zvec = dvec[0:ncon]
+        sigvec = (test[temp2, 2] >= zvec)
+
+        if sum(sigvec) < ncon:
+            dd = ncon - sum(sigvec)
+            ddd = sum(sigvec) + 1
+
+        test[temp2, 3] = zvec
+        psihat[:, 2] = psihat[:, 1] - t.ppf(1 - test[:, 3] / 2, df) * test[:, 4]
+        psihat[:, 3] = psihat[:, 1] + t.ppf(1 - test[:, 3] / 2, df) * test[:, 4]
+
+    num_sig=test.shape[0]
+
+    if flagcon:
+        ior = (-test[:,4]).argsort()
+
+        for j in range(test.shape[0]):
+            if test[ior[j], 3] <= test[ior[j], 4]:
+                break
+            else:
+                num_sig=num_sig - 1
+
+    elif not flagcon:
+        ior = (-test[:, 3]).argsort()
+
+        for j in range(test.shape[0]):
+            if test[ior[j], 2] <= test[ior[j], 3]:
+                break
+            else:
+                num_sig=num_sig - 1
+
+    return {"n": nval, "test": test, "psihat": psihat,
+            "con": con, "num_sig": num_sig}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

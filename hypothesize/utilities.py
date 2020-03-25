@@ -125,8 +125,49 @@ def trimse(x, tr=.2):
 
     return trimse_result
 
-def trimci():
-    pass
+def trimci(x, tr=.2, alpha=.05, null_value=0):
+
+    """
+    Compute a 1-alpha confidence interval for the trimmed mean
+    The default amount of trimming is tr=.2
+
+    :param x: 1-D array
+    :param tr:
+    :param alpha:
+    :param null_value: The p-value returned by this function is based on the value
+        specified by the argument null_value, which defaults to 0
+    :return:
+    """
+
+    x=x[~np.isnan(x)]
+    se = np.sqrt(winvar(x, tr)) / ((1 - 2 * tr) * np.sqrt(len(x)))
+    trimci_res = np.zeros(2)
+    df = len(x) - 2 * np.floor(tr * len(x)) - 1
+    trimci_res[0] = trim_mean(x, tr) - t.ppf(1 - alpha / 2, df) * se
+    trimci_res[1] = trim_mean(x, tr) + t.ppf(1 - alpha / 2, df) * se
+    test = (trim_mean(x, tr) - null_value) / se
+    sig = 2 * (1 - t.cdf(abs(test), df))
+
+    results={"ci": trimci_res, "estimate": trim_mean(x,tr),
+             "test_stat": test, "se": se, "p_value": sig,
+             "n": len(x)}
+
+    return results
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 def lincon(x, con=None, tr=.2, alpha=.05, seed=False):
 
