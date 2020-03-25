@@ -125,6 +125,9 @@ def trimse(x, tr=.2):
 
     return trimse_result
 
+def trimci():
+    pass
+
 def lincon(x, con=None, tr=.2, alpha=.05, seed=False):
 
     """

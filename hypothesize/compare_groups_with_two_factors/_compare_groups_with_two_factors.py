@@ -1,11 +1,15 @@
-__all__ = ["bwmcp", "bwamcp"]
+__all__ = ["bwmcp", "bwamcp", "bwbmcp"]
 
 import numpy as np
 import pandas as pd
 from scipy.stats import trim_mean
-from hypothesize.utilities import con2way, lindep, covmtrim, lincon
+from hypothesize.utilities import con2way, lindep, covmtrim, \
+    lincon, winvar, trimci, trimse
+from hypothesize.measuring_associations import wincor
 from hypothesize.utilities import remove_nans_across_dependent_groups, pandas_to_arrays
 import more_itertools as mit
+from scipy.stats import t
+
 # np.set_printoptions(linewidth=300)
 
 def bwmcp(J, K, x, alpha=.05, tr=.2, nboot=599, seed=False):
@@ -187,6 +191,184 @@ def bwamcp(J, K, x, tr=.2, alpha=.05, pool=False):
         results = lincon(x, con=c, tr=tr, alpha=alpha)
 
     return results
+
+def bwbmcp(J, K, x, tr=.2, con=None, alpha=.05,
+           dif=True, pool=False, hoch=False):
+
+    """
+    All pairwise comparisons among levels of Factor B
+    in a split-plot design using trimmed means.
+
+    Data can be pooled for each level
+    of Factor B. This function calls rmmcp.
+
+    The variable x is a Pandas DataFrame where the first column
+    contains the data for the first level of both factors: level 1,1.
+    The second column contains the data for level 1 of the
+    first factor and level 2 of the second: level 1,2.
+    x.iloc[:,K] is the data for level 1,K. x.iloc[:,K+1] is the data for level 2,1.
+    x.iloc[:, 2K] is level 2,K, etc.
+
+    :param J:
+    :param K:
+    :param x:
+    :param tr:
+    :param con:
+    :param alpha:
+    :param dif:
+    :param pool:
+    :param hoch:
+    :return:
+    """
+
+    x = pandas_to_arrays(x)
+    x = remove_nans_across_dependent_groups(x, J, K)
+
+    if pool:
+        data = [np.concatenate(x[i:i+J*K+1:K]) for i in range(K)]
+        results=rmmcp(data, con=con, tr=tr,alpha=alpha,dif=dif,hoch=hoch)
+
+    else:
+
+        results=[]
+        j_ind=0
+        for j in range(J):
+            data=x[j_ind:j_ind+K]
+            tests = rmmcp(data, con=con, tr=tr, alpha=alpha, dif=dif, hoch=hoch)
+            results.append(tests)
+            j_ind+=K
+
+    return results
+
+def rmmcp(x, con=None, tr=.2, alpha=.05, dif=True, hoch=True):
+
+    """
+    MCP on trimmed means with FWE controlled with Hochberg's method
+    will use Rom's method if alpha=.05 or .01 and number of tests is <=10
+
+    Note: confidence intervals are adjusted based on the corresponding critical p-value.
+
+    :param x: list of arrays
+    :param con:
+    :param tr:
+    :param alpha:
+    :param dif:
+    :param hoch:
+    :return:
+    """
+
+    flagcon = False
+    x = np.vstack(x).T
+    J = x.shape[1]
+    xbar=np.zeros(J)
+    x=x[~np.isnan(x).any(axis=1)]
+    nval=x.shape[0]
+    nrow=x.shape[0]
+    h1 = nrow - 2 * np.floor(tr * nrow)
+    df=h1-1
+
+    for j in range(J):
+        xbar[j]=trim_mean(x[:,j], .2)
+
+    if sum(con**2 != 0): # is not none?
+        CC=con.shape[1]
+
+    if sum(con**2)==0: # is none?
+        CC = (J ** 2 - J) / 2
+
+    ncon=CC
+
+    if alpha==.05:
+        dvec=np.array([.05,
+          .025,
+          .0169,
+          .0127,
+          .0102,
+          .00851,
+          .0073,
+          .00639,
+          .00568,
+          .00511])
+
+        if ncon > 10:
+            avec=.05/np.arange(ncon,11+1)[::-1]
+            dvec = np.concatenate([dvec, avec])
+
+    if alpha==.01:
+        dvec=np.array([.01,
+        .005,
+        .00334,
+        .00251,
+        .00201,
+        .00167,
+        .00143,
+        .00126,
+        .00112,
+        .00101])
+
+        if ncon > 10:
+            avec=.01/np.arange(ncon,11+1)[::-1]
+            dvec = np.concatenate([dvec, avec])
+
+    if hoch:
+        dvec = alpha / np.arange(1,ncon+1)
+
+    if alpha != .05 and alpha != .01:
+        dvec = alpha / np.arange(1, ncon + 1)
+
+    if sum(con**2)==0:
+        flagcon=True
+        psihat=np.zeros([int(CC),5])
+        test=np.zeros([int(CC),6])
+
+        temp1=[0]
+        jcom=0
+        for j in range(J):
+            for k in range(J):
+                if j<k:
+                    q1 = (nrow - 1) * winvar(x[:, j], tr)
+                    q2 = (nrow - 1) * winvar(x[:, k], tr)
+                    q3 = (nrow - 1) * wincor(x[:, j], x[:, k], tr)['cov']
+                    sejk = np.sqrt((q1 + q2 - 2 * q3) / (h1 * (h1 - 1)))
+
+                    if not dif:
+                        test[jcom, 5] = sejk
+                        test[jcom, 2] = (xbar[j] - xbar[k]) / sejk
+                        temp1[jcom] = 2 * (1 - t.cdf(abs(test[jcom, 2]), df))
+                        test[jcom, 3] = temp1[jcom]
+                        psihat[jcom, 0] = j
+                        psihat[jcom, 1] = k
+                        test[jcom, 0] = j
+                        test[jcom, 1] = k
+                        psihat[jcom, 2] = (xbar[j] - xbar[k])
+
+                    elif dif:
+                        dv = x[:, j] - x[:, k]
+                        test[jcom, 5] = trimse(dv, tr)
+                        temp = trimci(dv,
+                                        alpha=alpha / CC,
+                                        pr=False,
+                                        tr=tr)
+                        test[jcom, 2] = temp['test.stat']
+                        temp1[jcom] = temp['p_value']
+                        test[jcom, 3] = temp1[jcom]
+                        psihat[jcom, 0] = j
+                        psihat[jcom, 1] = k
+                        test[jcom, 0] = j
+                        test[jcom, 1] = k
+                        psihat[jcom, 2] = np.mean(dv, tr=tr)
+                        psihat[jcom, 3] = temp['ci'][0]
+                        psihat[jcom, 4] = temp['ci'][1]
+
+
+        if hoch:
+            pass
+
+
+
+
+
+
 
 
 
