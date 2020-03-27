@@ -53,7 +53,7 @@ df.head()
 ```python
 from hypothesize.compare_groups_with_single_factor import yuenbt
 
-results=yuenbt(df.Group_1, df.Group_2)
+results=yuenbt(df.cell_1, df.cell_2)
 
 print(results['ci'])
 ```
@@ -170,7 +170,7 @@ df.head()
 ```python
 from hypothesize.measuring_associations import wincor
 
-results=wincor(df.Group_1, df.Group_2)
+results=wincor(df.cell_1, df.cell_2)
 
 print(results['wcor'])
 ```
