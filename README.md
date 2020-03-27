@@ -30,7 +30,7 @@ pip install hypothesize
 ```python
 from hypothesize.utilities import create_example_data
 
-df=create_example_data(design_values=3)
+df=create_example_data(design_values=2)
 
 df.head()
 ```
