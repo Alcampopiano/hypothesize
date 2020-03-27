@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 from scipy.stats import trim_mean
 from hypothesize.utilities import con2way, lindep, covmtrim, \
-    lincon, winvar,  trimse
+    lincon, winvar, trimse, yuen
 from hypothesize.measuring_associations import wincor
 from hypothesize.utilities import remove_nans_based_on_design, pandas_to_arrays
 import more_itertools as mit
@@ -458,8 +458,91 @@ def rmmcp(x, con=None, tr=.2, alpha=.05, dif=True, hoch=True):
     return {"n": nval, "test": test, "psihat": psihat,
             "con": con, "num_sig": num_sig}
 
-def bwimcp():
-    pass
+def bwimcp(J, K, x, tr=.2, alpha=.05):
+
+    """
+    Multiple comparisons for interactions
+    in a split-plot design.
+    The analysis is done by taking difference scores
+    among all pairs of dependent groups and
+    determining which of
+    these differences differ across levels of Factor A
+    using trimmed means.
+
+    FWE is controlled via Hochberg's method
+    To adjusted p-values, use the function p.adjust
+
+    For MOM or M-estimators (possibly not implemented yet),
+    use spmcpi which uses a bootstrap method
+
+    The variable x is a Pandas DataFrame where the first column
+    contains the data for the first level of both factors: level 1,1.
+    The second column contains the data for level 1 of the
+    first factor and level 2 of the second: level 1,2.
+    x.iloc[:,K] is the data for level 1,K. x.iloc[:,K+1] is the data for level 2,1.
+    x.iloc[:, 2K] is level 2,K, etc.
+
+    :param J:
+    :param K:
+    :param x:
+    :param tr:
+    :param alpha:
+    :return:
+    """
+
+    x=pandas_to_arrays(x)
+    x=remove_nans_based_on_design(x, [J, K], 'between_within')
+
+    MJ = (J ** 2 - J) // 2
+    MK = (K ** 2 - K) // 2
+    JMK = J * MK
+    MJMK = MJ * MK
+    Jm = J - 1
+
+    output = np.zeros([MJMK, 7])
+
+    m = np.array(np.arange(J*K)).reshape(J,K)
+
+    ic=0
+    test=np.array([])
+    for j in range(J):
+        for jj in range(J):
+            if j < jj:
+                for k in range(K):
+                    for kk in range(K):
+                        if k<kk:
+                            output[ic, 0]=j
+                            output[ic, 1]=jj
+                            output[ic, 2]=k
+                            output[ic, 3]=kk
+                            x1 = x[m[j, k]] - x[m[j, kk]]
+                            x2 = x[m[jj, k]] - x[m[jj, kk]]
+                            temp = yuen(x1, x2)
+                            output[ic, 4] = trim_mean(x1, tr) - trim_mean(x2, tr)
+                            test=np.append(test, temp['p_value'])
+                            output[ic, 5] = test[ic]
+
+
+                            ic+=1
+
+    ncon = len(test)
+    dvec = alpha / np.arange(1, ncon+1)
+    temp2 = (-test).argsort()
+    zvec = dvec[0:ncon]
+    #sigvec = (test[temp2] >= zvec)
+    output[temp2, 6] = zvec
+    output[:, 6] = output[:, 6]
+
+
+    col_names=["A_x", "A_y", "B_x", "B_y", "psihat", "p_value", "p_crit"]
+    results=pd.DataFrame(output, columns=col_names)
+
+    return results
+
+
+
+
+
 
 
 

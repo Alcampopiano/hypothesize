@@ -1673,6 +1673,62 @@ def lindep(x, con, cmat, tr):
 
     return res
 
+def yuen(x, y, tr=.2, alpha=.05):
+
+    """
+   Perform Yuen's test for trimmed means on the data in x and y.
+   The default amount of trimming is 20%
+   Missing values are automatically removed.
+
+   A confidence interval for the trimmed mean of x minus the
+   the trimmed mean of y is computed and returned in yuen['ci'].
+   The p-value is returned in yuen['p_value']
+
+   x, y: The data for the two groups are stored in x and y
+   tr=.2: indicates that the default amount of trimming is .2
+          tr=0 results in using the sample mean
+
+   For an omnibus test with more than two independent groups,
+   use t1way (may not be implemented yet).
+
+    :param x:
+    :param y:
+    :param tr:
+    :param alpha:
+    :return:
+    """
+
+    if tr ==.5:
+        raise Exception("Using tr=.5 is not allowed; use a method designed for medians "
+                        "(they may not be implemented yet")
+    if tr>.25:
+        raise Warning("with tr>.25 type I error control might be poor")
+
+    x=x[~np.isnan(x)]
+    y=y[~np.isnan(y)]
+
+    h1 = len(x) - 2 * np.floor(tr * len(x))
+    h2 = len(y) - 2 * np.floor(tr * len(y))
+    q1 = (len(x) - 1) * winvar(x, tr) / (h1 * (h1 - 1))
+    q2 = (len(y) - 1) * winvar(y, tr) / (h2 * (h2 - 1))
+    df = (q1 + q2) ** 2 / ((q1 ** 2 / (h1 - 1)) + (q2 ** 2 / (h2 - 1)))
+    crit = t.ppf(1 - alpha / 2, df)
+    dif = trim_mean(x, tr) - trim_mean(y, tr)
+    low = dif - crit * np.sqrt(q1 + q2)
+    up = dif + crit * np.sqrt(q1 + q2)
+    test = abs(dif / np.sqrt(q1 + q2))
+    yuen_results = 2 * (1 - t.cdf(test, df))
+
+
+    results={'n1': len(x), 'n2': len(y),
+             'est_1': trim_mean(x, tr), 'est_2': trim_mean(y, tr),
+             'ci': [low, up], 'p_value': yuen_results,
+             'dif': dif, 'se': np.sqrt(q1 + q2),
+             'test_stat': test, 'crit': crit,
+             'df': df}
+
+    return results
+
 def pandas_to_arrays(obj):
 
     if type(obj) is pd.core.frame.DataFrame:
