@@ -2,8 +2,10 @@ import numpy as np
 from scipy.stats.mstats import winsorize
 from scipy.stats import trim_mean
 from scipy.stats import t
-#from hypothesize.measuring_associations import wincor
 import pandas as pd
+# pd.set_option('display.max_rows', 500)
+# pd.set_option('display.max_columns', 500)
+# pd.set_option('display.width', 1000)
 
 def con1way(J):
 
@@ -153,21 +155,6 @@ def trimci(x, tr=.2, alpha=.05, null_value=0):
              "n": len(x)}
 
     return results
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 def lincon(x, con=None, tr=.2, alpha=.05, seed=False):
 
@@ -1686,59 +1673,143 @@ def lindep(x, con, cmat, tr):
 
     return res
 
-def pandas_to_arrays(objs):
+def pandas_to_arrays(obj):
 
-    if type(objs) is pd.core.frame.DataFrame:
-        x=[a for a in objs.values.T]
+    if type(obj) is pd.core.frame.DataFrame:
+        x=[a for a in obj.values.T]
 
         return x
 
-    elif type(objs) is list:
+    elif type(obj) is list:
 
         x=[]
-        for s in objs:
+        for s in obj:
             x.append(s.values)
 
         return x
 
-def create_random_2_factor_frame(within_ns, K, save_arrays=False):
+def create_example_data(design_values, missing_data_proportion=0, save_arrays=False):
 
-    J = len(within_ns)
+    """
+    Create a Pandas DataFrame of random data with a certain number of columns which
+    correspond to a design of a certain shape (e.g., 1-way, two groups, 2-way design).
+
+    There is also an option to randomly add a proportion of null values.
+
+    The purpose of this function is to make it easy to demonstrate and test the package.
+
+    :param design_values: a list or integer indicating the design shape. For example, [2,3] would
+        indicate a 2-by-3 design and will produce a six column DataFrame with appropriately named columns.
+
+    :param missing_data_proportion:
+
+    :param save_arrays: save each group as an array for loading into R
+
+    :return:
+    """
+
+    if type(design_values) is not list:
+        design_values=[design_values]
+
+    design_values=[i for i in design_values if i != 1]
 
     cell_str=[]
-    for i in range(1,J+1):
-        for k in range(1,K+1):
-            cell_str.append(f'cell_{i}_{k}')
 
-    max_n=max(within_ns)
-    min_n=min(within_ns)
-    x=np.random.rand(max_n,J*K)
+    if len(design_values) == 1:
+        J=design_values[0]
+
+        for j in range(1, J + 1):
+            cell_str.append(f'cell_{j}')
+
+        x = np.random.rand(50, J)
+
+    elif len(design_values) == 2:
+
+        J, K=design_values
+        for j in range(1,J+1):
+            for k in range(1,K+1):
+                cell_str.append(f'cell_{j}_{k}')
+
+        x = np.random.rand(50, J*K)
+
+    elif len(design_values) == 3:
+
+        J,K,L=design_values
+        for l in range(1,L+1):
+            for j in range(1,J+1):
+                for k in range(1, K+1):
+                    cell_str.append(f'cell_{j}_{k}_{l}')
+
+
+        x = np.random.rand(50, J*K*L)
+
+
+    if missing_data_proportion:
+        x.ravel()[np.random.choice(x.size, int(round(missing_data_proportion*x.size)), replace=False)] = np.nan
+
     x=pd.DataFrame(x, columns=cell_str)
-    size_diff=max_n-min_n
-    x.iloc[-size_diff:, K:]=np.nan
 
     if save_arrays:
+
         for i, xi in enumerate(x.values.T):
-            xi=xi[~np.isnan(xi)]
+            xi = xi[~np.isnan(xi)]
             np.save(f'/home/allan/test_{i + 1}.npy', xi)
             # x[np.random.randint(0, len(x))]=np.nan
 
     return x
 
-def remove_nans_across_dependent_groups(x, J, K):
+def remove_nans_based_on_design(x, design_values, design_type):
+
+    """
+    Remove nans in a way that considers whether or not a factor is within or between subjects.
+    That is, for all within subjects cells at a give jth level, remove entire rows where
+    any column contains a nan.
+
+    :param x: list of arrays
+    :param design_values: Only needed for mixed factorial designs. A list or integer indicating the design shape.
+        For example, [2,3] would indicate a 2-by-3 design (2 J levels, 3 K levels).
+    :param design_type: One of the following:
+
+        'dependent_groups', 'independent_groups', 'between_within', 'between_between', 'within_within'
+
+    :return:
+    """
+
+    if type(design_values) is not list:
+        design_values=[design_values]
+
+    design_values=[i for i in design_values if i != 1]
+
+    design_types=['dependent_groups', 'independent_groups', 'between_within', 'between_between', 'within_within']
+
+    if design_type not in design_types:
+        print("Please specify an available design type from the following list:")
+        print(design_types)
+        raise Exception("invalid design type")
+
+    if design_type in ('dependent_groups', 'between_between'):
+
+        x=[np.c_[x[0:]]]
+        x = x.T[~np.isnan(x.T).any(axis=1)]
+        x_clean = [i for i in x.T]
+
+    elif design_type in ('independent_groups', 'between_between'):
+        x_clean = [i[~np.isnan(i)] for i in x]
+
+    elif design_type == 'between_within':
+
+        J, K = design_values
+
+        ind_low = 0
+        ind_up = K
+        x_clean = []
+        for j in range(J):
+            x_slice = np.c_[x[ind_low:ind_up]]
+            x_slice = x_slice.T[~np.isnan(x_slice.T).any(axis=1)]
+            xx = [i for i in x_slice.T]
+            x_clean += xx
+            ind_low += K
+            ind_up += K
 
 
-    ind_low=0
-    ind_up=K
-    all_data=[]
-    for j in range(J):
-
-        x_slice=np.c_[x[ind_low:ind_up]]
-        x_slice = x_slice.T[~np.isnan(x_slice.T).any(axis=1)]
-        xx = [i for i in x_slice.T]
-        all_data += xx
-        ind_low+=K
-        ind_up+=K
-
-
-    return all_data
+    return x_clean

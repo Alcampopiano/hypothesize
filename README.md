@@ -25,18 +25,18 @@ pip install hypothesize
 <details>
 <summary><strong> <font size="3">How to compare two groups </font></strong></summary>
     
-#### Load data from a CSV
+#### Load data from a CSV or create some example data
     
 ```python
-import pandas as pd
+from hypothesize.utilities import create_example_data
 
-df=pd.read_csv("/home/allan/two_groups_data.csv")
+df=create_example_data(design_values=3)
 
 df.head()
 ```
     
     
-|    |   Group_1 |   Group_2 |
+|    |   cell_1 |   cell_2 |
 |---:|----------:|----------:|
 |  0 | 0.0446518 |  0.90675  |
 |  1 | 0.763458  |  0.291555 |
@@ -69,12 +69,12 @@ print(results['ci'])
 <details>
  <summary> <strong> <font size="3">How to compare groups in a factorial design</font></strong></summary>
     
-#### Load data from a CSV
+#### Load data from a CSV or create some example data
     
 ```python
-import pandas as pd
+from hypothesize.utilities import create_example_data
 
-df=pd.read_csv("/home/allan/two_way_data.csv")
+df=create_example_data(design_values=[2,3])
 
 df.head() 
 ```
@@ -91,8 +91,6 @@ df.head()
 - This example uses a 2-by-3 design
 - One approach is to use a set of linear contrasts that will test all main effects and interactions
 - Then, the bootstrap-t method and the 20% trimmed mean can be used
-- CIs are adjusted to control for FWE for each family of tests (factor A, factor B, and the interactions)
-- All pairwise contrasts are created internally using the `con2way` function
 - The results are a dictionary of DataFrames that contain various statistics for each factor and the interactions
     
 ```python
@@ -103,8 +101,7 @@ results=bwmcp(J=2, K=3, x=df)
 <p>
 
 ```python
-results['factor_A']  
-    
+results['factor_A']
 ```
 <p>    
     
@@ -116,8 +113,7 @@ results['factor_A']
 <p>
 
 ```python
-results['factor_B']  
-    
+results['factor_B']
 ```
 <p>    
     
@@ -130,8 +126,7 @@ results['factor_B']
 <p>
 
 ```python
-results['factor_AB']  
-    
+results['factor_AB']
 ```
 <p>    
     
@@ -148,16 +143,16 @@ results['factor_AB']
 <details>
  <summary> <strong> <font size="3">How to compute a robust correlation</font></strong></summary>
     
-#### Load data from a CSV
+#### Load data from a CSV or create some example data
     
 ```python
-import pandas as pd
+from hypothesize.utilities import create_example_data
 
-df=pd.read_csv("/home/allan/two_groups_data.csv")
+df=create_example_data(design_values=2)
 
 df.head() 
 ```
-|    |   Group_1 |   Group_2 |
+|    |   cell_1 |   cell_2 |
 |---:|----------:|----------:|
 |  0 | 0.0446518 |  0.90675  |
 |  1 | 0.763458  |  0.291555 |
@@ -187,9 +182,3 @@ print(results['wcor'])
 </details>
  
 <p>
-    
----
-    
-Note the following:
-- The amount of trimming, alpha, and other common parameters can be explicitly specified, otherwise defaults are used implicitly (20% trimming, alpha=.05, etc...)
-- The API is subject to change as the package is still in the early stages of development

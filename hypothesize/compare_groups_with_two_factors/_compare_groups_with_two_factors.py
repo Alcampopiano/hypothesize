@@ -1,4 +1,4 @@
-__all__ = ["bwmcp", "bwamcp", "bwbmcp"]
+__all__ = ["bwmcp", "bwamcp", "bwbmcp", "bwimcp"]
 
 import numpy as np
 import pandas as pd
@@ -6,7 +6,7 @@ from scipy.stats import trim_mean
 from hypothesize.utilities import con2way, lindep, covmtrim, \
     lincon, winvar,  trimse
 from hypothesize.measuring_associations import wincor
-from hypothesize.utilities import remove_nans_across_dependent_groups, pandas_to_arrays
+from hypothesize.utilities import remove_nans_based_on_design, pandas_to_arrays
 import more_itertools as mit
 from scipy.stats import t
 
@@ -44,7 +44,7 @@ def bwmcp(J, K, x, alpha=.05, tr=.2, nboot=599, seed=False):
     p=J*K
     v=np.zeros([p,p])
     data=[xi-trim_mean(xi, tr) for xi in x]
-    x=remove_nans_across_dependent_groups(x,J,K)
+    x=remove_nans_based_on_design(x, design_values=[J,K], design_type='between_within')
 
     ilow=0
     iup=K
@@ -160,7 +160,7 @@ def bwamcp(J, K, x, tr=.2, alpha=.05, pool=False):
     """
 
     x = pandas_to_arrays(x)
-    x = remove_nans_across_dependent_groups(x, J, K)
+    x = remove_nans_based_on_design(x, design_values=[J,K], design_type='between_within')
 
     if pool:
         data = [np.concatenate(x[i:i + K]) for i in range(0, J * K, K)]
@@ -222,7 +222,7 @@ def bwbmcp(J, K, x, tr=.2, con=None, alpha=.05,
     """
 
     x = pandas_to_arrays(x)
-    x = remove_nans_across_dependent_groups(x, J, K)
+    x = remove_nans_based_on_design(x, design_values=[J,K], design_type='between_within')
 
     if pool:
         data = [np.concatenate(x[i:i+J*K+1:K]) for i in range(K)]
@@ -457,6 +457,9 @@ def rmmcp(x, con=None, tr=.2, alpha=.05, dif=True, hoch=True):
 
     return {"n": nval, "test": test, "psihat": psihat,
             "con": con, "num_sig": num_sig}
+
+def bwimcp():
+    pass
 
 
 
