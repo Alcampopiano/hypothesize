@@ -225,7 +225,16 @@ def bwbmcp(J, K, x, tr=.2, con=None, alpha=.05,
 
     if pool:
         data = [np.concatenate(x[i:i+J*K+1:K]) for i in range(K)]
-        results=rmmcp(data, con=con, tr=tr,alpha=alpha,dif=dif,hoch=hoch)
+        tests=rmmcp(data, con=con, tr=tr,alpha=alpha,dif=dif,hoch=hoch)
+
+        col_names_test = ["group_x", "group_y", "test", "p_value", "p_crit", "se"]
+        col_names_psihat = ["group_x", "group_y", "psihat", "ci_lower", "ci_upper"]
+        test_df = pd.DataFrame(tests['test'], columns=col_names_test)
+        psihat_df = pd.DataFrame(tests['psihat'], columns=col_names_psihat)
+
+        results = {"test": test_df, 'psihat': psihat_df, 'n': tests['n'], 'con': tests['con'],
+                 'num_sig': tests['num_sig']}
+
 
     else:
 
@@ -234,8 +243,16 @@ def bwbmcp(J, K, x, tr=.2, con=None, alpha=.05,
         for j in range(J):
             data=x[j_ind:j_ind+K]
             tests = rmmcp(data, con=con, tr=tr, alpha=alpha, dif=dif, hoch=hoch)
+
+            col_names_test=["group_x", "group_y", "test", "p_value", "p_crit", "se"]
+            col_names_psihat = ["group_x", "group_y", "psihat", "ci_lower", "ci_upper"]
+            test_df=pd.DataFrame(tests['test'], columns=col_names_test)
+            psihat_df=pd.DataFrame(tests['psihat'], columns=col_names_psihat)
+            tests={"test": test_df, 'psihat': psihat_df, 'n': tests['n'], 'con': tests['con'], 'num_sig': tests['num_sig']}
+
             results.append(tests)
             j_ind+=K
+
 
     return results
 
@@ -538,8 +555,8 @@ def bwimcp(J, K, x, tr=.2, alpha=.05):
 
     return results
 
-def rmmcppbd(x, alpha=.05, con=None, est=trim_mean,
-             nboot=None, hoch=True, seed=False, *args):
+def rmmcppbd(x,  est, *args, alpha=.05, con=None,
+             nboot=None, hoch=True, seed=False):
 
     """
       Use a percentile bootstrap method to compare dependent groups
@@ -574,7 +591,7 @@ def rmmcppbd(x, alpha=.05, con=None, est=trim_mean,
     if n>=80:
         hoch=True
 
-    Jm=J-1
+    #Jm=J-1
     if con is None:
         con=con1way(J)
 
@@ -610,8 +627,8 @@ def rmmcppbd(x, alpha=.05, con=None, est=trim_mean,
         psihat[:,ib]=est(xx[data[ib,:], :], *args)
 
     test = np.full(3, np.nan)
-    icl = round(alpha * nboot // 2) + 1
-    icu = nboot - icl - 1
+    icl = round(alpha * nboot // 2) #+ 1
+    icu = nboot - icl -  2 #- 1
     cimat=np.full([connum, 2], np.nan)
 
     for ic in range(connum):
@@ -684,10 +701,9 @@ def rmmcppbd(x, alpha=.05, con=None, est=trim_mean,
 
     return {"output": output, "con": con, "num_sig": num_sig}
 
-
-def rmmcppb(x, alpha=.05, con=None, est=trim_mean,
+def rmmcppb(x,  est, *args,  alpha=.05, con=None,
             dif=True, nboot=None, BA=False,
-            hoch=False, SR=False, seed=False, *args):
+            hoch=False, SR=False, seed=False,):
 
     """
     Use a percentile bootstrap method to  compare dependent groups.
@@ -740,11 +756,15 @@ def rmmcppb(x, alpha=.05, con=None, est=trim_mean,
         print("analysis is being done on difference scores",
               "each confidence interval has probability coverage of 1-alpha.")
 
-        temp=rmmcppbd(x,alpha=alpha,con=con,
-                      est=est,nboot=nboot,hoch=True, *args)
+        temp=rmmcppbd(x,est, *args, alpha=alpha,con=con,
+                      nboot=nboot,hoch=True)
 
         return {'output': temp['output'],
-                'con':  temp['con']}
+                'con':  temp['con'], "num_sig": temp['num_sig']}
+
+    else:
+        print('you are here')
+        pass
 
 def spmcpa():
 
@@ -762,8 +782,7 @@ def spmcpa():
     """
     pass
 
-def spmcpb(J,K,x,est=trim_mean, dif=True,
-           alpha=.05, nboot=599, seed=False, *args):
+def spmcpb(J, K, x, est, *args, dif=True, alpha=.05, nboot=599, seed=False):
 
     """
     All pairwise comparisons among levels of Factor B
@@ -809,10 +828,13 @@ def spmcpb(J,K,x,est=trim_mean, dif=True,
         jj+=K
         kk+=K
 
-    temp=rmmcppb(x_mat, est=est, nboot=nboot, dif=dif, alpha=alpha, *args)
+    temp=rmmcppb(x_mat, est, *args, nboot=nboot, dif=dif, alpha=alpha)
 
-    results={"output": temp['output'], 'con': temp['con'],
+    col_names=['con_num', 'psihat', 'p_value', 'p_crit', 'ci_lower', 'ci_upper']
+    test_res=pd.DataFrame(temp['output'], columns=col_names)
+    results={"output": test_res, 'con': temp['con'],
              'num_sig': temp['num_sig']}
+
 
     return results
 
