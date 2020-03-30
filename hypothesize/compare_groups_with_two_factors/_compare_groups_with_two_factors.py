@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 from scipy.stats import trim_mean
 from hypothesize.utilities import con2way, lindep, covmtrim, \
-    lincon, winvar, trimse, yuen
+    lincon, winvar, trimse, yuen, con1way
 from hypothesize.measuring_associations import wincor
 from hypothesize.utilities import remove_nans_based_on_design, pandas_to_arrays
 import more_itertools as mit
@@ -135,7 +135,6 @@ def bwmcp(J, K, x, alpha=.05, tr=.2, nboot=599, seed=False):
     return res
 
 def bwamcp(J, K, x, tr=.2, alpha=.05, pool=False):
-
 
     """
     All pairwise comparisons among levels of Factor A
@@ -539,6 +538,296 @@ def bwimcp(J, K, x, tr=.2, alpha=.05):
 
     return results
 
+def rmmcppbd(x, alpha=.05, con=None, est=trim_mean,
+             nboot=None, hoch=True, seed=False, *args):
+
+    """
+      Use a percentile bootstrap method to compare dependent groups
+      based on difference scores.
+      By default,
+      compute a .95 confidence interval for all linear contrasts
+      specified by con, a J by C matrix, where  C is the number of
+      contrasts to be tested, and the columns of con are the
+      contrast coefficients.
+      If con is not specified, all pairwise comparisons are done.
+
+      nboot is the bootstrap sample size. If not specified, a value will
+      be chosen depending on the number of contrasts there are.
+
+      A sequentially rejective method is used to control alpha.
+      If n>=80, hochberg's method is used.
+
+    :param x:
+    :param y:
+    :param alpha:
+    :param con:
+    :param est:
+    :param nboot:
+    :param hoch:
+    :param seed:
+    :return:
+    """
+
+    x = x[~np.isnan(x).any(axis=1)]
+    J=x.shape[1]
+    n=x.shape[0]
+    if n>=80:
+        hoch=True
+
+    Jm=J-1
+    if con is None:
+        con=con1way(J)
+
+    d = con.shape[1]
+    if not nboot:
+
+      if d <= 10:
+          nboot = 3000
+
+      elif d <= 6:
+          nboot = 2000
+
+      elif d <= 4:
+          nboot = 1000
+
+      else:
+          nboot=5000
+
+    #crit_vec=alpha/np.arange(1,d+1)
+    connum=d
+    xx=x@con
+
+    if seed:
+        np.random.seed(seed)
+
+    psihat=np.zeros([connum, nboot])
+    #bvec=np.full([nboot, connum], np.nan)
+    data=np.random.randint(n, size=(nboot,n))
+
+    # wilcox's implementation in R is a bit more complicated,
+    # I have simplified. Hopefully correctly.
+    for ib in range(nboot):
+        psihat[:,ib]=est(xx[data[ib,:], :], *args)
+
+    test = np.full(3, np.nan)
+    icl = round(alpha * nboot // 2) + 1
+    icu = nboot - icl - 1
+    cimat=np.full([connum, 2], np.nan)
+
+    for ic in range(connum):
+
+      test[ic] =(sum(psihat[ic, :] > 0) + .5 * sum(psihat[ic, :] == 0)) / nboot
+      test[ic] = min(test[ic], 1 - test[ic])
+      temp = np.sort(psihat[ic, :])
+      cimat[ic, 0] = temp[icl]
+      cimat[ic, 1] = temp[icu]
+
+    test = 2 * test
+    ncon = con.shape[1]
+
+    if alpha == .05:
+      dvec =[.025,
+          .025,
+          .0169,
+          .0127,
+          .0102,
+          .00851,
+          .0073,
+          .00639,
+          .00568,
+          .00511]
+
+      if ncon > 10:
+        avec = .05 / np.arange(11, ncon+1)
+        dvec = np.append(dvec, avec)
+
+    elif alpha == .01:
+      dvec =[.005,
+          .005,
+          .00334,
+          .00251,
+          .00201,
+          .00167,
+          .00143,
+          .00126,
+          .00112,
+          .00101]
+
+      if ncon > 10:
+        avec = .01 / np.arange(11,ncon+1)
+        dvec = np.append(dvec, avec)
+
+    else:
+      dvec = alpha / np.arange(1,ncon+1)
+      dvec[1] = alpha / 2
+
+    if hoch:
+      dvec = alpha / (2 * np.arange(1,ncon+1))
+
+    dvec = 2 * dvec
+    temp2 = (-test).argsort()
+    ncon = con.shape[1]
+    zvec = dvec[:ncon]
+    #sigvec = (test[temp2] >= zvec)
+    output=np.zeros([connum, 6])
+
+    tmeans=est(xx,*args)
+    output[temp2, 3] = zvec
+
+    for ic in range(ncon):
+      output[ic, 1] = tmeans[ic]
+      output[ic, 0] = ic
+      output[ic, 2] = test[ic]
+      output[ic, 4:6] = cimat[ic,:]
+
+    num_sig = np.sum(output[:, 2] <= output[:, 3])
+
+    return {"output": output, "con": con, "num_sig": num_sig}
+
+
+def rmmcppb(x, alpha=.05, con=None, est=trim_mean,
+            dif=True, nboot=None, BA=False,
+            hoch=False, SR=False, seed=False, *args):
+
+    """
+    Use a percentile bootstrap method to  compare dependent groups.
+    By default,
+    compute a .95 confidence interval for all linear contrasts
+    specified by con, a J-by-C matrix, where  C is the number of
+    contrasts to be tested, and the columns of con are the
+    contrast coefficients.
+    If con is not specified, all pairwise comparisons are done.
+
+    If est=onestep or mom (may not be implemeted yet),
+    method SR (see my book on robust methods)
+    is used to control the probability of at least one Type I error.
+    Otherwise, Hochberg is used.
+
+    dif=True indicates that difference scores are to be used
+    dif=False indicates that measure of location associated with
+    marginal distributions are used instead.
+
+    nboot is the bootstrap sample size. If not specified, a value will
+    be chosen depending on the number of contrasts there are.
+
+    A sequentially rejective method is used to control alpha using method SR.
+
+    Argument BA: When using dif=False, BA=True uses a correction term
+    when computing a p-value.
+
+    :param x:
+    :param y:
+    :param alpha:
+    :param con:
+    :param est:
+    :param dif:
+    :param nboot:
+    :param BA:
+    :param hoch:
+    :param SR:
+    :param seed:
+    :return:
+    """
+
+    if hoch:
+        SR=False
+
+    if SR:
+        raise Exception("onestep and mom estimators are not yet implemented"
+                        "and only these can be used with SR method. Please choose another estimator.")
+
+    if dif:
+        print("analysis is being done on difference scores",
+              "each confidence interval has probability coverage of 1-alpha.")
+
+        temp=rmmcppbd(x,alpha=alpha,con=con,
+                      est=est,nboot=nboot,hoch=True, *args)
+
+        return {'output': temp['output'],
+                'con':  temp['con']}
+
+def spmcpa():
+
+    """
+    All pairwise comparisons among levels of Factor A
+    in a mixed design using trimmed means.
+
+    The variable x is a Pandas DataFrame where the first column
+    contains the data for the first level of both factors: level 1,1.
+    The second column contains the data for level 1 of the
+    first factor and level 2 of the second: level 1,2.
+    x.iloc[:,K] is the data for level 1,K. x.iloc[:,K+1] is the data for level 2,1.
+    x.iloc[:, 2K] is level 2,K, etc.
+    :return:
+    """
+    pass
+
+def spmcpb(J,K,x,est=trim_mean, dif=True,
+           alpha=.05, nboot=599, seed=False, *args):
+
+    """
+    All pairwise comparisons among levels of Factor B
+    in a split-plot design.
+
+    The variable x is a Pandas DataFrame where the first column
+    contains the data for the first level of both factors: level 1,1.
+    The second column contains the data for level 1 of the
+    first factor and level 2 of the second: level 1,2.
+    x.iloc[:,K] is the data for level 1,K. x.iloc[:,K+1] is the data for level 2,1.
+    x.iloc[:, 2K] is level 2,K, etc.
+
+    If dif=True, the analysis is done based on all pairs
+    of difference scores.
+    Otherwise, marginal measures of location are used.
+
+    :param J:
+    :param K:
+    :param x:
+    :param est:
+    :param dif:
+    :param alpha:
+    :param nboot:
+    :param seed:
+    :return:
+    """
+
+    x=pandas_to_arrays(x)
+    x=remove_nans_based_on_design(x, design_values=[J,K], design_type='between_within')
+
+    JK=J*K
+
+    if seed:
+        np.random.seed(seed)
+
+    #nvec=np.array([])
+    x_mat=np.empty(shape=(0,K))
+    jj=0
+    kk=K
+    for j in range(J):
+        #nvec=np.append(nvec, len(x[j]))
+        x_mat=np.concatenate([x_mat, np.r_[x[jj:kk]].T], axis=0)
+        jj+=K
+        kk+=K
+
+    temp=rmmcppb(x_mat, est=est, nboot=nboot, dif=dif, alpha=alpha, *args)
+
+    results={"output": temp['output'], 'con': temp['con'],
+             'num_sig': temp['num_sig']}
+
+    return results
+
+def spmcpi():
+
+    """
+    Multiple comparisons for interactions
+    in a split-plot design.
+    The analysis is done by taking difference scores
+    among all pairs of dependent groups and
+    determining which of
+    these differences differ across levels of Factor A.
+
+    :return:
+    """
 
 
 

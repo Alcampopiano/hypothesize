@@ -1808,7 +1808,7 @@ def create_example_data(design_values, missing_data_proportion=0, save_arrays=Fa
     if save_arrays:
 
         for i, xi in enumerate(x.values.T):
-            xi = xi[~np.isnan(xi)]
+            #xi = xi[~np.isnan(xi)]
             np.save(f'/home/allan/test_{i + 1}.npy', xi)
             # x[np.random.randint(0, len(x))]=np.nan
 
