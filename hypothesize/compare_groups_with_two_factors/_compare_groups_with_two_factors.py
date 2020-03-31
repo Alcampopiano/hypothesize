@@ -1,4 +1,4 @@
-__all__ = ["bwmcp", "bwamcp", "bwbmcp", "bwimcp"]
+__all__ = ["bwmcp", "bwamcp", "bwbmcp", "bwimcp", "spmcpb"]
 
 import numpy as np
 import pandas as pd
@@ -821,12 +821,12 @@ def rmmcppb(x,  est, *args,  alpha=.05, con=None,
             if not BA:
                 test[ic] = ptemp
 
-            test[ic] = np.min(test[ic], 1 - test[ic])
-            test[ic] = np.max(test[ic], 0)  # bias corrected might be less than zero
+            test[ic] = np.min([test[ic], 1 - test[ic]])
+            test[ic] = np.max([test[ic], 0])  # bias corrected might be less than zero
 
         test=2*test
         ncon=con.shape[1]
-        dvec=1/np.arange(1,ncon+1)
+        dvec=alpha/np.arange(1,ncon+1)
 
         if SR:
 
@@ -897,7 +897,7 @@ def rmmcppb(x,  est, *args,  alpha=.05, con=None,
             dvec=alpha/np.arange(1,ncon+1)
 
         dvecba=dvec
-        temp2 = (-test).np.argsort()
+        temp2 = (-test).argsort()
         zvec = dvec[:ncon]
 
         if BA:
@@ -913,7 +913,7 @@ def rmmcppb(x,  est, *args,  alpha=.05, con=None,
             output[ic, 2] = test[ic]
             temp = np.sort(psihat[ic, :])
             icl = round(alpha * nboot / 2) #+ 1
-            icu = nboot - (icl - 2) #(icl - 1)
+            icu = nboot - icl - 1 #nboot - (icl - 1)
             output[ic, 4] = temp[icl]
             output[ic, 5] = temp[icu]
 
@@ -925,10 +925,6 @@ def rmmcppb(x,  est, *args,  alpha=.05, con=None,
         else:
             num_sig = num_sig - 1
 
-    col_names=["con_num", 'psihat', 'p_value', 'p_sig',
-               'ci_lower', 'ci_upper']
-
-    output=pd.DataFrame(output, columns=col_names)
     results={"output": output, "con": con, "num_sig": num_sig}
 
     return results
