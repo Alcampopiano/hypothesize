@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 from scipy.stats import trim_mean
 from hypothesize.utilities import con2way, lindep, covmtrim, \
-    lincon, winvar, trimse, yuen, con1way, bptdpsi
+    lincon, winvar, trimse, yuen, con1way, bptdpsi, rmanogsub
 from hypothesize.measuring_associations import wincor
 from hypothesize.utilities import remove_nans_based_on_design, pandas_to_arrays
 import more_itertools as mit
@@ -929,7 +929,8 @@ def rmmcppb(x,  est, *args,  alpha=.05, con=None,
 
     return results
 
-def spmcpa():
+def spmcpa(J, K, x, est, *args,
+           avg=False, alpha=.05, nboot=None, seed=False):
 
     """
     All pairwise comparisons among levels of Factor A
@@ -943,7 +944,182 @@ def spmcpa():
     x.iloc[:, 2K] is level 2,K, etc.
     :return:
     """
-    pass
+
+    x=pandas_to_arrays(x)
+    x=remove_nans_based_on_design(x, design_values=[J,K], design_type='between_within')
+
+    if seed:
+        np.random.seed(seed)
+
+    nvec=[len(nj) for nj in x[:J*K:K]]
+
+    if avg:
+        con=con1way(J)
+
+    elif not avg:
+
+        MJK = K * (J ** 2 - J) // 2
+        con=np.zeros([J*K,MJK])
+        n_idioms=J-1
+        idioms=[]
+        K_mult=K
+
+        for i in range(n_idioms):
+            tmp=np.concatenate([[1], np.repeat(0, K_mult-1), [-1]])
+            idioms.append(tmp)
+            K_mult*=2
+
+        col_ind=0
+        for idiom in idioms:
+            num_rep_idiom=len(list(mit.windowed(con[:,0], n=len(idiom))))
+
+            row_start=0
+            for _ in range(num_rep_idiom):
+                con[row_start:row_start+len(idiom),col_ind]=idiom
+                row_start+=1
+                col_ind+=1
+
+    d=con.shape[0]
+
+    if not nboot:
+        if d<=4:
+            nboot=1000
+        else:
+            nboot=5000
+
+    xx=x.copy()
+    bloc=np.full([J, nboot], np.nan)
+    mvec=np.full(J*K, np.nan)
+
+    ik=0
+    for j in range(J):
+        x=np.full([nvec[j], K], np.nan)
+
+        for k in range(K):
+            x[:, k] = xx[ik]
+
+            if not avg:
+                mvec[ik] = est(xx[ik], *args)
+
+            ik += 1
+
+        tempv = est(x, *args)
+
+        data=np.random.randint(nvec[j], size=(nboot, nvec[j]))
+        bvec=np.full([nboot, K], np.nan)
+
+        for k in range(K):
+            temp = x[:, k]
+            bvec[:, k] = [rmanogsub(data_row, temp, est, *args) for data_row in data]
+
+        if avg:
+            mvec[j] = np.mean(tempv)
+            bloc[j,:] = np.mean(bvec, axis=1)
+
+        elif not avg:
+
+            if j==0:
+                bloc=bvec.copy()
+
+            elif j>0:
+                bloc=np.c_[bloc, bvec]
+
+    if avg:
+        bloc=bloc.T
+
+    connum=d
+    psihat=np.zeros([connum, nboot])
+    test=np.full(connum, np.nan)
+
+    for ic in range(connum):
+
+      psihat[ic, :] = [bptdpsi(row, con[:, ic]) for row in bloc]
+      test[ic] = (np.sum(psihat[ic, :] > 0) + .5 * np.sum(psihat[ic, :] == 0)) / nboot
+      test[ic] = np.min([test[ic], 1 - test[ic]])
+
+    ncon=con.shape[1]
+
+    if alpha == .05:
+
+        dvec = [.025,
+                .025,
+                .0169,
+                .0127,
+                .0102,
+                .00851,
+                .0073,
+                .00639,
+                .00568,
+                .00511]
+
+        if ncon > 10:
+            avec = .05 / np.arange(11, ncon + 1)
+            dvec = np.append(dvec, avec)
+
+    elif alpha == .01:
+
+        dvec = [.005,
+                .005,
+                .00334,
+                .00251,
+                .00201,
+                .00167,
+                .00143,
+                .00126,
+                .00112,
+                .00101]
+
+        if ncon > 10:
+            avec = .01 / np.arange(11, ncon + 1)
+            dvec = np.append(dvec, avec)
+
+
+    else:
+
+        dvec = alpha / np.arange(1, ncon + 1)
+        dvec[0] = alpha/2
+
+    temp2=(-test).argsort()
+    zvec=dvec[:ncon]
+    output=np.zeros(connum,6)
+
+    tmeans=mvec
+    output[temp2,3]=zvec
+    for ic in range(ncon):
+      output[ic, 1] = sum(con[:, ic] * tmeans)
+      output[ic, 0] = ic
+      output[ic, 2] = test[ic]
+      temp = np.sort(psihat[ic, :])
+      icl = round(dvec[ncon] * nboot) #+ 1
+      icu = nboot - icl - 1 #(icl - 1)
+      output[ic, 4] = temp[icl]
+      output[ic, 5] = temp[icu]
+
+    output[:, 2] = 2 * output[:, 2]
+    output[:, 3] = 2 * output[:, 3]
+    num_sig = np.sum(output[:, 2] <= output[:, 3])
+
+    col_names=["con_num", "psihat", "p_value",
+               "p_crit", "ci_lower", "ci_upper"]
+    output=pd.DataFrame(output, columns=col_names)
+
+    results={"output": output, "con": con, "num_sig": num_sig}
+
+    return results
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 def spmcpb(J, K, x, est, *args, dif=True, alpha=.05, nboot=599, seed=False):
 

@@ -1874,3 +1874,6 @@ def bptdpsi(x,con):
 
     return np.sum(con*x)
 
+def rmanogsub(isub, x, est, *args):
+    tsub=est(x[isub], *args)
+    return tsub
