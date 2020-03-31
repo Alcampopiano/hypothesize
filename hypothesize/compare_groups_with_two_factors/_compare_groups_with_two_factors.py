@@ -1107,20 +1107,6 @@ def spmcpa(J, K, x, est, *args,
 
     return results
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 def spmcpb(J, K, x, est, *args, dif=True, alpha=.05, nboot=599, seed=False):
 
     """
