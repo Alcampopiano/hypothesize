@@ -1869,3 +1869,8 @@ def remove_nans_based_on_design(x, design_values, design_type):
 
 
     return x_clean
+
+def bptdpsi(x,con):
+
+    return np.sum(con*x)
+

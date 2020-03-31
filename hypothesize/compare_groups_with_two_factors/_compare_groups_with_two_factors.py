@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 from scipy.stats import trim_mean
 from hypothesize.utilities import con2way, lindep, covmtrim, \
-    lincon, winvar, trimse, yuen, con1way
+    lincon, winvar, trimse, yuen, con1way, bptdpsi
 from hypothesize.measuring_associations import wincor
 from hypothesize.utilities import remove_nans_based_on_design, pandas_to_arrays
 import more_itertools as mit
@@ -763,8 +763,175 @@ def rmmcppb(x,  est, *args,  alpha=.05, con=None,
                 'con':  temp['con'], "num_sig": temp['num_sig']}
 
     else:
-        print('you are here')
-        pass
+        print("dif=False so using marginal distributions")
+
+        if not BA:
+            print("If and when MOM and/or onestep estimators are implemeted, "
+                  "it is suggested to use BA=True and hoch=T")
+
+        J=x.shape[1]
+        xcen=np.full([x.shape[0], x.shape[1]], np.nan)
+        for j in range(J):
+            xcen[:, j] = x[:, j] - est(x[:, j], *args)
+
+        #Jm=J-1
+        con=con1way(J)
+        d=con.shape[1]
+
+        if nboot is None:
+            if d<4:
+                nboot=1000
+            elif d>4:
+                nboot=5000
+
+        n=x.shape[0]
+        crit_vec=alpha/np.arange(1,d+1)
+        connum=con.shape[1]
+
+        if seed:
+            np.random.seed(seed)
+
+        xbars=est(x,*args)
+
+        psidat=np.zeros(connum)
+        for ic in range(connum):
+            psidat[ic]=np.sum(con[:,ic] * xbars)
+
+        psihat=np.zeros([connum, nboot])
+        psihatcen=np.zeros([connum, nboot])
+        bvec=np.full([nboot,J], np.nan)
+        bveccen = np.full([nboot, J], np.nan)
+        data=np.random.randint(n,size=(nboot,n))
+        for ib in range(nboot):
+            bvec[ib,:] = est(x[data[ib,:],:], *args)
+            bveccen[ib, :] = est(xcen[data[ib, :], :], *args)
+
+        test=np.full(connum, np.nan)
+        bias=np.full(connum, np.nan)
+
+        for ic in range(connum):
+            psihat[ic,:]=[bptdpsi(row, con[:, ic]) for row in bvec]
+            psihatcen[ic,:] = [bptdpsi(row, con[:,ic]) for row in bveccen]
+            bias[ic] = np.sum((psihatcen[ic,:] > 0)) / nboot - .5
+            ptemp =(np.sum(psihat[ic,:] > 0) + .5 * np.sum(psihat[ic,:] == 0)) / nboot
+
+            if BA:
+                test[ic] = ptemp - .1 * bias[ic]
+
+            if not BA:
+                test[ic] = ptemp
+
+            test[ic] = np.min(test[ic], 1 - test[ic])
+            test[ic] = np.max(test[ic], 0)  # bias corrected might be less than zero
+
+        test=2*test
+        ncon=con.shape[1]
+        dvec=1/np.arange(1,ncon+1)
+
+        if SR:
+
+            if alpha == .05:
+
+                dvec =[.025,
+                .025,
+                .0169,
+                .0127,
+                .0102,
+                .00851,
+                .0073,
+                .00639,
+                .00568,
+                .00511]
+
+                dvecba = [.05,
+                .025,
+                .0169,
+                .0127,
+                .0102,
+                .00851,
+                .0073,
+                .00639,
+                .00568,
+                .00511]
+
+                if ncon > 10:
+                    avec = .05 / np.arange(11,ncon+1)
+                    dvec = np.append(dvec, avec)
+
+            elif alpha == .01:
+
+                dvec =[.005,
+                .005,
+                .00334,
+                .00251,
+                .00201,
+                .00167,
+                .00143,
+                .00126,
+                .00112,
+                .00101]
+
+                dvecba =[.01,
+                .005,
+                .00334,
+                .00251,
+                .00201,
+                .00167,
+                .00143,
+                .00126,
+                .00112,
+                .00101]
+
+                if ncon > 10:
+                    avec = .01 / np.arange(11,ncon+1)
+                    dvec = np.append(dvec, avec)
+
+
+            else:
+
+                dvec = alpha / np.arange(1,ncon+1)
+                dvecba = dvec
+                dvec[1] = alpha
+
+        if hoch:
+            dvec=alpha/np.arange(1,ncon+1)
+
+        dvecba=dvec
+        temp2 = (-test).np.argsort()
+        zvec = dvec[:ncon]
+
+        if BA:
+            zvec = dvecba[:ncon]
+
+        output=np.zeros([connum, 6])
+        tmeans=est(x, *args)
+
+        output[temp2, 3] = zvec
+        for ic in range(ncon):
+            output[ic, 1] = np.sum(con[:, ic] * tmeans)
+            output[ic, 0] = ic
+            output[ic, 2] = test[ic]
+            temp = np.sort(psihat[ic, :])
+            icl = round(alpha * nboot / 2) #+ 1
+            icu = nboot - (icl - 2) #(icl - 1)
+            output[ic, 4] = temp[icl]
+            output[ic, 5] = temp[icu]
+
+    num_sig = output.shape[0]
+    ior = (-output[:, 2]).argsort()
+    for j in range(output.shape[0]):
+        if output[ior[j], 2] <= output[ior[j], 3]:
+            break
+        else:
+            num_sig = num_sig - 1
+
+    col_names=["con_num", 'psihat', 'p_value', 'p_sig',
+               'ci_lower', 'ci_upper']
+
+    output=pd.DataFrame(output, columns=col_names)
+    results={"output": output, "con": con, "num_sig": num_sig}
+
+    return results
 
 def spmcpa():
 
