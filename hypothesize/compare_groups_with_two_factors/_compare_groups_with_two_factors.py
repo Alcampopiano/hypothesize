@@ -979,7 +979,7 @@ def spmcpa(J, K, x, est, *args,
                 row_start+=1
                 col_ind+=1
 
-    d=con.shape[0]
+    d=con.shape[1]
 
     if not nboot:
         if d<=4:
@@ -989,7 +989,7 @@ def spmcpa(J, K, x, est, *args,
 
     xx=x.copy()
     bloc=np.full([J, nboot], np.nan)
-    mvec=np.full(J*K, np.nan)
+    mvec=np.array([])
 
     ik=0
     for j in range(J):
@@ -999,7 +999,7 @@ def spmcpa(J, K, x, est, *args,
             x[:, k] = xx[ik]
 
             if not avg:
-                mvec[ik] = est(xx[ik], *args)
+                mvec=np.append(mvec, est(xx[ik], *args))
 
             ik += 1
 
@@ -1013,7 +1013,7 @@ def spmcpa(J, K, x, est, *args,
             bvec[:, k] = [rmanogsub(data_row, temp, est, *args) for data_row in data]
 
         if avg:
-            mvec[j] = np.mean(tempv)
+            mvec=np.append(mvec, np.mean(tempv))
             bloc[j,:] = np.mean(bvec, axis=1)
 
         elif not avg:
@@ -1081,19 +1081,20 @@ def spmcpa(J, K, x, est, *args,
 
     temp2=(-test).argsort()
     zvec=dvec[:ncon]
-    output=np.zeros(connum,6)
+    output=np.zeros([connum,6])
 
     tmeans=mvec
     output[temp2,3]=zvec
     for ic in range(ncon):
-      output[ic, 1] = sum(con[:, ic] * tmeans)
-      output[ic, 0] = ic
-      output[ic, 2] = test[ic]
-      temp = np.sort(psihat[ic, :])
-      icl = round(dvec[ncon] * nboot) #+ 1
-      icu = nboot - icl - 1 #(icl - 1)
-      output[ic, 4] = temp[icl]
-      output[ic, 5] = temp[icu]
+        np.sum(con[:, ic] * tmeans)
+        output[ic, 1] = np.sum(con[:, ic] * tmeans)
+        output[ic, 0] = ic
+        output[ic, 2] = test[ic]
+        temp = np.sort(psihat[ic, :])
+        icl = round(dvec[ncon] * nboot) #+ 1
+        icu = nboot - icl - 1 #(icl - 1)
+        output[ic, 4] = temp[icl]
+        output[ic, 5] = temp[icu]
 
     output[:, 2] = 2 * output[:, 2]
     output[:, 3] = 2 * output[:, 3]
