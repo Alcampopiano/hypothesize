@@ -1,4 +1,4 @@
-__all__ = ["bwmcp", "bwamcp", "bwbmcp", "bwimcp", "spmcpa", "spmcpb", "spmcpi"]
+__all__ = ["bwmcp", "bwamcp", "bwbmcp", "bwimcp", "spmcpa", "spmcpb", "spmcpi", "wwmcppb"]
 
 import numpy as np
 import pandas as pd
@@ -610,7 +610,6 @@ def rmmcppbd(x,  est, *args, alpha=.05, con=None,
       else:
           nboot=5000
 
-    #crit_vec=alpha/np.arange(1,d+1)
     connum=d
     xx=x@con
 
@@ -618,7 +617,6 @@ def rmmcppbd(x,  est, *args, alpha=.05, con=None,
         np.random.seed(seed)
 
     psihat=np.zeros([connum, nboot])
-    #bvec=np.full([nboot, connum], np.nan)
     data=np.random.randint(n, size=(nboot,n))
 
     # wilcox's implementation in R is a bit more complicated,
@@ -626,7 +624,7 @@ def rmmcppbd(x,  est, *args, alpha=.05, con=None,
     for ib in range(nboot):
         psihat[:,ib]=est(xx[data[ib,:], :], *args)
 
-    test = np.full(3, np.nan)
+    test = np.full(connum, np.nan)
     icl = round(alpha * nboot // 2) #+ 1
     icu = nboot - icl -  2 #- 1
     cimat=np.full([connum, 2], np.nan)
@@ -685,7 +683,6 @@ def rmmcppbd(x,  est, *args, alpha=.05, con=None,
     temp2 = (-test).argsort()
     ncon = con.shape[1]
     zvec = dvec[:ncon]
-    #sigvec = (test[temp2] >= zvec)
     output=np.zeros([connum, 6])
 
     tmeans=est(xx,*args)
@@ -703,7 +700,7 @@ def rmmcppbd(x,  est, *args, alpha=.05, con=None,
 
 def rmmcppb(x,  est, *args,  alpha=.05, con=None,
             dif=True, nboot=None, BA=False,
-            hoch=False, SR=False, seed=False,):
+            hoch=False, SR=False, seed=False):
 
     """
     Use a percentile bootstrap method to  compare dependent groups.
@@ -774,8 +771,9 @@ def rmmcppb(x,  est, *args,  alpha=.05, con=None,
         for j in range(J):
             xcen[:, j] = x[:, j] - est(x[:, j], *args)
 
-        #Jm=J-1
-        con=con1way(J)
+        if con is None:
+            con=con1way(J)
+
         d=con.shape[1]
 
         if nboot is None:
@@ -785,7 +783,6 @@ def rmmcppb(x,  est, *args,  alpha=.05, con=None,
                 nboot=5000
 
         n=x.shape[0]
-        crit_vec=alpha/np.arange(1,d+1)
         connum=con.shape[1]
 
         if seed:
@@ -1138,7 +1135,7 @@ def spmcpb(J, K, x, est, *args, dif=True, alpha=.05, nboot=599, seed=False):
     x=pandas_to_arrays(x)
     x=remove_nans_based_on_design(x, design_values=[J,K], design_type='between_within')
 
-    JK=J*K
+    #JK=J*K
 
     if seed:
         np.random.seed(seed)
@@ -1331,6 +1328,57 @@ def spmcpi(J, K, x, est, *args, alpha=.05, nboot=None, SR=False, seed=False):
 
     return results
 
+def wwmcppb(J, K, x,  est, *args,  alpha=.05, dif=True,
+            nboot=None, BA=True, hoch=True, seed=False):
+
+    """
+    Do all multiple comparisons for a within-by-within design using a percentile bootstrap method
+
+    The variable x is a Pandas DataFrame where the first column
+    contains the data for the first level of both factors: level 1,1.
+    The second column contains the data for level 1 of the
+    first factor and level 2 of the second: level 1,2.
+    x.iloc[:,K] is the data for level 1,K. x.iloc[:,K+1] is the data for level 2,1.
+    x.iloc[:, 2K] is level 2,K, etc.
+
+    If dif=True, the analysis is done based on all pairs
+    of difference scores.
+    Otherwise, marginal measures of location are used.
+
+    :param x:
+    :param est:
+    :param args:
+    :param alpha:
+    :param dif:
+    :param nboot:
+    :param BA:
+    :param hoch:
+    :param seed:
+    :return:
+    """
+
+    x=pandas_to_arrays(x)
+    x=remove_nans_based_on_design(x, design_values=[J,K], design_type='within_within')
+    x_mat=np.r_[x].T
+
+    conA, conB, conAB = con2way(J, K)
+    A = rmmcppb(x_mat, est, *args, con = conA, alpha = alpha, dif = dif,
+                nboot = nboot,BA = BA, hoch = hoch, seed = seed)
+
+    B = rmmcppb(x_mat, est, *args, con = conB, alpha = alpha, dif = dif,
+                nboot = nboot,BA = BA, hoch = hoch, seed = seed)
+
+    AB = rmmcppb(x_mat, est, *args, con = conAB, alpha = alpha, dif = dif,
+                nboot = nboot,BA = BA, hoch = hoch, seed = seed)
+
+    col_names=['con_num', 'psihat', 'p_value', 'p_crit', 'ci_lower', 'ci_upper']
+
+    [X.update({"output": pd.DataFrame(X['output'], columns=col_names)})
+        for X in [A,B,AB]]
+
+    results={'factor_A': A, 'factor_B': B, "factor_AB": AB}
+
+    return results
 
 
 

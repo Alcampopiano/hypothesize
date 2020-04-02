@@ -83,6 +83,8 @@ def con2way(J,K):
 
                         conAB[:, ic-1] = mat.reshape(conAB.shape[0]).T
 
+    #results={"conA": conA, "conB": conB, "conAB": conAB}
+
     return conA, conB, conAB
 
 def winvar(x, tr=.2):
@@ -1843,9 +1845,10 @@ def remove_nans_based_on_design(x, design_values, design_type):
         print(design_types)
         raise Exception("invalid design type")
 
-    if design_type in ('dependent_groups', 'between_between'):
+    if design_type in ('dependent_groups', 'within_within'):
 
-        x=[np.c_[x[0:]]]
+        #x=np.array([np.c_[x[0:]]])
+        x=np.c_[x[0:]]
         x = x.T[~np.isnan(x.T).any(axis=1)]
         x_clean = [i for i in x.T]
 
