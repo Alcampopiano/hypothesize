@@ -1,4 +1,4 @@
-__all__ = ["bwmcp", "bwamcp", "bwbmcp", "bwimcp", "spmcpb"]
+__all__ = ["bwmcp", "bwamcp", "bwbmcp", "bwimcp", "spmcpa", "spmcpb", "spmcpi"]
 
 import numpy as np
 import pandas as pd
