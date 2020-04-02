@@ -750,7 +750,7 @@ def rmmcppb(x,  est, *args,  alpha=.05, con=None,
 
     if SR:
         raise Exception("onestep and mom estimators are not yet implemented"
-                        "and only these can be used with SR method. Please choose another estimator.")
+                        "and only these can be used with SR method. Please set SR to False for now.")
 
     if dif:
         print("analysis is being done on difference scores",
@@ -1086,12 +1086,11 @@ def spmcpa(J, K, x, est, *args,
     tmeans=mvec
     output[temp2,3]=zvec
     for ic in range(ncon):
-        np.sum(con[:, ic] * tmeans)
         output[ic, 1] = np.sum(con[:, ic] * tmeans)
         output[ic, 0] = ic
         output[ic, 2] = test[ic]
         temp = np.sort(psihat[ic, :])
-        icl = round(dvec[ncon] * nboot) #+ 1
+        icl = int(round(dvec[ncon-1] * nboot)) #+ 1
         icu = nboot - icl - 1 #(icl - 1)
         output[ic, 4] = temp[icl]
         output[ic, 5] = temp[icu]
@@ -1164,7 +1163,7 @@ def spmcpb(J, K, x, est, *args, dif=True, alpha=.05, nboot=599, seed=False):
 
     return results
 
-def spmcpi():
+def spmcpi(J, K, x, est, *args, alpha=.05, nboot=None, SR=False, seed=False):
 
     """
     Multiple comparisons for interactions
@@ -1177,8 +1176,160 @@ def spmcpi():
     :return:
     """
 
+    x=pandas_to_arrays(x)
+    x=remove_nans_based_on_design(x, design_values=[J,K], design_type='between_within')
+
+    if seed:
+        np.random.seed(seed)
+
+    nvec=[len(nj) for nj in x[:J*K:K]]
+    MK = (K ** 2 - K) // 2
+    MJK = K * (J ** 2 - J) // 2
+    con = np.zeros([J * K, MJK])
+    n_idioms = J - 1
+    idioms = []
+    K_mult = K
+
+    for i in range(n_idioms):
+        tmp = np.concatenate([[1], np.repeat(0, K_mult - 1), [-1]])
+        idioms.append(tmp)
+        K_mult *= 2
+
+    col_ind = 0
+    for idiom in idioms:
+        num_rep_idiom = len(list(mit.windowed(con[:, 0], n=len(idiom))))
+
+        row_start = 0
+        for _ in range(num_rep_idiom):
+            con[row_start:row_start + len(idiom), col_ind] = idiom
+            row_start += 1
+            col_ind += 1
+
+    d=con.shape[1]
+
+    if not nboot:
+        if d<=4:
+            nboot=1000
+        else:
+            nboot=5000
 
 
+    xx=x.copy()
+    bloc=np.full([J, nboot], np.nan)
+    mvec=np.array([])
+    it=0
+    for j in range(1,J+1):
+        x=np.full([nvec[j-1], MK], np.nan)
+        im=0
+        for k in range(K):
+            for kk in range(K):
+                if k<kk:
+                    kp = j * K + k - K
+                    kpp = j * K + kk - K
+                    x[:, im] = xx[kp] - xx[kpp]
+                    mvec=np.append(mvec, est(x[:,im], *args))
+                    it+=1
+                    im+=1
+
+        data=np.random.randint(nvec[j-1], size=(nboot, nvec[j-1]))
+        bvec=np.full([nboot, MK], np.nan)
+
+        for k in range(MK):
+            temp = x[:, k]
+            bvec[:, k] = [rmanogsub(data_row, temp, est, *args) for data_row in data]
+
+        if j==1:
+            bloc=bvec.copy()
+
+        elif j>1:
+            bloc=np.c_[bloc, bvec]
+
+    connum=d
+    psihat=np.zeros([connum, nboot])
+    test=np.full(connum, np.nan)
+    for ic in range(connum):
+
+      psihat[ic, :] = [bptdpsi(row, con[:, ic]) for row in bloc]
+      test[ic] = (np.sum(psihat[ic, :] > 0) + .5 * np.sum(psihat[ic, :] == 0)) / nboot
+      test[ic] = np.min([test[ic], 1 - test[ic]])
+
+    ncon=con.shape[1]
+    dvec = alpha / np.arange(1,ncon+1)
+
+    if SR:
+        raise Exception("onestep and mom estimators are not yet implemented"
+                        "and only these can be used with SR method. Please set SR to False for now.")
+
+        # THIS CODE IS UNREACHABLE UNTIL SR CONDITION IS ALLOWED
+        # if alpha == .05:
+        #
+        #     dvec = [.025,
+        #             .025,
+        #             .0169,
+        #             .0127,
+        #             .0102,
+        #             .00851,
+        #             .0073,
+        #             .00639,
+        #             .00568,
+        #             .00511]
+        #
+        #     if ncon > 10:
+        #         avec = .05 / np.arange(11, ncon + 1)
+        #         dvec = np.append(dvec, avec)
+        #
+        # elif alpha == .01:
+        #
+        #     dvec = [.005,
+        #             .005,
+        #             .00334,
+        #             .00251,
+        #             .00201,
+        #             .00167,
+        #             .00143,
+        #             .00126,
+        #             .00112,
+        #             .00101]
+        #
+        #     if ncon > 10:
+        #         avec = .01 / np.arange(11, ncon + 1)
+        #         dvec = np.append(dvec, avec)
+        #
+        # else:
+        #
+        #     dvec = alpha / np.arange(1, ncon + 1)
+        #     dvec[0] = alpha/2
+
+    temp2=(-test).argsort()
+    zvec=dvec[:ncon]
+    output=np.zeros([connum,6])
+
+    tmeans=mvec
+    output[temp2,3]=zvec
+    for ic in range(ncon):
+        output[ic, 1] = np.sum(con[:, ic] * tmeans)
+        output[ic, 0] = ic
+        output[ic, 2] = test[ic]
+        temp = np.sort(psihat[ic, :])
+        icl = int(round(dvec[ncon-1] * nboot)) #+ 1
+        icu = nboot - icl - 1 #(icl - 1)
+        output[ic, 4] = temp[icl]
+        output[ic, 5] = temp[icu]
+
+    output[:, 2] = 2 * output[:, 2]
+
+    if SR:
+        output[:, 3] = 2 * output[:, 3]
+
+    num_sig = np.sum(output[:, 2] <= output[:, 3])
+
+    col_names=["con_num", "psihat", "p_value",
+               "p_crit", "ci_lower", "ci_upper"]
+    output=pd.DataFrame(output, columns=col_names)
+
+    results={"output": output, "con": con, "num_sig": num_sig}
+
+    return results
 
 
 
