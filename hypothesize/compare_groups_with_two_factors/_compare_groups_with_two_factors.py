@@ -1,11 +1,13 @@
-__all__ = ["bwmcp", "bwamcp", "bwbmcp", "bwimcp", "spmcpa", "spmcpb", "spmcpi", "wwmcppb"]
+__all__ = ["bwmcp", "bwamcp", "bwbmcp", "bwimcp",
+           "spmcpa", "spmcpb", "spmcpi", "wwmcppb",
+           "wwmcpbt"]
 
 import numpy as np
 import pandas as pd
 from scipy.stats import trim_mean
 from hypothesize.utilities import con2way, lindep, covmtrim, \
-    lincon, winvar, trimse, yuen, con1way, bptdpsi, rmanogsub
-from hypothesize.measuring_associations import wincor
+    lincon, yuen, con1way, bptdpsi, rmanogsub, \
+    lindepbt, rmmcp
 from hypothesize.utilities import remove_nans_based_on_design, pandas_to_arrays
 import more_itertools as mit
 from scipy.stats import t
@@ -223,12 +225,19 @@ def bwbmcp(J, K, x, tr=.2, con=None, alpha=.05,
     x = pandas_to_arrays(x)
     x = remove_nans_based_on_design(x, design_values=[J,K], design_type='between_within')
 
-    if pool:
-        data = [np.concatenate(x[i:i+J*K+1:K]) for i in range(K)]
-        tests=rmmcp(data, con=con, tr=tr,alpha=alpha,dif=dif,hoch=hoch)
-
+    if con is None:
         col_names_test = ["group_x", "group_y", "test", "p_value", "p_crit", "se"]
         col_names_psihat = ["group_x", "group_y", "psihat", "ci_lower", "ci_upper"]
+
+    else:
+        col_names_test = ["con_num", "test", "p_value", "p_crit", "se"]
+        col_names_psihat = ["con_num", "psihat", "ci_lower", "ci_upper"]
+
+    if pool:
+        data = [np.concatenate(x[i:i+J*K+1:K]) for i in range(K)]
+        data=np.vstack(data).T
+        tests=rmmcp(data, con=con, tr=tr,alpha=alpha,dif=dif,hoch=hoch)
+
         test_df = pd.DataFrame(tests['test'], columns=col_names_test)
         psihat_df = pd.DataFrame(tests['psihat'], columns=col_names_psihat)
 
@@ -242,10 +251,9 @@ def bwbmcp(J, K, x, tr=.2, con=None, alpha=.05,
         j_ind=0
         for j in range(J):
             data=x[j_ind:j_ind+K]
+            data = np.vstack(data).T
             tests = rmmcp(data, con=con, tr=tr, alpha=alpha, dif=dif, hoch=hoch)
 
-            col_names_test=["group_x", "group_y", "test", "p_value", "p_crit", "se"]
-            col_names_psihat = ["group_x", "group_y", "psihat", "ci_lower", "ci_upper"]
             test_df=pd.DataFrame(tests['test'], columns=col_names_test)
             psihat_df=pd.DataFrame(tests['psihat'], columns=col_names_psihat)
             tests={"test": test_df, 'psihat': psihat_df, 'n': tests['n'], 'con': tests['con'], 'num_sig': tests['num_sig']}
@@ -255,224 +263,6 @@ def bwbmcp(J, K, x, tr=.2, con=None, alpha=.05,
 
 
     return results
-
-def rmmcp(x, con=None, tr=.2, alpha=.05, dif=True, hoch=True):
-
-    """
-    MCP on trimmed means with FWE controlled with Hochberg's method
-    will use Rom's method if alpha=.05 or .01 and number of tests is <=10
-
-    Note: confidence intervals are adjusted based on the corresponding critical p-value.
-
-    :param x: list of arrays
-    :param con:
-    :param tr:
-    :param alpha:
-    :param dif:
-    :param hoch:
-    :return:
-    """
-
-    from hypothesize.utilities import trimci
-
-    flagcon = False
-    x = np.vstack(x).T
-    J = x.shape[1]
-    xbar=np.zeros(J)
-    x=x[~np.isnan(x).any(axis=1)]
-    nval=x.shape[0]
-    nrow=x.shape[0]
-    h1 = nrow - 2 * np.floor(tr * nrow)
-    df=h1-1
-
-    for j in range(J):
-        xbar[j]=trim_mean(x[:,j], .2)
-
-    if con is not None: #np.sum(con**2 != 0): # is not none?
-        CC=con.shape[1]
-
-    if con is None: #sum(con**2)==0: # is none?
-        CC = (J ** 2 - J) / 2
-
-    ncon=CC
-
-    if alpha==.05:
-        dvec=np.array([.05,
-          .025,
-          .0169,
-          .0127,
-          .0102,
-          .00851,
-          .0073,
-          .00639,
-          .00568,
-          .00511])
-
-        if ncon > 10:
-            avec=.05/np.arange(ncon,11+1)[::-1]
-            dvec = np.concatenate([dvec, avec])
-
-    if alpha==.01:
-        dvec=np.array([.01,
-        .005,
-        .00334,
-        .00251,
-        .00201,
-        .00167,
-        .00143,
-        .00126,
-        .00112,
-        .00101])
-
-        if ncon > 10:
-            avec=.01/np.arange(ncon,11+1)[::-1]
-            dvec = np.concatenate([dvec, avec])
-
-    if hoch:
-        dvec = alpha / np.arange(1,ncon+1)
-
-    if alpha != .05 and alpha != .01:
-        dvec = alpha / np.arange(1, ncon + 1)
-
-    if con is None: #sum(con**2)==0:
-        flagcon=True
-        psihat=np.zeros([int(CC),5])
-        test=np.full([int(CC),6], np.nan)#np.zeros([int(CC),6])
-
-        temp1=np.empty(0) #np.zeros(J*J) #np.array([0])
-        jcom=0
-        for j in range(J):
-            for k in range(J):
-                if j<k:
-                    q1 = (nrow - 1) * winvar(x[:, j], tr)
-                    q2 = (nrow - 1) * winvar(x[:, k], tr)
-                    q3 = (nrow - 1) * wincor(x[:, j], x[:, k], tr)['wcov']
-                    sejk = np.sqrt((q1 + q2 - 2 * q3) / (h1 * (h1 - 1)))
-
-                    if not dif:
-                        test[jcom, 5] = sejk
-                        test[jcom, 2] = (xbar[j] - xbar[k]) / sejk
-                        temp1=np.append(temp1, 2 * (1 - t.cdf(abs(test[jcom, 2]), df)))
-                        test[jcom, 3] = temp1[jcom]
-                        psihat[jcom, 0] = j
-                        psihat[jcom, 1] = k
-                        test[jcom, 0] = j
-                        test[jcom, 1] = k
-                        psihat[jcom, 2] = (xbar[j] - xbar[k])
-
-                    elif dif:
-                        dv = x[:, j] - x[:, k]
-                        test[jcom, 5] = trimse(dv, tr)
-                        temp = trimci(dv, alpha=alpha / CC, tr=tr)
-                        test[jcom, 2] = temp['test_stat']
-                        temp1=np.append(temp1, temp['p_value'])
-                        test[jcom, 3] = temp1[jcom]
-                        psihat[jcom, 0] = j
-                        psihat[jcom, 1] = k
-                        test[jcom, 0] = j
-                        test[jcom, 1] = k
-                        psihat[jcom, 2] = trim_mean(dv, tr)
-                        psihat[jcom, 3] = temp['ci'][0]
-                        psihat[jcom, 4] = temp['ci'][1]
-
-                    jcom+=1
-
-        if hoch:
-            dvec = alpha / np.arange(1, ncon+1)
-
-        temp2=(-temp1).argsort()
-        zvec = dvec[0:int(ncon)]
-        sigvec = (test[temp2, 3] >= zvec)
-
-        if np.sum(sigvec) < ncon:
-            dd = ncon - np.sum(sigvec)
-            ddd = np.sum(sigvec) + 1
-
-        test[temp2, 4] = zvec
-
-        if not dif:
-            psihat[:, 3] = psihat[:, 2] - t.ppf(1 - test[:, 4] / 2, df) * test[:, 5]
-            psihat[:, 4] = psihat[:, 2] + t.ppf(1 - test[:, 4] / 2, df) * test[:, 5]
-
-    elif con is not None: #sum(con ** 2) > 0:
-
-        if con.shape[0] != x.shape[1]:
-            raise Exception("The number of groups does not match the number "
-                            "of contrast coefficients.")
-
-        ncon = con.shape[1]
-        psihat = np.zeros([ncon, 4])
-        test = np.zeros([ncon, 5])
-        temp1=np.empty(0)
-
-        for d in range(ncon):
-            psihat[d,0]=d
-
-            if not dif:
-                psihat[d, 1] = np.sum(con[:, d] * xbar)
-                sejk=0
-
-                for j in range(J):
-                    for k in range(J):
-                        djk = (nval - 1) * wincor(x[:, j], x[:, k], tr)['wcov'] / (h1 * (h1 - 1))
-                        sejk = sejk + con[j, d] * con[k, d] * djk
-
-                sejk = np.sqrt(sejk)
-                test[d, 0] = d
-                test[d, 1] = np.sum(con[:, d] * xbar) / sejk
-                test[d, 4] = sejk
-                temp1 = np.append(temp1, 2 * (1 - t.cdf(abs(test[d, 1]), df)))
-
-            elif dif:
-
-                for j in range(J):
-                    if j==0:
-                        dval = con[j, d] * x[:,j]
-
-                    elif j>0:
-                        dval=dval + con[j,d] * x[:,j]
-
-                temp1=np.append(temp1, trimci(dval, tr=tr)['p_value'])
-                test[d, 0] = d
-                test[d, 1] = trimci(dval, tr=tr)['test_stat']
-                test[d, 4] = trimse(dval, tr=tr)
-                psihat[d, 1] = trim_mean(dval, tr)
-
-        test[:, 2] = temp1
-        temp2 = (-temp1).argsort()
-        zvec = dvec[0:ncon]
-        sigvec = (test[temp2, 2] >= zvec)
-
-        if sum(sigvec) < ncon:
-            dd = ncon - sum(sigvec)
-            ddd = sum(sigvec) + 1
-
-        test[temp2, 3] = zvec
-        psihat[:, 2] = psihat[:, 1] - t.ppf(1 - test[:, 3] / 2, df) * test[:, 4]
-        psihat[:, 3] = psihat[:, 1] + t.ppf(1 - test[:, 3] / 2, df) * test[:, 4]
-
-    num_sig=test.shape[0]
-
-    if flagcon:
-        ior = (-test[:,4]).argsort()
-
-        for j in range(test.shape[0]):
-            if test[ior[j], 3] <= test[ior[j], 4]:
-                break
-            else:
-                num_sig=num_sig - 1
-
-    elif not flagcon:
-        ior = (-test[:, 3]).argsort()
-
-        for j in range(test.shape[0]):
-            if test[ior[j], 2] <= test[ior[j], 3]:
-                break
-            else:
-                num_sig=num_sig - 1
-
-    return {"n": nval, "test": test, "psihat": psihat,
-            "con": con, "num_sig": num_sig}
 
 def bwimcp(J, K, x, tr=.2, alpha=.05):
 
@@ -1380,6 +1170,48 @@ def wwmcppb(J, K, x,  est, *args,  alpha=.05, dif=True,
 
     return results
 
+def wwmcpbt(J, K, x, tr=.2, alpha=.05, nboot=599, seed=False):
+
+    """
+    Do multiple comparisons for a within-by-within design.
+    using a bootstrap-t method and trimmed means.
+    All linear contrasts relevant to main effects and interactions
+    are tested.
+
+    :param J:
+    :param K:
+    :param x:
+    :param tr:
+    :param alpha:
+    :param nboot:
+    :param seed:
+    :return:
+    """
+
+    print("ask wilcox if dif is supposed to be a argument here")
+
+    x = pandas_to_arrays(x)
+    x = remove_nans_based_on_design(x, design_values=[J, K], design_type='within_within')
+    x_mat = np.r_[x].T
+
+    conA, conB, conAB = con2way(J, K)
+
+    A = lindepbt(x_mat, tr=tr, con=conA, alpha=alpha, nboot=nboot, seed=seed)
+    B = lindepbt(x_mat, tr=tr, con=conB, alpha=alpha, nboot=nboot, seed=seed)
+    AB = lindepbt(x_mat, tr=tr, con=conAB, alpha=alpha, nboot=nboot, seed=seed)
+
+    col_names_test=['con_num', 'test', 'p_value', 'p_crit', 'se']
+    col_names_psihat=['con_num', 'psihat', 'ci_lower', 'ci_upper']
+
+    [X.update({"test": pd.DataFrame(X['test'], columns=col_names_test)})
+        for X in [A,B,AB]]
+
+    [X.update({"psihat": pd.DataFrame(X['psihat'], columns=col_names_psihat)})
+        for X in [A,B,AB]]
+
+    results={'factor_A': A, 'factor_B': B, "factor_AB": AB}
+
+    return results
 
 
 

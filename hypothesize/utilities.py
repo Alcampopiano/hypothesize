@@ -1880,3 +1880,410 @@ def bptdpsi(x,con):
 def rmanogsub(isub, x, est, *args):
     tsub=est(x[isub], *args)
     return tsub
+
+def rmmcp(x, con=None, tr=.2, alpha=.05, dif=True, hoch=True):
+
+    """
+    MCP on trimmed means with FWE controlled with Hochberg's method
+    will use Rom's method if alpha=.05 or .01 and number of tests is <=10
+
+    Note: confidence intervals are adjusted based on the corresponding critical p-value.
+
+    :param x: list of arrays
+    :param con:
+    :param tr:
+    :param alpha:
+    :param dif:
+    :param hoch:
+    :return:
+    """
+
+    from hypothesize.measuring_associations import wincor
+
+    flagcon = False
+    #x = np.vstack(x).T
+    J = x.shape[1]
+    xbar=np.zeros(J)
+    x=x[~np.isnan(x).any(axis=1)]
+    nval=x.shape[0]
+    nrow=x.shape[0]
+    h1 = nrow - 2 * np.floor(tr * nrow)
+    df=h1-1
+
+    for j in range(J):
+        xbar[j]=trim_mean(x[:,j], .2)
+
+    if con is not None: #np.sum(con**2 != 0): # is not none?
+        CC=con.shape[1]
+
+    if con is None: #sum(con**2)==0: # is none?
+        CC = (J ** 2 - J) / 2
+
+    ncon=CC
+
+    if alpha==.05:
+        dvec=np.array([.05,
+          .025,
+          .0169,
+          .0127,
+          .0102,
+          .00851,
+          .0073,
+          .00639,
+          .00568,
+          .00511])
+
+        if ncon > 10:
+            avec=.05/np.arange(ncon,11+1)[::-1]
+            dvec = np.concatenate([dvec, avec])
+
+    if alpha==.01:
+        dvec=np.array([.01,
+        .005,
+        .00334,
+        .00251,
+        .00201,
+        .00167,
+        .00143,
+        .00126,
+        .00112,
+        .00101])
+
+        if ncon > 10:
+            avec=.01/np.arange(ncon,11+1)[::-1]
+            dvec = np.concatenate([dvec, avec])
+
+    if hoch:
+        dvec = alpha / np.arange(1,ncon+1)
+
+    if alpha != .05 and alpha != .01:
+        dvec = alpha / np.arange(1, ncon + 1)
+
+    if con is None: #sum(con**2)==0:
+        flagcon=True
+        psihat=np.zeros([int(CC),5])
+        test=np.full([int(CC),6], np.nan)#np.zeros([int(CC),6])
+
+        temp1=np.empty(0) #np.zeros(J*J) #np.array([0])
+        jcom=0
+        for j in range(J):
+            for k in range(J):
+                if j<k:
+                    q1 = (nrow - 1) * winvar(x[:, j], tr)
+                    q2 = (nrow - 1) * winvar(x[:, k], tr)
+                    q3 = (nrow - 1) * wincor(x[:, j], x[:, k], tr)['wcov']
+                    sejk = np.sqrt((q1 + q2 - 2 * q3) / (h1 * (h1 - 1)))
+
+                    if not dif:
+                        test[jcom, 5] = sejk
+                        test[jcom, 2] = (xbar[j] - xbar[k]) / sejk
+                        temp1=np.append(temp1, 2 * (1 - t.cdf(abs(test[jcom, 2]), df)))
+                        test[jcom, 3] = temp1[jcom]
+                        psihat[jcom, 0] = j
+                        psihat[jcom, 1] = k
+                        test[jcom, 0] = j
+                        test[jcom, 1] = k
+                        psihat[jcom, 2] = (xbar[j] - xbar[k])
+
+                    elif dif:
+                        dv = x[:, j] - x[:, k]
+                        test[jcom, 5] = trimse(dv, tr)
+                        temp = trimci(dv, alpha=alpha / CC, tr=tr)
+                        test[jcom, 2] = temp['test_stat']
+                        temp1=np.append(temp1, temp['p_value'])
+                        test[jcom, 3] = temp1[jcom]
+                        psihat[jcom, 0] = j
+                        psihat[jcom, 1] = k
+                        test[jcom, 0] = j
+                        test[jcom, 1] = k
+                        psihat[jcom, 2] = trim_mean(dv, tr)
+                        psihat[jcom, 3] = temp['ci'][0]
+                        psihat[jcom, 4] = temp['ci'][1]
+
+                    jcom+=1
+
+        if hoch:
+            dvec = alpha / np.arange(1, ncon+1)
+
+        temp2=(-temp1).argsort()
+        zvec = dvec[0:int(ncon)]
+        sigvec = (test[temp2, 3] >= zvec)
+
+        if np.sum(sigvec) < ncon:
+            dd = ncon - np.sum(sigvec)
+            ddd = np.sum(sigvec) + 1
+
+        test[temp2, 4] = zvec
+
+        if not dif:
+            psihat[:, 3] = psihat[:, 2] - t.ppf(1 - test[:, 4] / 2, df) * test[:, 5]
+            psihat[:, 4] = psihat[:, 2] + t.ppf(1 - test[:, 4] / 2, df) * test[:, 5]
+
+    elif con is not None: #sum(con ** 2) > 0:
+
+        if con.shape[0] != x.shape[1]:
+            raise Exception("The number of groups does not match the number "
+                            "of contrast coefficients.")
+
+        ncon = con.shape[1]
+        psihat = np.zeros([ncon, 4])
+        test = np.zeros([ncon, 5])
+        temp1=np.empty(0)
+
+        for d in range(ncon):
+            psihat[d,0]=d
+
+            if not dif:
+                psihat[d, 1] = np.sum(con[:, d] * xbar)
+                sejk=0
+
+                for j in range(J):
+                    for k in range(J):
+                        djk = (nval - 1) * wincor(x[:, j], x[:, k], tr)['wcov'] / (h1 * (h1 - 1))
+                        sejk = sejk + con[j, d] * con[k, d] * djk
+
+                sejk = np.sqrt(sejk)
+                test[d, 0] = d
+                test[d, 1] = np.sum(con[:, d] * xbar) / sejk
+                test[d, 4] = sejk
+                temp1 = np.append(temp1, 2 * (1 - t.cdf(abs(test[d, 1]), df)))
+
+            elif dif:
+
+                for j in range(J):
+                    if j==0:
+                        dval = con[j, d] * x[:,j]
+
+                    elif j>0:
+                        dval=dval + con[j,d] * x[:,j]
+
+                temp1=np.append(temp1, trimci(dval, tr=tr)['p_value'])
+                test[d, 0] = d
+                test[d, 1] = trimci(dval, tr=tr)['test_stat']
+                test[d, 4] = trimse(dval, tr=tr)
+                psihat[d, 1] = trim_mean(dval, tr)
+
+        test[:, 2] = temp1
+        temp2 = (-temp1).argsort()
+        zvec = dvec[0:ncon]
+        sigvec = (test[temp2, 2] >= zvec)
+
+        if sum(sigvec) < ncon:
+            dd = ncon - sum(sigvec)
+            ddd = sum(sigvec) + 1
+
+        test[temp2, 3] = zvec
+        psihat[:, 2] = psihat[:, 1] - t.ppf(1 - test[:, 3] / 2, df) * test[:, 4]
+        psihat[:, 3] = psihat[:, 1] + t.ppf(1 - test[:, 3] / 2, df) * test[:, 4]
+
+    num_sig=test.shape[0]
+
+    if flagcon:
+        ior = (-test[:,4]).argsort()
+
+        for j in range(test.shape[0]):
+            if test[ior[j], 3] <= test[ior[j], 4]:
+                break
+            else:
+                num_sig=num_sig - 1
+
+    elif not flagcon:
+        ior = (-test[:, 3]).argsort()
+
+        for j in range(test.shape[0]):
+            if test[ior[j], 2] <= test[ior[j], 3]:
+                break
+            else:
+                num_sig=num_sig - 1
+
+    return {"n": nval, "test": test, "psihat": psihat,
+            "con": con, "num_sig": num_sig}
+
+def lindepbt(x, tr=.2, con=None, alpha=.05, nboot=599, dif=True, seed=False):
+
+    """
+    MCP on trimmed means with FWE controlled with Rom's method
+    Using a bootstrap-t method.
+
+    dif=T, difference scores are used. And for linear contrasts a simple
+    extension is used.
+
+    dif=F, hypotheses are tested based on the marginal trimmed means.
+
+
+    :param x:
+    :param tr:
+    :param con:
+    :param alpha:
+    :return:
+    """
+
+    from hypothesize.measuring_associations import wincor
+
+    if seed:
+        np.random.seed(seed)
+
+    if con is None:
+        con=con2way(1,x.shape[1])
+        ncon = con.shape[1]
+
+    else:
+        ncon = con.shape[1]
+
+    x = x[~np.isnan(x).any(axis=1)]
+    n=x.shape[0]
+    J=x.shape[1]
+    nval=x.shape[0]
+    h1 = nval - 2 * np.floor(tr * nval)
+    #df=h1-1
+    xbar=trim_mean(x, tr)
+
+    if alpha == .05:
+
+        dvec = [.05,
+                  .025,
+                  .0169,
+                  .0127,
+                  .0102,
+                  .00851,
+                  .0073,
+                  .00639,
+                  .00568,
+                  .00511]
+
+        if ncon > 10:
+            avec = .05 / np.arange(11, ncon + 1)
+            dvec = np.append(dvec, avec)
+
+    elif alpha == .01:
+
+        dvec = [.01,
+                .005,
+                .00334,
+                .00251,
+                .00201,
+                .00167,
+                .00143,
+                .00126,
+                .00112,
+                .00101]
+
+        if ncon > 10:
+            avec = .01 / np.arange(11, ncon + 1)
+            dvec = np.append(dvec, avec)
+
+
+    else:
+        dvec = alpha / np.arange(1, ncon + 1)
+
+
+    psihat=np.zeros([ncon,4])
+    test = np.zeros([ncon, 5])
+    temp1=np.array([])
+
+    for d in range(ncon):
+        psihat[d, 0] = d
+
+        if not dif:
+            psihat[d, 1] = np.sum(con[:, d] * xbar)
+            sejk = 0
+
+            for j in range(J):
+                for k in range(J):
+                    djk = (nval - 1) * wincor(x[:, j], x[:, k], tr)['wcov'] / (h1 * (h1 - 1))
+                    sejk = sejk + con[j, d] * con[k, d] * djk
+
+            sejk = np.sqrt(sejk)
+            test[d, 0] = d
+            test[d, 1] = np.sum(con[:, d] * xbar) / sejk
+            test[d, 4] = sejk
+
+            data=np.random.randint(n, size=(nboot, n))
+            xcen = np.full([x.shape[0], x.shape[1]], np.nan)
+            for j in range(J):
+                xcen[:, j] = x[:, j] - trim_mean(x[:, j], tr)
+
+            bvec=[lindep_sub(data_row, xcen, con[:,d], tr=tr)
+                  for data_row in data]
+
+            bsort = np.sort(np.abs(bvec))
+            ic = round((1 - alpha) * nboot) - 1 # correct for python with the "- 1"?
+            psihat[d, 2] = psihat[d, 1] - bsort[ic] * test[d, 4]
+            psihat[d, 3] = psihat[d, 1] + bsort[ic] * test[d, 4]
+            p_value = np.mean(np.abs(test[d, 1]) <= np.abs(bvec))
+            temp1 = np.append(temp1, p_value)
+
+        elif dif:
+
+            for j in range(J):
+                if j==0:
+                    dval=con[j,d] * x[:,j]
+
+                elif j>0:
+                    dval=dval+con[j,d] * x[:,j]
+
+            temp = trimcibt(dval,tr=tr,alpha=alpha,nboot=nboot,seed=seed)
+            temp1 = np.append(temp1, temp['p_value'])
+            test[d, 0] = d
+            test[d, 1]=temp['test_stat'] ## missing in R?
+            test[d, 4] = trimse(dval, tr=tr)
+            psihat[d, 1] = trim_mean(dval, tr)
+            psihat[d, 2] = temp['ci'][0]
+            psihat[d, 3] = temp['ci'][1]
+
+    test[:, 2] = temp1
+    temp2 =  (-temp1).argsort()
+    zvec = dvec[:ncon]
+    test[temp2, 3] = zvec
+
+    # if flagcon
+    num_sig = np.sum(test[:, 2] <= test[:, 3])
+
+    return {'test': test, 'psihat': psihat, 'con': con, 'num_sig': num_sig}
+
+def lindep_sub(data, x, con = None, tr = .2):
+
+    con = con.reshape(len(con), 1) # make 2D col vector
+    res = rmmcp(x[data,:], con=con, tr=tr, dif=False)['test'][:, 1]
+
+    return res[0]
+
+def trimcibt(x, tr=.2, alpha=.05, nboot=None, seed=False):
+
+    """
+    Compute a 1-alpha confidence interval for the trimmed mean
+    using a bootstrap percentile t method.
+
+    The default amount of trimming is tr=.2.
+
+    During the bootstrapping, the absolute value of the test
+    statistic is used (the "two-sided method").
+
+    :param x:
+    :param tr:
+    :param alpha:
+    :param nboot:
+    :param seed:
+    :return:
+    """
+
+    x=x[~np.isnan(x)]
+    test=trim_mean(x,tr)/trimse(x,tr)
+    data=np.random.choice(x, size=(nboot, len(x)))
+    data=data-trim_mean(x,tr)
+    top=np.array([trim_mean(row, tr) for row in data])
+    bot = np.array([trimse(row, tr) for row in data])
+    tval=np.sort(abs(top/bot))
+    #tval=abs(tval)
+    #tval=np.sort(tval)
+    icrit = round((1 - alpha) * nboot) - 1 # one less for python
+    #ibot = round(alpha * nboot / 2) - 1 # one less for python
+    #itop = nboot - ibot - 2 # -2 for python
+
+    ci_low_ci_up = [trim_mean(x, tr) - tval[icrit] * trimse(x, tr),
+                     trim_mean(x, tr) + tval[icrit] * trimse(x, tr)]
+
+    p_value = (np.sum(np.abs(test) <= np.abs(tval))) / nboot
+
+    return {"estimate": trim_mean(x, tr), "ci": ci_low_ci_up,
+            "test_stat": test, "p_value": p_value, "n": len(x)}
