@@ -1,13 +1,13 @@
 __all__ = ["bwmcp", "bwamcp", "bwbmcp", "bwimcp",
            "spmcpa", "spmcpb", "spmcpi", "wwmcppb",
-           "wwmcpbt"]
+           "wwmcpbt", "bwmcppb"]
 
 import numpy as np
 import pandas as pd
 from scipy.stats import trim_mean
 from hypothesize.utilities import con2way, lindep, covmtrim, \
     lincon, yuen, con1way, bptdpsi, rmanogsub, \
-    lindepbt, rmmcp
+    lindepbt, rmmcp, linhat
 from hypothesize.utilities import remove_nans_based_on_design, pandas_to_arrays
 import more_itertools as mit
 from scipy.stats import t
@@ -1135,6 +1135,8 @@ def wwmcppb(J, K, x,  est, *args,  alpha=.05, dif=True,
     of difference scores.
     Otherwise, marginal measures of location are used.
 
+    :param J:
+    :param K:
     :param x:
     :param est:
     :param args:
@@ -1213,8 +1215,153 @@ def wwmcpbt(J, K, x, tr=.2, alpha=.05, nboot=599, seed=False):
 
     return results
 
+def bwmcppb(J, K, x, est, *args, alpha=.05,
+            nboot=500, bhop=True, seed=True):
+
+    """
+    A percentile bootstrap for multiple comparisons
+    for all main effects and interactions
+    The analysis is done by generating bootstrap samples and
+    using an appropriate linear contrast.
+
+    The variable x is a Pandas DataFrame where the first column
+    contains the data for the first level of both factors: level 1,1.
+    The second column contains the data for level 1 of the
+    first factor and level 2 of the second: level 1,2.
+    x.iloc[:,K] is the data for level 1,K. x.iloc[:,K+1] is the data for level 2,1.
+    x.iloc[:, 2K] is level 2,K, etc.
+
+    :param J: Number of groups in Factor A
+    :param K: Number of groups in Factor B
+    :param x: Pandas DataFrame
+    :param est: estimator (e.g., trim_mean)
+    :param args: positional arguments for estimator (e.g., .2 for trim_mean)
+    :param alpha: significance level
+    :param nboot: number of bootstrap samples
+    :param bhop:
+    :param seed: random seed for reproducibility
+    :return: results dictionary
+    """
+
+    print("ask wilcox if this is onlly for trimmed means "
+          "depite the optional est arg",
+          "I did, he said this is taken care of in 5th edition")
+
+    x = pandas_to_arrays(x)
+    x = remove_nans_based_on_design(x, design_values=[J, K], design_type='between_within')
+
+    conA, conB, conAB = con2way(J, K)
+
+    A = bwmcppb_sub(J, K, x, est, *args, con=conA,
+        alpha = alpha, nboot = nboot, bhop = bhop, seed = seed)
+
+    B = bwmcppb_sub(J, K, x, est, *args, con=conB,
+                    alpha=alpha, nboot=nboot, bhop=bhop, seed=seed)
+
+    AB = bwmcppb_sub(J, K, x, est, *args, con=conAB,
+                    alpha=alpha, nboot=nboot, bhop=bhop, seed=seed)
+
+    # col_names_test=['con_num', 'test', 'p_value', 'p_crit', 'se']
+    # col_names_psihat=['con_num', 'psihat', 'ci_lower', 'ci_upper']
+    #
+    # [X.update({"test": pd.DataFrame(X['test'], columns=col_names_test)})
+    #     for X in [A,B,AB]]
+    #
+    # [X.update({"psihat": pd.DataFrame(X['psihat'], columns=col_names_psihat)})
+    #     for X in [A,B,AB]]
+
+    results={'factor_A': pd.DataFrame(A), 'factor_B': pd.DataFrame(B), "factor_AB": pd.DataFrame(AB)}
+
+    return results
+
+def bwmcppb_sub(J, K, x, est, *args, con=None, alpha=.05,
+                nboot=500, bhop=True, seed=True):
+
+    """
+
+    :param J:
+    :param K:
+    :param x:
+    :param est:
+    :param args:
+    :param con:
+    :param alpha:
+    :param nboot:
+    :param bhop:
+    :param seed:
+    :return:
+    """
+
+    nvec=max([len(j) for j in x])
+    ncon=con.shape[1]
+    #xx=x.copy()
+
+    if seed:
+        np.random.seed(seed)
+
+    bsam = []
+    aboot=np.full([nboot, ncon], np.nan)
+    tvec = linhat(x, con, est, *args)
+
+    ilow = 0
+    iup = K
+    for ib in range(nboot):
+
+        for j in range(J):
+
+            nv = len(x[ilow])
+            bdat=np.random.randint(nv, size=nv)
+
+            for k in range(ilow,iup):
+                bsam.append(x[k][bdat])
+
+            ilow = ilow + K
+            iup = iup + K
+
+        ilow = 0
+        iup = K
+
+        aboot[ib, :] = linhat(bsam, con, est, *args)
+        bsam=[]
+
+    pbA=np.full(aboot.shape[1], np.nan)
+
+    for j in range(aboot.shape[1]):
+        pbA[j] = np.mean(aboot[:, j] > 0)
+        pbA[j] = 2 * np.min([pbA[j], 1 - pbA[j]])
+
+    if not bhop:
+        dvec=alpha/np.arange(1, ncon+1)
+
+    else:
+        dvec=(ncon - np.arange(1, ncon+1) + 1) \
+             * alpha / ncon
+
+    outputA=np.zeros([ncon, 6])
+
+    test = pbA
+    temp2 = (-test).argsort()
+    zvec = dvec[:ncon]
+    outputA[temp2, 3] = zvec
+    icl = int(np.round(dvec[-1] * nboot / 2)) # + 1
+    icu = nboot - icl -3 # - 1
+    outputA[:, 1] = tvec
+
+    for ic in range(ncon):
+        outputA[ic, 0] = ic
+        outputA[ic, 2] = test[ic]
+        temp = np.sort(aboot[:, ic])
+        outputA[ic, 4] = temp[icl]
+        outputA[ic, 5] = temp[icu]
 
 
+    return {"con_num": outputA[:, 0],
+            "psihat": outputA[:, 1],
+            "p_value": outputA[:,2],
+            "p_crit": outputA[:,3],
+            "ci_lower": outputA[:,4],
+            "ci_upper": outputA[:,5]
+            }
 
 
 

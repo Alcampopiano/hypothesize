@@ -2115,6 +2115,9 @@ def lindepbt(x, tr=.2, con=None, alpha=.05, nboot=599, dif=True, seed=False):
     :param tr:
     :param con:
     :param alpha:
+    :param nboot:
+    :param dif:
+    :param seed:
     :return:
     """
 
@@ -2267,6 +2270,9 @@ def trimcibt(x, tr=.2, alpha=.05, nboot=None, seed=False):
     :return:
     """
 
+    if seed:
+        np.random.seed(seed)
+
     x=x[~np.isnan(x)]
     test=trim_mean(x,tr)/trimse(x,tr)
     data=np.random.choice(x, size=(nboot, len(x)))
@@ -2287,3 +2293,44 @@ def trimcibt(x, tr=.2, alpha=.05, nboot=None, seed=False):
 
     return {"estimate": trim_mean(x, tr), "ci": ci_low_ci_up,
             "test_stat": test, "p_value": p_value, "n": len(x)}
+
+def llocv2(x, est, *args):
+
+    """
+
+    :param x:
+    :param est:
+    :param args:
+    :return:
+    """
+
+    if type(x) is not list:
+        val=est(x,*args)
+
+    elif type(x) is list:
+        val=np.full(len(x), np.nan)
+
+        for i in range(len(x)):
+            val[i]=est(x[i], *args)
+
+    return {'center': val}
+
+def linhat(x, con, est, *args):
+
+    """
+
+    :param x:
+    :param con:
+    :param est:
+    :param args:
+    :return:
+    """
+
+    psihat = np.full([con.shape[1]], np.nan)
+    xbar = llocv2(x, est, *args)['center']
+    for i in range(con.shape[1]):
+        psihat[i] = np.sum(con[:, i] * xbar)
+
+    return psihat
+
+
