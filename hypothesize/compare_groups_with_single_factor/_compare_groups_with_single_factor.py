@@ -1,10 +1,10 @@
-__all__ = ["yuenbt", "pb2gen", "linconb", "rmmcppb", "lindepbt"]
+__all__ = ["yuenbt", "pb2gen", "linconb", "rmmcppb", "lindepbt", "bootdpci"]
 
 import numpy as np
 import pandas as pd
 from scipy.stats import trim_mean
 from hypothesize.utilities import trimse, lincon, trimparts, trimpartt, pandas_to_arrays, \
-    con1way, con2way, bptdpsi, rmmcp, trimcibt
+    con1way, con2way, bptdpsi, rmmcp, trimcibt, remove_nans_based_on_design
 
 def yuenbt(x, y, tr=.2, alpha=.05, nboot=599, seed=False):
 
@@ -171,7 +171,7 @@ def rmmcppb(x,  est, *args,  alpha=.05, con=None,
             hoch=False, SR=False, seed=False):
 
     """
-    Use a percentile bootstrap method to  compare dependent groups.
+    Use a percentile bootstrap method to compare dependent groups.
     By default,
     compute a .95 confidence interval for all linear contrasts
     specified by con, a J-by-C matrix, where  C is the number of
@@ -197,7 +197,6 @@ def rmmcppb(x,  est, *args,  alpha=.05, con=None,
     when computing a p-value.
 
     :param x:
-    :param y:
     :param alpha:
     :param con:
     :param est:
@@ -209,6 +208,11 @@ def rmmcppb(x,  est, *args,  alpha=.05, con=None,
     :param seed:
     :return:
     """
+
+    called_directly=False
+    if type(x) is pd.core.frame.DataFrame:
+        called_directly=True
+        x=x.dropna().values
 
     if hoch:
         SR=False
@@ -390,7 +394,13 @@ def rmmcppb(x,  est, *args,  alpha=.05, con=None,
         else:
             num_sig = num_sig - 1
 
-    results={"output": output, "con": con, "num_sig": num_sig}
+    if called_directly:
+        col_names=['con_num', 'psihat', 'p_value', 'p_crit', 'ci_lower', 'ci_upper']
+        results={"output": pd.DataFrame(output, columns=col_names), "con": con, "num_sig": num_sig}
+
+    else:
+        results={"output": output, "con": con, "num_sig": num_sig}
+
 
     return results
 
@@ -739,4 +749,44 @@ def pb2gen(x, y, est, *args, alpha=.05, nboot=2000, seed=False):
 
     return results
 
+def bootdpci(x, est, *args, nboot=None, alpha=.05,
+             dif=True, BA=False, SR=False):
 
+    """
+    Use percentile bootstrap method,
+    compute a .95 confidence interval for the difference between
+    a measure of location or scale
+    when comparing two dependent groups.
+
+    :param x: Series
+    :param est:
+    :param args:
+    :param nboot:
+    :param alpha:
+    :param dif:
+    :param BA:
+    :param SR:
+    :return:
+    """
+
+    # replace with actual estimators when implemented
+    if SR and est not in ('onestep', 'mom'):
+        SR=False
+        print("setting SR to False. SR=True should apparently "
+              "only be used with onestep or mom")
+
+    ## in R
+    # okay=False
+    # if est in (onestep, mom):
+    #     okay=True
+    #
+    # if not okay:
+    #     SR=False
+
+    results=rmmcppb(x, est, *args, nboot=nboot,alpha=alpha,
+                   SR=SR, dif=dif, BA=BA)
+
+    col_names = ['con_num', 'psihat', 'p_value', 'p_crit', 'ci_lower', 'ci_upper']
+    results.update({'output': pd.DataFrame(results['output'], columns=col_names)})
+
+    return results
