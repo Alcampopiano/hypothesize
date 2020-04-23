@@ -1,9 +1,9 @@
-__all__ = ["yuenbt", "pb2gen", "linconb", "rmmcppb", "lindepbt", "bootdpci"]
+__all__ = ["yuenbt", "pb2gen", "linconb", "rmmcppb", "lindepbt", "bootdpci", "ydbt"]
 
 import numpy as np
 import pandas as pd
 from scipy.stats import trim_mean
-from hypothesize.utilities import trimse, lincon, trimparts, trimpartt, pandas_to_arrays, \
+from hypothesize.utilities import yuend, trimse, lincon, trimparts, trimpartt, pandas_to_arrays, \
     con1way, con2way, bptdpsi, rmmcp, trimcibt, remove_nans_based_on_design
 
 def yuenbt(x, y, tr=.2, alpha=.05, nboot=599, seed=False):
@@ -790,3 +790,84 @@ def bootdpci(x, est, *args, nboot=None, alpha=.05,
     results.update({'output': pd.DataFrame(results['output'], columns=col_names)})
 
     return results
+
+def ydbt(x, y, tr=.2, alpha=.05, nboot=599, side=True, seed=False):
+
+    """
+      Using the bootstrap-t method,
+      compute a .95 confidence interval for the difference between
+      the marginal trimmed means of paired data.
+      By default, 20% trimming is used with nboot=599 bootstrap samples.
+
+      side=False returns equal-tailed ci (no p value)
+      side=True returns symmetric ci and a p value
+
+    :param x: Series
+    :param y: Series
+    :param tr:
+    :param alpha:
+    :param nboot:
+    :param side:
+    :param seed:
+    :return:
+    """
+
+    x = pandas_to_arrays([x, y])
+    x=remove_nans_based_on_design(x, 2, 'dependent_groups')
+    x,y=[x[0], x[1]]
+
+    data = np.random.randint(len(x), size=(nboot, len(x)))
+
+    xcen = x - trim_mean(x, tr)
+    ycen = y - trim_mean(y, tr)
+
+    bvec=[tsub(row, xcen, ycen, tr) for row in data]
+
+    dotest = yuend(x, y, tr=tr)
+
+    estse = dotest['se']
+    p_value = np.nan
+    dif = trim_mean(x, tr) - trim_mean(y, tr)
+    ci=[]
+
+    if not side:
+        print('p_value is only returned when side=True')
+        ilow = round((alpha / 2) * nboot) -1
+        ihi = nboot - ilow - 2
+        bsort = np.sort(bvec)
+        ci.append(dif - bsort[ihi] * estse)
+        ci.append(dif - bsort[ilow + 1] * estse)
+
+    else:
+        bsort = np.sort(np.abs(bvec))
+        ic = round((1 - alpha) * nboot)-1
+        ci.append(dif - bsort[ic] * estse)
+        ci.append(dif + bsort[ic] * estse)
+        p_value = (np.sum(np.abs(dotest['teststat']) <= np.abs(bvec))) / nboot
+
+
+    return {'ci': ci, 'dif': dif, 'p_value': p_value}
+
+def tsub(isub, x, y, tr):
+
+    """
+    Compute test statistic for trimmed means
+    when comparing dependent groups.
+    By default, 20% trimmed means are used.
+    isub is an array of length n of random integers
+    to control bootstrap sampling.
+
+    This function is used by ydbt
+
+    :param isub:
+    :param x:
+    :param y:
+    :param tr:
+    :return:
+    """
+
+    tsub_res = yuend(x[isub], y[isub], tr = tr)['teststat']
+
+    return tsub_res
+
+

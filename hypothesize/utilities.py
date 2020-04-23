@@ -1731,6 +1731,60 @@ def yuen(x, y, tr=.2, alpha=.05):
 
     return results
 
+def yuend(x, y, tr=.2, alpha=.05):
+
+    """
+     Compare the trimmed means of two dependent random variables
+     using the data in x and y.
+     The default amount of trimming is 20%
+
+     Any pair with a missing value is eliminated
+
+     A confidence interval for the trimmed mean of x minus the
+     the trimmed mean of y is computed and returned in yuend['ci'].
+     The significance level is returned in yuend['p_value']
+
+     For inferences based on difference scores, use trimci
+
+    :param x:
+    :param y:
+    :param tr:
+    :param alpha:
+    :return:
+    """
+
+    from hypothesize.measuring_associations import wincor
+
+    if type(x) is not np.ndarray:
+        x, y=pandas_to_arrays([x, y])
+
+    m = np.c_[x, y] # cbind
+    m = m[~np.isnan(m).any(axis=1)]
+    x = m[:,0]
+    y = m[:, 1]
+
+    h1 = len(x) - 2 * np.floor(tr * len(x))
+    q1 = (len(x) - 1) * winvar(x, tr)
+    q2 = (len(y) - 1) * winvar(y, tr)
+    q3 = (len(x) - 1) * wincor(x, y, tr)['wcov']
+
+    df = h1 - 1
+    se = np.sqrt((q1 + q2 - 2 * q3) / (h1 * (h1 - 1)))
+    crit = t.ppf(1 - alpha / 2, df)
+    dif = trim_mean(x, tr) - trim_mean(y, tr)
+    low = dif - crit * se
+    up = dif + crit * se
+    test = dif / se
+    yuend_res = 2 * (1 - t.cdf(abs(test), df))
+
+    keys=['ci', 'p_value', 'est1', 'est2',
+          'dif', 'se', 'teststat', 'n', 'df']
+
+    vals=[[low, up], yuend_res, trim_mean(x,tr), trim_mean(x,tr),
+          dif, se, test, len(x), df]
+
+    return dict(zip(keys,vals))
+
 def pandas_to_arrays(obj):
 
     if type(obj) is pd.core.frame.DataFrame:
