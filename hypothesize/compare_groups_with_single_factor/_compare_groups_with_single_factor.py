@@ -1,4 +1,4 @@
-__all__ = ["yuenbt", "pb2gen", "linconb", "rmmcppb", "lindepbt", "bootdpci", "ydbt"]
+__all__ = ["yuenbt", "pb2gen", "linconb", "rmmcppb", "lindepbt", "bootdpci", "ydbt", "tmcppb"]
 
 import numpy as np
 import pandas as pd
@@ -971,7 +971,7 @@ def tmcppb(x, est, *args, con=None, bhop=False, alpha=.05, nboot=None, seed=Fals
     temp2=(-test).argsort()
     zvec = dvec[:ncon]
     output[temp2, 3] = zvec
-    icl = int(np.round(dvec[ncon] * nboot / 2) + 1) - 1
+    icl = int(np.round(dvec[-1] * nboot / 2) + 1) - 1
     icu = nboot - icl - 3
 
     for ic in range(ncon):
@@ -991,6 +991,34 @@ def tmcppb(x, est, *args, con=None, bhop=False, alpha=.05, nboot=None, seed=Fals
 
     return results
 
+def l2drmci(x,y,est, *args, alpha=.05, nboot=2000, drop_na=True, seed=False):
+
+    """
+      Compute a bootstrap confidence interval for a
+      measure of location associated with
+      the distribution of x-y
+
+      est indicates which measure of location
+      will be used (currently only trimmed mean is implemented)
+
+      x and y are possibly dependent
+
+      drop_na=FAlse, assumes missing values occur at random and will  use
+      all of the data that is not missing.
+      drop_na=True eliminates any pair with one or both values are missing.
+
+    :param x:
+    :param y:
+    :param est:
+    :param args:
+    :param alpha:
+    :param nboot:
+    :param drop_na:
+    :param seed:
+    :return:
+    """
+
+    # np.subtract.outer(a,b)
 
 
 
