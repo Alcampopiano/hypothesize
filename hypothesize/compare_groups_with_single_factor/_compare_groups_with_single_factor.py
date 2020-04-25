@@ -870,4 +870,135 @@ def tsub(isub, x, y, tr):
 
     return tsub_res
 
+def tmcppb(x, est, *args, con=None, bhop=False, alpha=.05, nboot=None, seed=False):
+
+    """
+    Multiple comparisons for  J independent groups using trimmed means
+
+    A percentile bootstrap method with Rom's method is used.
+
+    est is the measure of location and defaults
+    to the trimmed mean (currently only trimmed mean is implemented)
+
+    :param x:
+    :param est:
+    :param args:
+    :param con:
+    :param bhop:
+    :param alpha:
+    :param nboot:
+    :param seed:
+    :return:
+    """
+
+    x=pandas_to_arrays(x)
+    x=remove_nans_based_on_design(x, len(x), 'independent_groups')
+    J=len(x)
+
+    mvec = [est(i, *args) for i in x]
+
+    if con is None:
+        con=con1way(J)
+
+    ncon=con.shape[1]
+
+    if not nboot:
+      nboot = 5000
+      if J <= 8:
+        nboot = 4000
+      elif J <= 3:
+        nboot = 2000
+
+    if not bhop:
+
+        if alpha == .05:
+            dvec=[.05,
+            .025,
+            .0169,
+            .0127,
+            .0102,
+            .00851,
+            .0073,
+            .00639,
+            .00568,
+            .00511]
+
+            if ncon > 10:
+                avec = .05 / np.arange(11,ncon+1)
+                dvec = [dvec, avec]
+
+        elif alpha == .01:
+            dvec =[.01,
+            .005,
+            .00334,
+            .00251,
+            .00201,
+            .00167,
+            .00143,
+            .00126,
+            .00112,
+            .00101]
+
+            if ncon > 10:
+                avec = .01 / np.arange(11,ncon+1)
+                dvec = [dvec, avec]
+
+        else: #not (alpha != .05 or alpha != .01):
+            dvec = alpha / np.arange(1,ncon+1)
+
+    else:
+        dvec = (ncon - np.arange(1,ncon+1) + 1) * alpha / ncon
+
+    if seed:
+        np.random.seed(seed)
+
+    bvec=np.full([J,nboot], np.nan)
+    for i, j in enumerate(x):
+        data = np.random.choice(j, size=(nboot, len(j)))
+        bvec[i,:]=[est(row, *args) for row in data]
+
+    bcon=con.T @ bvec
+    tvec=con.T @ mvec
+    test=np.full(ncon, np.nan)
+    for d in range(ncon):
+        tv = np.sum(bcon[d,:] == 0) / nboot
+        test[d] = np.sum(bcon[d, :] > 0) / nboot + .5 * tv
+        if test[d] > .5:
+            test[d] = 1 - test[d]
+
+    output=np.full([ncon,6], np.nan)
+    test=2*test
+    temp2=(-test).argsort()
+    zvec = dvec[:ncon]
+    output[temp2, 3] = zvec
+    icl = int(np.round(dvec[ncon] * nboot / 2) + 1) - 1
+    icu = nboot - icl - 3
+
+    for ic in range(ncon):
+        output[ic, 1] = tvec[ic]
+        output[ic, 0] = ic
+        output[ic, 2] = test[ic]
+        temp = np.sort(bcon[ic, :])
+        output[ic, 4] = temp[icl]
+        output[ic, 5] = temp[icu]
+
+
+    num_sig = np.sum(output[:, 2] <= output[:, 3])
+    cols=["con_num","psihat", "p_value", "p_crit", "ci_lower", "ci_upper"]
+    output=pd.DataFrame(output, columns=cols)
+
+    results={'output': output, 'con': con, 'num_sig': num_sig}
+
+    return results
+
+
+
+
+
+
+
+
+
+
+
 
