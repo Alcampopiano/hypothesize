@@ -1,4 +1,5 @@
-__all__ = ["yuenbt", "pb2gen", "linconb", "rmmcppb", "lindepbt", "bootdpci", "ydbt", "tmcppb"]
+__all__ = ["yuenbt", "pb2gen", "linconb", "rmmcppb",
+           "lindepbt", "bootdpci", "ydbt", "tmcppb", "l2drmci"]
 
 import numpy as np
 import pandas as pd
@@ -991,26 +992,28 @@ def tmcppb(x, est, *args, con=None, bhop=False, alpha=.05, nboot=None, seed=Fals
 
     return results
 
-def l2drmci(x,y,est, *args, alpha=.05, nboot=2000, drop_na=True, seed=False):
+def l2drmci(x,y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, drop_na=True, seed=False):
 
     """
       Compute a bootstrap confidence interval for a
       measure of location associated with
-      the distribution of x-y
+      the distribution of x-y. That is, compare x and y by looking at all possible difference scores
+      in random samples of x and y.
 
       est indicates which measure of location
       will be used (currently only trimmed mean is implemented)
 
       x and y are possibly dependent
 
-      drop_na=FAlse, assumes missing values occur at random and will  use
-      all of the data that is not missing.
-      drop_na=True eliminates any pair with one or both values are missing.
 
     :param x:
     :param y:
     :param est:
     :param args:
+    :param pairwise_drop_na: if True,
+        treat data as dependent and remove any row with missing data. If False,
+        remove missing data for each group seperately (cannot deal with unequal sample sizes)
+
     :param alpha:
     :param nboot:
     :param drop_na:
@@ -1018,7 +1021,70 @@ def l2drmci(x,y,est, *args, alpha=.05, nboot=2000, drop_na=True, seed=False):
     :return:
     """
 
-    # np.subtract.outer(a,b)
+    x, y = pandas_to_arrays([x, y])
+
+    if pairwise_drop_na:
+        m1 = np.c_[x, y]  # cbind
+        x = m1[~np.isnan(m1).any(axis=1)]
+        #x, y = [m1[:, 0], m1[:, 1]]
+
+    else:
+        x = [~np.isnan(x)]
+        y = [~np.isnan(y)]
+
+        if len(x) != len(y):
+             raise Exception("With unequal sample sizes, you might consider wmwpb "
+                    "(currently not implemented)")
+
+        else:
+            x = np.c_[x, y]  # cbind
+            #x, y = [m1[:, 0], m1[:, 1]]
+
+    data = np.random.choice(x.shape[0], size=(nboot, len(x)))
+
+    print("YOU ARE HERE, test the loop and figure out what to do with the drop_na parameter")
+    bvec=np.full(nboot, np.nan)
+    for i in range(nboot):
+        bvec[i] = \
+             loc2dif(x[data[i,:], 0], x[data[i,:], 1], est, *args,
+                     drop_na=pairwise_drop_na)
+
+def loc2dif(x,y, est, *args, drop_na=True):
+
+    """
+    Compute a measure of location associated with the
+    distribution of x-y, the typical difference between two randomly sampled values.
+    The measure of location is indicated by the argument
+    est.
+
+    x and y are paired data or independent variables having the same length.
+    If x and y have different lengths, use the function wmwloc (not currently implemented)
+
+    Advantage of this estimator: relatively high efficiency even under normality versus
+    using sample means.
+
+    :param x:
+    :param y:
+    :param est:
+    :param args:
+    :param drop_na:
+    :return:
+    """
+
+    print('examine the drop_na arg here and how this affects dep/indep groups')
+    if drop_na:
+        m1 = np.c_[x, y]  # cbind
+        m1 = m1[~np.isnan(m1).any(axis=1)]
+        x, y = [m1[:,0], m1[:,1]]
+
+    else:
+        x=[~np.isnan(x)]
+        y=[~np.isnan(y)]
+
+    temp=np.subtract.outer(x,y).reshape(len(x)*len(y))
+    val=est(temp, *args)
+
+    return val
 
 
 
