@@ -2,7 +2,7 @@ __all__ = ["wincor", "pbcor", "corb"]
 
 import numpy as np
 from scipy.stats.mstats import winsorize
-from scipy.stats import t
+from scipy.stats import t, chi2
 from hypothesize.utilities import pandas_to_arrays
 
 def wincor(x, y, tr=.2):
@@ -49,7 +49,8 @@ def pbcor(x, y, beta=.2):
     :return: percentage bend correlation
     """
 
-    x, y=pandas_to_arrays([x, y])
+    if type(x) is not np.ndarray:
+        x, y = pandas_to_arrays([x, y])
 
     if len(x) != len(y):
         raise Exception("The arrays do not have equal lengths")
@@ -76,7 +77,8 @@ def pbcor(x, y, beta=.2):
     test = pbcor_result * np.sqrt((len(x) - 2) / (1 - pbcor_result ** 2))
     sig = 2 * (1 - t.cdf(abs(test), len(x) - 2))
 
-    return pbcor_result, test, sig, nval
+    res = {'pbcor': pbcor_result, 'test': test, 'p_value': sig, 'nval': nval}
+    return res
 
 def pbos(x, beta=.2):
 
@@ -165,3 +167,67 @@ def corbsub(isub, x, y, corfun, *args):
     corbsub_results = corfun(x[isub], y[isub], *args)[0]
 
     return corbsub_results
+
+def pball(x, beta=.2):
+
+    """
+    Compute the percentage bend correlation matrix for the
+    data in the n by p matrix m.
+
+    This function also returns the two-sided significance level
+    for all pairs of variables, plus a test of zero correlations
+    among all pairs. (See chapter 6 for details)
+
+    :param x: Pandas DataFrame
+    :param beta:
+    :return:
+    """
+
+    m=x.values
+    ncol=m.shape[1]
+
+    pbcorm=np.zeros([ncol, ncol])
+    temp=np.ones([ncol, ncol])
+    siglevel=np.full([ncol, ncol], np.nan)
+    #cmat = np.zeros([ncol, ncol])
+
+    for i in range(ncol):
+        for j in range(i,ncol):
+            if i < j:
+                pbc = pbcor(m[:, i], m[:, j], beta)
+                pbcorm[i, j] = pbc['pbcor']
+                temp[i, j] = pbcorm[i, j]
+                temp[j, i] = pbcorm[i, j]
+                siglevel[i, j] = pbc['p_value']
+                siglevel[j, i] = siglevel[i, j]
+
+
+    tstat = pbcorm * np.sqrt((m.shape[0] - 2) / (1 - pbcorm ** 2))
+    cmat = np.sqrt((m.shape[0] - 2.5) * np.log(1 + tstat ** 2 / (m.shape[0] - 2)))
+    bv = 48 * (m.shape[0] - 2.5) ** 2
+    cmat = \
+    cmat + (cmat ** 3 + 3 * cmat) / bv - (4 * cmat ** 7 + 33 * cmat ** 5 + 240 ** cmat ** 3 + 855 * cmat) / \
+        (10 * bv ** 2 + 8 * bv * cmat ** 4 + 1000 * bv)
+
+    H = np.sum(cmat ** 2)
+    df = ncol * (ncol - 1) / 2
+    h_siglevel = 1 - chi2.cdf(H, df)
+
+    results={"pbcorm": temp, "p_value": siglevel,
+             "H":H, "H_p_value": h_siglevel}
+
+    return results
+
+def winall():
+
+    """
+    Compute the Winsorized correlation and covariance matrix for the
+    data in the n by p matrix m.
+
+    This function also returns the two-sided significance level
+    for all pairs of variables, plus a test of zero correlations
+    among all pairs. (See chapter 6 for details.)
+
+    :return:
+    """
+    pass
