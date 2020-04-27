@@ -992,7 +992,7 @@ def tmcppb(x, est, *args, con=None, bhop=False, alpha=.05, nboot=None, seed=Fals
 
     return results
 
-def l2drmci(x,y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, drop_na=True, seed=False):
+def l2drmci(x,y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False):
 
     """
       Compute a bootstrap confidence interval for a
@@ -1016,7 +1016,6 @@ def l2drmci(x,y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, drop_
 
     :param alpha:
     :param nboot:
-    :param drop_na:
     :param seed:
     :return:
     """
@@ -1026,11 +1025,10 @@ def l2drmci(x,y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, drop_
     if pairwise_drop_na:
         m1 = np.c_[x, y]  # cbind
         x = m1[~np.isnan(m1).any(axis=1)]
-        #x, y = [m1[:, 0], m1[:, 1]]
 
     else:
-        x = [~np.isnan(x)]
-        y = [~np.isnan(y)]
+        x = x[~np.isnan(x)]
+        y = y[~np.isnan(y)]
 
         if len(x) != len(y):
              raise Exception("With unequal sample sizes, you might consider wmwpb "
@@ -1038,16 +1036,28 @@ def l2drmci(x,y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, drop_
 
         else:
             x = np.c_[x, y]  # cbind
-            #x, y = [m1[:, 0], m1[:, 1]]
+
+    if seed:
+        np.random.seed(seed)
 
     data = np.random.choice(x.shape[0], size=(nboot, len(x)))
 
-    print("YOU ARE HERE, test the loop and figure out what to do with the drop_na parameter")
     bvec=np.full(nboot, np.nan)
     for i in range(nboot):
         bvec[i] = \
              loc2dif(x[data[i,:], 0], x[data[i,:], 1], est, *args,
                      drop_na=pairwise_drop_na)
+
+    bvec=np.sort(bvec)
+    low = int(np.round((alpha / 2) * nboot) + 1) -1
+    up = nboot - low -2
+    temp = np.sum(bvec < 0) / nboot + np.sum(bvec == 0) / (2 * nboot)
+    sig_level = 2 * (np.min([temp, 1 - temp]))
+    ci=[bvec[low], bvec[up]]
+
+    results=dict(zip(['ci', 'p_value'], [ci, sig_level]))
+
+    return results
 
 def loc2dif(x,y, est, *args, drop_na=True):
 
@@ -1071,15 +1081,14 @@ def loc2dif(x,y, est, *args, drop_na=True):
     :return:
     """
 
-    print('examine the drop_na arg here and how this affects dep/indep groups')
     if drop_na:
         m1 = np.c_[x, y]  # cbind
         m1 = m1[~np.isnan(m1).any(axis=1)]
         x, y = [m1[:,0], m1[:,1]]
 
     else:
-        x=[~np.isnan(x)]
-        y=[~np.isnan(y)]
+        x=x[~np.isnan(x)]
+        y=y[~np.isnan(y)]
 
     temp=np.subtract.outer(x,y).reshape(len(x)*len(y))
     val=est(temp, *args)
