@@ -2,7 +2,7 @@ __all__ = ["wincor", "pbcor", "corb"]
 
 import numpy as np
 from scipy.stats.mstats import winsorize
-from scipy.stats import t, chi2
+from scipy.stats import t, chi2, trim_mean
 from hypothesize.utilities import pandas_to_arrays
 
 def wincor(x, y, tr=.2):
@@ -218,7 +218,7 @@ def pball(x, beta=.2):
 
     return results
 
-def winall():
+def winall(x, tr=.2):
 
     """
     Compute the Winsorized correlation and covariance matrix for the
@@ -228,6 +228,36 @@ def winall():
     for all pairs of variables, plus a test of zero correlations
     among all pairs. (See chapter 6 for details.)
 
+    :param x: Pandas DataFrame
+    :param tr:
     :return:
     """
-    pass
+
+    m = x.values
+    ncol = m.shape[1]
+
+    wcor = np.ones([ncol, ncol])
+    wcov = np.zeros([ncol, ncol])
+    siglevel = np.full([ncol, ncol], np.nan)
+
+    for i in range(ncol):
+        #ip = i
+        for j in range(i,ncol):
+            val = wincor(m[:, i], m[:, j], tr)
+            wcor[i, j] = val['wcor']
+            wcor[j, i] = wcor[i, j]
+
+            if i == j:
+                wcor[i, j] = 1
+
+            wcov[i, j] = val['wcov']
+            wcov[j, i] = wcov[i, j]
+
+            if i != j:
+                siglevel[i, j] = val['sig']
+                siglevel[j, i] = siglevel[i, j]
+
+    m=m[~np.isnan(m).any(axis=1)]
+    cent=trim_mean(m, tr)
+
+    return {"wcor": wcor, "wcov": wcov, "center": cent, "p_value": siglevel}
