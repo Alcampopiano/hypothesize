@@ -11,7 +11,7 @@
     <link rel="shortcut icon" href="../img/favicon.ico">
 
     
-    <title>About - Hypothesize</title>
+    <title>Overview - Hypothesize</title>
     
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
@@ -74,14 +74,14 @@
                 
                 
                 
-                    <li >
-                        <a href="../overview/">Overview</a>
+                    <li class="active">
+                        <a href="./">Overview</a>
                     </li>
                 
                 
                 
-                    <li class="active">
-                        <a href="./">About</a>
+                    <li >
+                        <a href="../about/">About</a>
                     </li>
                 
                 
@@ -94,12 +94,12 @@
                         </a>
                     </li>
                     <li >
-                        <a rel="prev" href="../overview/">
+                        <a rel="prev" href="..">
                             <i class="fas fa-arrow-left"></i> Previous
                         </a>
                     </li>
-                    <li class="disabled">
-                        <a rel="next" >
+                    <li >
+                        <a rel="next" href="../about/">
                             Next <i class="fas fa-arrow-right"></i>
                         </a>
                     </li>
@@ -116,47 +116,184 @@
         
         <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="first-level active"><a href="#release-notes">Release Notes</a></li>
-        <li class="first-level "><a href="#contributing">Contributing</a></li>
-        <li class="first-level "><a href="#license-bsd-3">License (BSD-3)</a></li>
+        <li class="first-level active"><a href="#overview">Overview</a></li>
+            <li class="second-level"><a href="#the-hypothesize-api">The Hypothesize API</a></li>
+                
+                <li class="third-level"><a href="#package-structure">Package structure</a></li>
+                <li class="third-level"><a href="#getting-your-data-into-hypothesize">Getting your data into Hypothesize</a></li>
     </ul>
 </div></div>
         <div class="col-md-9" role="main">
 
-<h2 id="release-notes">Release Notes</h2>
-<p>Coming soon</p>
-<h2 id="contributing">Contributing</h2>
-<p>How to contribute to hypothesize</p>
-<h2 id="license-bsd-3">License (BSD-3)</h2>
-<p>Copyright (c) 2020, Allan Campopiano. All rights reserved.</p>
-<p>Redistribution and use in source and binary forms, with or without modification,
-are permitted provided that the following conditions are met:</p>
-<ul>
-<li>
-<p>Redistributions of source code must retain the above copyright notice, this
-  list of conditions and the following disclaimer.</p>
-</li>
-<li>
-<p>Redistributions in binary form must reproduce the above copyright notice, this
-  list of conditions and the following disclaimer in the documentation and/or
-  other materials provided with the distribution.</p>
-</li>
-<li>
-<p>Neither the name of hypothesize nor the names of its
-  contributors may be used to endorse or promote products derived from this
-  software without specific prior written permission.</p>
-</li>
-</ul>
-<p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
-IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
-INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
-BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY
-OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
-OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
-OF THE POSSIBILITY OF SUCH DAMAGE.</p></div>
+<h1 id="overview">Overview</h1>
+<p>The benefits of using robust methods for hypothesis testing 
+have been known for the last half century. 
+They have been shown to subtatially increase power and accuracy when compared to 
+traditional approaches.
+The issues of robustness and the functions in this library are described in detail in Rand R. Wilcox's book 
+<a href="https://play.google.com/store/books/details?id=8f8nBb4__EYC&amp;gl=ca&amp;hl=en-CA&amp;source=productsearch&amp;utm_source=HA_Desktop_US&amp;utm_medium=SEM&amp;utm_campaign=PLA&amp;pcampaignid=MKTAD0930BO1&amp;gclid=CjwKCAiA44LzBRB-EiwA-jJipJzyqx9kwNMq5MMU7fG2RrwBK9F7sirX4pfhS8wO7k9Uz_Sqf2P28BoCYzcQAvD_BwE&amp;gclsrc=aw.ds">Introduction to Robust Estimation and Hypothesis Testing</a>.</p>
+<h2 id="the-hypothesize-api">The Hypothesize API</h2>
+<p>Hypothesize's API is friendly and 
+consistent, making it easy for you to discover 
+and use robust functions that are appropriate for your statistical design.</p>
+<h3 id="package-structure">Package structure</h3>
+<p>Hypothesize uses it's package stucture to guide you to the 
+appropriate function based on your statistical design. The following simplified
+chart shows how Hypothesize organizes its functions:</p>
+<div class="mermaid">graph TB
+linkStyle default interpolate basis
+A[Hypothesize]
+A --&gt; B(compare groups with single factor)
+A --&gt; C(compare groups with two factors)
+A --&gt; D(measure associations)
+
+B --&gt; F(f&lt;sub&gt;1&lt;/sub&gt;)
+B --&gt; G(f&lt;sub&gt;2&lt;/sub&gt;)
+B --- H(f&lt;sub&gt;n&lt;/sub&gt;)
+
+C --&gt; F1(f&lt;sub&gt;1&lt;/sub&gt;)
+C --&gt; G2(f&lt;sub&gt;2&lt;/sub&gt;)
+C --&gt; H3(f&lt;sub&gt;n&lt;/sub&gt;)
+
+D --&gt; F5(f&lt;sub&gt;1&lt;/sub&gt;)
+D --&gt; G6(f&lt;sub&gt;2&lt;/sub&gt;)
+D --&gt; H7(f&lt;sub&gt;n&lt;/sub&gt;)</div>
+
+<p>This is hierarcy is reflected in the autocomplete as follows:</p>
+<p><br>
+<img alt="Screenshot" src="../img/api_structure.gif" /></p>
+<p><br></p>
+<h3 id="getting-your-data-into-hypothesize">Getting your data into Hypothesize</h3>
+<p>In Hypothesize, input data are always specified as a Pandas DataFrame or Series. 
+For example, if you have a 2x3 factorial design, your data would take the form of 
+a six-column DataFrame (i.e., J levels x K levels). Using Pandas you can read your data into Python and 
+use one of the appropriate functions from Hypothesize as follows:</p>
+<div class="admonition note">
+<p class="admonition-title">"What about my column names", you ask?</p>
+<p>Don't worry, Hypothesize doesn't make use of your column names. 
+Feel free to name them however you like!</p>
+</div>
+<pre class="highlight"><code class="language-python">import pandas as pd
+
+df=pd.read_csv('my_data.csv')
+
+df.head() </code></pre>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>cell_1_1</th>
+<th>cell_1_2</th>
+<th>cell_1_3</th>
+<th>cell_2_1</th>
+<th>cell_2_2</th>
+<th>cell_2_3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0.04</td>
+<td>0.90</td>
+<td>0.79</td>
+<td>0.51</td>
+<td>0.33</td>
+<td>0.23</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0.76</td>
+<td>0.29</td>
+<td>0.84</td>
+<td>0.03</td>
+<td>0.5</td>
+<td>0.73</td>
+</tr>
+<tr>
+<td>2</td>
+<td>0.71</td>
+<td>0.59</td>
+<td>0.11</td>
+<td>0.89</td>
+<td>0.76</td>
+<td>0.04</td>
+</tr>
+<tr>
+<td>3</td>
+<td>0.17</td>
+<td>0.26</td>
+<td>0.88</td>
+<td>0.28</td>
+<td>0.1</td>
+<td>0.21</td>
+</tr>
+<tr>
+<td>4</td>
+<td>0.95</td>
+<td>0.22</td>
+<td>0.83</td>
+<td>0.59</td>
+<td>0.65</td>
+<td>0.20</td>
+</tr>
+</tbody>
+</table>
+<pre class="highlight"><code class="language-python">from hypothesize.compare_groups_with_two_factors import bwmcp
+
+results=bwmcp(J=2, K=3, x=df)</code></pre>
+
+<p>The results are returned as a Python Dictionary containing simple Python objects
+ or DataFrames (when the results are best given as a matrix). For example, here are the 
+ previously computed results for the interaction returned as a DataFrame.</p>
+<pre class="highlight"><code class="language-python">results['factor_AB']</code></pre>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>con_num</th>
+<th>psihat</th>
+<th>se</th>
+<th>test</th>
+<th>crit_value</th>
+<th>p_value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>-0.100698</td>
+<td>0.126135</td>
+<td>-0.798336</td>
+<td>2.3771</td>
+<td>0.410684</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>-0.037972</td>
+<td>0.151841</td>
+<td>-0.250078</td>
+<td>2.3771</td>
+<td>0.804674</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2</td>
+<td>0.0627261</td>
+<td>0.135392</td>
+<td>0.463291</td>
+<td>2.3771</td>
+<td>0.659432</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><a class="btn btn-info btn-lg btn-block" 
+href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank">Try this example yourself in Colab!</a></p></div>
         
         
     </div>
