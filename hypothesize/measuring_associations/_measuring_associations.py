@@ -1,4 +1,4 @@
-__all__ = ["wincor", "pbcor", "corb"]
+__all__ = ["wincor", "pbcor", "corb", "pball", "winall"]
 
 import numpy as np
 from scipy.stats.mstats import winsorize
