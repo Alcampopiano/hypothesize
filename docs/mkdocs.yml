@@ -2,13 +2,16 @@ site_name: Hypothesize
 nav:
     - Home: index.md
     - Overview: overview.md
-    - About: about.md
+    - Tutorial: basic_tutorial.md
+    - Function Reference: function_guide.md
+
 repo_name: <i class="fa fa-github"></i> Github
 repo_url: https://github.com/Alcampopiano/hypothesize
 edit_uri: ""
 theme:
   name: cinder
   highlightjs: true
+copyright: "Hypothesize is licensed under the <a href='https://github.com/Alcampopiano/hypothesize/blob/master/LICENSE'>BSD 3-Clause license"
 
 markdown_extensions:
   - admonition

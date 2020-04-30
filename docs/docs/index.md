@@ -12,51 +12,57 @@ and accuracy.
 For more information on robust methods please see Wilcox's book 
 [Introduction to Robust Estimation and Hypothesis Testing](https://play.google.com/store/books/details?id=8f8nBb4__EYC&gl=ca&hl=en-CA&source=productsearch&utm_source=HA_Desktop_US&utm_medium=SEM&utm_campaign=PLA&pcampaignid=MKTAD0930BO1&gclid=CjwKCAiA44LzBRB-EiwA-jJipJzyqx9kwNMq5MMU7fG2RrwBK9F7sirX4pfhS8wO7k9Uz_Sqf2P28BoCYzcQAvD_BwE&gclsrc=aw.ds).
 
-
 ## Getting Started
 
 - [Overview](overview.md#overview)
-- [Installation](index.md#installation)
-- [Dependencies](index.md#dependencies)
-- [Basic Usage](index.md#basic-usage)
+- [Installation](install_dep.md#installation)
+- [Dependencies](install_dep.md#dependencies)
+- [Basic Tutorial](basic_tutorial.md#basic-tutorial)
 
-## Installation
+## Function Guide
 
-This is how to install
+### [Comparing groups with a single factor](function_guide.md#Comparing-groups-with-a-single-factor)
 
-## doc tools
+#### independent groups
+- [l2drmci](function_guide.md#l2drmci)
+- [linconb](function_guide.md#linconb)
+- [pb2gen](function_guide.md#pb2gen)
+- [tmcppb](function_guide.md#tmcppb)
+- [yuenbt](function_guide.md#yuenbt)
 
-alerts 
+#### dependent groups
+- [bootdpci](function_guide.md#bootdpci)
+- [rmmcppb](function_guide.md#rmmcppb)
+- [l2drmci](function_guide.md#l2drmci)
+- [lindepbt](function_guide.md#lindepbt)
+- [ydbt](function_guide.md#ydbt)
 
-<div class="alert alert-primary" role="alert">
-  A simple primary alert—check it out!
-</div>
+### [Comparing groups with two factors](function_guide.md#comparing-groups-with-two-factors)
 
-<div class="alert alert-info" role="alert">
-  A simple info alert—check it out!
-</div>
+#### dependent groups
+- [wwmcppb](function_guide.md#wwmcppb)
+- [wwmcpbt](function_guide.md#wwmcpbt)
 
-code
+#### mixed designs
+- [bwamcp](function_guide.md#bwamcp)  
+- [bwbmcp](function_guide.md#bwbmcp) 
+- [bwcmp](function_guide.md#bwcmp)
+- [bwimcp](function_guide.md#bwimcp)
+- [bwmcppb](function_guide.md#bwmcppb)  
+- [spmcpa](function_guide.md#spmcpa)
+- [spmcpb](function_guide.md#spmcpb)
+- [spmcpi](function_guide.md#spmcpi)
 
-```python
-def my_func():
-    i=1
-    print('hello_world')
-```
+### [Measuring associations](function_guide.md#measuring-associations)
+- [corb](function_guide.md#corb)
+- [pball](function_guide.md#pball)
+- [pbcor](function_guide.md#pbcor)
+- [winall](function_guide.md#winall)
+- [wincor](function_guide.md#wincor)
 
-admonition
+## Bug reports and Questions
+Hypothesize is BSD-licenced and the source code is available
+on [GitHub](https://github.com/Alcampopiano/hypothesize).
+For issues and questions, 
+please use [GitHub Issues](https://github.com/Alcampopiano/hypothesize/issues)
 
-!!! danger "optional explicit title within double quotes"
-    Any number of other indented markdown elements.
-    
-        def my_func(hello='world'):
-    
-            for item in my_list:
-                print(item, 12)
-
-
-button
-
-<a class="btn btn-success" href="#">this is a link-button</a>
-
-<a class="btn btn-info btn-lg btn-block" href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" target="_blank">this is a block link-button</a>
