@@ -11,7 +11,7 @@
     <link rel="shortcut icon" href="../img/favicon.ico">
 
     
-    <title>Overview - Hypothesize</title>
+    <title>Tutorial - Hypothesize</title>
     
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
@@ -74,14 +74,14 @@
                 
                 
                 
-                    <li class="active">
-                        <a href="./">Overview</a>
+                    <li >
+                        <a href="../overview/">Overview</a>
                     </li>
                 
                 
                 
-                    <li >
-                        <a href="../basic_tutorial/">Tutorial</a>
+                    <li class="active">
+                        <a href="./">Tutorial</a>
                     </li>
                 
                 
@@ -100,12 +100,12 @@
                         </a>
                     </li>
                     <li >
-                        <a rel="prev" href="..">
+                        <a rel="prev" href="../overview/">
                             <i class="fas fa-arrow-left"></i> Previous
                         </a>
                     </li>
                     <li >
-                        <a rel="next" href="../basic_tutorial/">
+                        <a rel="next" href="../function_guide/">
                             Next <i class="fas fa-arrow-right"></i>
                         </a>
                     </li>
@@ -122,99 +122,153 @@
         
         <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="first-level active"><a href="#overview">Overview</a></li>
-            <li class="second-level"><a href="#the-hypothesize-api">The Hypothesize API</a></li>
+        <li class="first-level active"><a href="#basic-tutorial">Basic Tutorial</a></li>
+            <li class="second-level"><a href="#getting-your-data-into-hypothesize">Getting your data into Hypothesize</a></li>
                 
-                <li class="third-level"><a href="#package-structure">Package Structure</a></li>
-                <li class="third-level"><a href="#input-parameters">Input Parameters</a></li>
+            <li class="second-level"><a href="#examining-your-results">Examining your results</a></li>
+                
     </ul>
 </div></div>
         <div class="col-md-9" role="main">
 
-<h1 id="overview">Overview</h1>
-<p>The benefits of using robust methods for hypothesis testing 
-have been known for the last half century. 
-They have been shown to subtantially increase power and accuracy when compared to 
-traditional approaches.
-The issues of robustness and the functions in this library are described in detail in Rand R. Wilcox's book 
-<a href="https://play.google.com/store/books/details?id=8f8nBb4__EYC&amp;gl=ca&amp;hl=en-CA&amp;source=productsearch&amp;utm_source=HA_Desktop_US&amp;utm_medium=SEM&amp;utm_campaign=PLA&amp;pcampaignid=MKTAD0930BO1&amp;gclid=CjwKCAiA44LzBRB-EiwA-jJipJzyqx9kwNMq5MMU7fG2RrwBK9F7sirX4pfhS8wO7k9Uz_Sqf2P28BoCYzcQAvD_BwE&amp;gclsrc=aw.ds">Introduction to Robust Estimation and Hypothesis Testing</a>.</p>
-<p>The code and function names in Hypothesize are based on Wilcox's R functions in the <a href="somwhere">WRS</a> package. 
-Hypothesize simply brings many of these helpful and well-studied robust methods to the Python ecosystem. 
-In addition, Hypothesize provides a user-friendly API and package structure 
-as well as one-click, <a href="somewhere">ready-to-run examples</a> for every top-level 
-function.</p>
-<h2 id="the-hypothesize-api">The Hypothesize API</h2>
-<p>Hypothesize's API is friendly and 
-consistent, making it easy for you to discover 
-and use robust functions that are appropriate for your statistical design.</p>
-<h3 id="package-structure">Package Structure</h3>
-<p>Hypothesize uses its package stucture to organize functions
-based on the statistical design. The following flow chart 
-and GIF show how Hypothesize organizes its functions and how
-this is reflected in practice when importing from the library:</p>
-<div class="mermaid">graph TB
-linkStyle default interpolate basis
-A[Hypothesize]
-A --&gt; B(compare groups with single factor)
-A --&gt; C(compare groups with two factors)
-A --&gt; D(measure associations)
+<h1 id="basic-tutorial">Basic Tutorial</h1>
+<p>The following tutorial demonstrates how to perform a 
+robust hypothesis test using 20% trimmed means and 
+the bootstrap-t test. The data correspond to a 
+2 (between-subjects) x 3 (within-subjects) factorial design. </p>
+<h3 id="getting-your-data-into-hypothesize">Getting your data into Hypothesize</h3>
+<p>In Hypothesize, input data are always specified as a Pandas DataFrame or Series. 
+In this example, we have a 2x3 factorial design so the data would take the form of 
+a six-column DataFrame (i.e., J levels x K levels). Using Pandas you can read your data into Python and 
+use one of the appropriate functions from Hypothesize. In this case we will use the function <code>bwmcp</code>
+but there are <a href="somewhere">many others</a> to choose from.</p>
+<div class="admonition note">
+<p class="admonition-title">"What about my column names?"</p>
+<p>Don't worry, Hypothesize doesn't make use of your column names. 
+Feel free to name them however you like!</p>
+</div>
+<pre class="highlight"><code class="language-python">import pandas as pd
 
-B --&gt; F(f&lt;sub&gt;1&lt;/sub&gt;)
-B --&gt; G(f&lt;sub&gt;2&lt;/sub&gt;)
-B --- H(f&lt;sub&gt;n&lt;/sub&gt;)
+df=pd.read_csv('my_data.csv')
 
-C --&gt; F1(f&lt;sub&gt;1&lt;/sub&gt;)
-C --&gt; G2(f&lt;sub&gt;2&lt;/sub&gt;)
-C --&gt; H3(f&lt;sub&gt;n&lt;/sub&gt;)
+df.head() </code></pre>
 
-D --&gt; F5(f&lt;sub&gt;1&lt;/sub&gt;)
-D --&gt; G6(f&lt;sub&gt;2&lt;/sub&gt;)
-D --&gt; H7(f&lt;sub&gt;n&lt;/sub&gt;)</div>
-
-<p><br>
-<img alt="Screenshot" src="../img/api_structure.gif" /></p>
-<p><br></p>
-<h3 id="input-parameters">Input Parameters</h3>
-<p>After importing the desired function, 
-Hypothesize requires the necessary input arguments. 
-For example,
-the following statistical test only requires the number of J and K levels, 
-and the data to be specified (i.e., the parameter <code>x</code>):</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>cell_1_1</th>
+<th>cell_1_2</th>
+<th>cell_1_3</th>
+<th>cell_2_1</th>
+<th>cell_2_2</th>
+<th>cell_2_3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0.04</td>
+<td>0.90</td>
+<td>0.79</td>
+<td>0.51</td>
+<td>0.33</td>
+<td>0.23</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0.76</td>
+<td>0.29</td>
+<td>0.84</td>
+<td>0.03</td>
+<td>0.5</td>
+<td>0.73</td>
+</tr>
+<tr>
+<td>2</td>
+<td>0.71</td>
+<td>0.59</td>
+<td>0.11</td>
+<td>0.89</td>
+<td>0.76</td>
+<td>0.04</td>
+</tr>
+<tr>
+<td>3</td>
+<td>0.17</td>
+<td>0.26</td>
+<td>0.88</td>
+<td>0.28</td>
+<td>0.1</td>
+<td>0.21</td>
+</tr>
+<tr>
+<td>4</td>
+<td>0.95</td>
+<td>0.22</td>
+<td>0.83</td>
+<td>0.59</td>
+<td>0.65</td>
+<td>0.20</td>
+</tr>
+</tbody>
+</table>
 <pre class="highlight"><code class="language-python">from hypothesize.compare_groups_with_two_factors import bwmcp
 
 results=bwmcp(J=2, K=3, x=df)</code></pre>
 
-<p>Depending on the statistical test, 
-Hypothesize allows you to specify optional parameters to control the following (not an exhaustive list):</p>
-<ul>
-<li>
-<p>The estimator. For example: </p>
-<ul>
-<li>trimmed mean</li>
-<li>winsorized correlation</li>
-<li>percentage bend correlation</li>
-<li>mean</li>
-<li>median</li>
-</ul>
-<div class="admonition warning">
-<p class="admonition-title">For group comparisons, the trimmed mean may be the only supported robust estimator</p>
-</div>
-</li>
-<li>
-<p>parameters specific to the chosen estimator
-(e.g., proportion to trim/winsorize, bending constant, etc)</p>
-</li>
-<li>options for controlling FWE</li>
-<li>options for how to compute group differences (e.g., marginal, pairwise, all combinations of differences)</li>
-<li>number of bootstrap samples</li>
-<li>contrast matrix to specify linear contrasts</li>
-<li>alpha level</li>
-<li>random seed (for reprodicible results when using bootstrap-based tests)</li>
-</ul>
-<p><br>
-Visit the <a href="somwhere">tutorial section</a> and the 
-<a href="somwhere">function documentation</a> for complete examples
-using Hypothesize.</p></div>
+<h3 id="examining-your-results">Examining your results</h3>
+<p>The results are returned as a Python Dictionary containing simple Python objects
+ or DataFrames (when the results are best given as a matrix). For example, here are the 
+ previously computed results for the interaction returned as a DataFrame.</p>
+<pre class="highlight"><code class="language-python">results['factor_AB']</code></pre>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>con_num</th>
+<th>psihat</th>
+<th>se</th>
+<th>test</th>
+<th>crit_value</th>
+<th>p_value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>-0.100698</td>
+<td>0.126135</td>
+<td>-0.798336</td>
+<td>2.3771</td>
+<td>0.410684</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>-0.037972</td>
+<td>0.151841</td>
+<td>-0.250078</td>
+<td>2.3771</td>
+<td>0.804674</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2</td>
+<td>0.0627261</td>
+<td>0.135392</td>
+<td>0.463291</td>
+<td>2.3771</td>
+<td>0.659432</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><a class="btn btn-info btn-lg btn-block" 
+href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank">Try this example yourself in Colab!</a></p></div>
         
         
     </div>

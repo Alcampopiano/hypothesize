@@ -11,7 +11,7 @@
     <link rel="shortcut icon" href="../img/favicon.ico">
 
     
-    <title>About - Hypothesize</title>
+    <title>Installation - Hypothesize</title>
     
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
@@ -80,8 +80,14 @@
                 
                 
                 
-                    <li class="active">
-                        <a href="./">About</a>
+                    <li >
+                        <a href="../basic_tutorial/">Tutorial</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../function_guide/">Function Reference</a>
                     </li>
                 
                 
@@ -91,16 +97,6 @@
                     <li>
                         <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
                             <i class="fas fa-search"></i> Search
-                        </a>
-                    </li>
-                    <li >
-                        <a rel="prev" href="../overview/">
-                            <i class="fas fa-arrow-left"></i> Previous
-                        </a>
-                    </li>
-                    <li class="disabled">
-                        <a rel="next" >
-                            Next <i class="fas fa-arrow-right"></i>
                         </a>
                     </li>
                     <li>
@@ -116,47 +112,27 @@
         
         <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="first-level active"><a href="#release-notes">Release Notes</a></li>
-        <li class="first-level "><a href="#contributing">Contributing</a></li>
-        <li class="first-level "><a href="#license-bsd-3">License (BSD-3)</a></li>
+        <li class="first-level active"><a href="#installation">Installation</a></li>
+        <li class="first-level "><a href="#dependencies">Dependencies</a></li>
     </ul>
 </div></div>
         <div class="col-md-9" role="main">
 
-<h2 id="release-notes">Release Notes</h2>
-<p>Coming soon</p>
-<h2 id="contributing">Contributing</h2>
-<p>How to contribute to hypothesize</p>
-<h2 id="license-bsd-3">License (BSD-3)</h2>
-<p>Copyright (c) 2020, Allan Campopiano. All rights reserved.</p>
-<p>Redistribution and use in source and binary forms, with or without modification,
-are permitted provided that the following conditions are met:</p>
+<h1 id="installation">Installation</h1>
+<p>Hypothesize can be installed using <code>pip</code>:</p>
+<pre class="highlight"><code>$ pip install hypothesize</code></pre>
+
+<h1 id="dependencies">Dependencies</h1>
+<p>Hypothesesize has the following dependencies, 
+all of which are installed automatically 
+with the above installation command:</p>
 <ul>
-<li>
-<p>Redistributions of source code must retain the above copyright notice, this
-  list of conditions and the following disclaimer.</p>
-</li>
-<li>
-<p>Redistributions in binary form must reproduce the above copyright notice, this
-  list of conditions and the following disclaimer in the documentation and/or
-  other materials provided with the distribution.</p>
-</li>
-<li>
-<p>Neither the name of hypothesize nor the names of its
-  contributors may be used to endorse or promote products derived from this
-  software without specific prior written permission.</p>
-</li>
-</ul>
-<p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
-IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
-INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
-BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY
-OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
-OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
-OF THE POSSIBILITY OF SUCH DAMAGE.</p></div>
+<li>python 3.6 or newer</li>
+<li><a href="https://numpy.org/">NumPy</a></li>
+<li><a href="https://pandas.pydata.org/">Pandas</a></li>
+<li><a href="https://www.scipy.org/">SciPy</a></li>
+<li><a href="https://pypi.org/project/more-itertools/">more-itertools</a></li>
+</ul></div>
         
         
     </div>
@@ -165,6 +141,8 @@ OF THE POSSIBILITY OF SUCH DAMAGE.</p></div>
         
         <hr>
         <p>
+        <small>Hypothesize is licensed under the <a href='https://github.com/Alcampopiano/hypothesize/blob/master/LICENSE'>BSD 3-Clause license</small><br>
+        
         <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
         </p>
 
