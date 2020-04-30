@@ -23,42 +23,24 @@ For more information on robust methods please see Wilcox's book
 
 ### [Comparing groups with a single factor](function_guide.md#Comparing-groups-with-a-single-factor)
 
-#### independent groups
-- [l2drmci](function_guide.md#l2drmci)
-- [linconb](function_guide.md#linconb)
-- [pb2gen](function_guide.md#pb2gen)
-- [tmcppb](function_guide.md#tmcppb)
-- [yuenbt](function_guide.md#yuenbt)
+For statistical tests analogous to a 1-way ANOVA or T-tests. 
+That is, group tests that have a single factor. 
 
-#### dependent groups
-- [bootdpci](function_guide.md#bootdpci)
-- [rmmcppb](function_guide.md#rmmcppb)
-- [l2drmci](function_guide.md#l2drmci)
-- [lindepbt](function_guide.md#lindepbt)
-- [ydbt](function_guide.md#ydbt)
+- [Independent groups](function_guide.md#independent-groups)
+- [Dependent groups](function_guide.md#dependent-groups)
 
 ### [Comparing groups with two factors](function_guide.md#comparing-groups-with-two-factors)
 
-#### dependent groups
-- [wwmcppb](function_guide.md#wwmcppb)
-- [wwmcpbt](function_guide.md#wwmcpbt)
+For statistical tests analogous to a 2-way ANOVA. 
+That is, group tests that have a two factors.
 
-#### mixed designs
-- [bwamcp](function_guide.md#bwamcp)  
-- [bwbmcp](function_guide.md#bwbmcp) 
-- [bwcmp](function_guide.md#bwcmp)
-- [bwimcp](function_guide.md#bwimcp)
-- [bwmcppb](function_guide.md#bwmcppb)  
-- [spmcpa](function_guide.md#spmcpa)
-- [spmcpb](function_guide.md#spmcpb)
-- [spmcpi](function_guide.md#spmcpi)
+- [Dependent groups](function_guide.md#dependent-groups_1)
+- [Mixed designs](function_guide.md#mixed_designs)
 
 ### [Measuring associations](function_guide.md#measuring-associations)
-- [corb](function_guide.md#corb)
-- [pball](function_guide.md#pball)
-- [pbcor](function_guide.md#pbcor)
-- [winall](function_guide.md#winall)
-- [wincor](function_guide.md#wincor)
+
+For statistical tests and measurements that include robust correlations and tests of independence.
+Note that regression functions will be added here eventually. 
 
 ## Bug reports and Questions
 Hypothesize is BSD-licenced and the source code is available

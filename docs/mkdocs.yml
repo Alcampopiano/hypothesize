@@ -9,12 +9,21 @@ repo_name: <i class="fa fa-github"></i> Github
 repo_url: https://github.com/Alcampopiano/hypothesize
 edit_uri: ""
 theme:
-  name: cinder
-  highlightjs: true
+  name: material
+  palette:
+    primary: black
+    accent: red
 copyright: "Hypothesize is licensed under the <a href='https://github.com/Alcampopiano/hypothesize/blob/master/LICENSE'>BSD 3-Clause license"
 
 markdown_extensions:
   - admonition
+  - codehilite:
+      guess_lang: false
+  - footnotes
+  - toc:
+      permalink: true
+  - pymdownx.tabbed
+  - pymdownx.inlinehilite
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid
@@ -22,6 +31,7 @@ markdown_extensions:
           format: !!python/name:pymdownx.superfences.fence_div_format
 
 extra_css:
+  - stylesheets/al_extra.css
   - https://unpkg.com/mermaid@7.1.2/dist/mermaid.css
 extra_javascript:
   - https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js

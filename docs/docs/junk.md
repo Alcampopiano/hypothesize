@@ -1,5 +1,23 @@
 ## doc tools
 
+inline highlight
+
+`#!py3 bootdpci(x, est, *args, nboot=None, alpha=.05, dif=True, BA=False, SR=False)`
+
+tabbed list
+
+=== "Fruit List"
+    - :apple: Apple
+    - :banana: Banana
+    - :kiwi: Kiwi
+
+=== "Fruit Table"
+    Fruit           | Color
+    --------------- | -----
+    :apple:  Apple  | Red
+    :banana: Banana | Yellow
+    :kiwi:   Kiwi   | Green
+
 alerts 
 
 <div class="alert alert-primary" role="alert">

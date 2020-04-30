@@ -115,8 +115,8 @@ def corb(corfun, x, y, alpha, nboot, *args, seed=False):
     When using Pearson's correlation, and when n<250, use
     lsfitci instead (not yet implemented).
 
-    :param x: x is an array (n by 1)
-    :param y: y is an array (n by 1)
+    :param x: Series
+    :param y: Series
     :param corfun: corfun is any function that returns a correlation coefficient
     :param alpha: alpha level
     :param nboot: number of bootstrap samples

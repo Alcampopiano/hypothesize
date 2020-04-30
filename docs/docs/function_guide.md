@@ -7,20 +7,15 @@ If you want to learn more about the theory and research
 behind any given function here, see Wilcox's books, especially
 [Introduction to Robust Estimation and Hypothesis Testing](https://play.google.com/store/books/details?id=8f8nBb4__EYC&gl=ca&hl=en-CA&source=productsearch&utm_source=HA_Desktop_US&utm_medium=SEM&utm_campaign=PLA&pcampaignid=MKTAD0930BO1&gclid=CjwKCAiA44LzBRB-EiwA-jJipJzyqx9kwNMq5MMU7fG2RrwBK9F7sirX4pfhS8wO7k9Uz_Sqf2P28BoCYzcQAvD_BwE&gclsrc=aw.ds).
 
+## Comparing groups with a single factor
 ---
 
-## Comparing groups with a single factor
-
-<a name="comp_single_ind"></a>
 ## Independent groups
 
 ### l2drmci
 
----
+`#!py l2drmci(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)`
 
-`l2drmci(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)`
-
----
 Compute a bootstrap confidence interval for a
 measure of location associated with the distribution of x-y. 
 That is, compare x and y by looking at all possible difference scores
@@ -51,66 +46,56 @@ remove missing data for each group seperately (cannot deal with unequal sample s
 
 **alpha: float**
 
-Alpha level. Default is .05.
+Alpha level (default is .05)
 
 **nboot: int**
 
-Number of bootstrap samples. Default is 2000.
+Number of bootstrap samples (default is 2000)
 
 **seed: bool**
 
-Random seed for reprodicible results. Default is `False`.
+Random seed for reprodicible results (default is `False`)
 
 _Return:_
 
 Dictonary of results
 
-<a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/l2drmci.ipynb" 
-target="_blank">Try this function right now in Colab!</a>
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### linconb
 
----
+`#!py linconb(x, con, tr=.2, alpha=.05, nboot=599, seed=False)`
 
-`linconb(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)`
-
----
-Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of `x` and `y`. `x` and `y` are possibly dependent.
+Compute a 1-alpha confidence interval for a set of d linear contrasts
+involving trimmed means using the bootstrap-t bootstrap method.
+Independent groups are assumed. CIs are adjusted to control FWE 
+(p values are not adjusted).
 
 _Parameters:_
 
-**x: Pandas Series**
+**x: DataFrame**
 
-Data for group one
+Each column represents a group of data
 
-**y: Pandas Series**
+**con: array**
 
-Data for group two
+`con` is a J (number of columns) by d (number of contrasts)
+matrix containing the contrast coefficents of interest.
+All linear constrasts can be created automatically by using the function [con1way](J)
+(the result of which can be used for `con`).
 
-**est: function**
+**tr: float**
 
-Measure of location (currently only `trim_mean` is supported)
-
-***args: list/value**
-
-Parameter(s) for measure of location (e.g., .2)
-
-**pairwise_drop_na: bool**
-
-If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)
+Proportion to trim (default is .2)
 
 **alpha: float**
 
-Alpha level. Default is .05.
+Alpha level (default is .05)
 
 **nboot: int**
 
-Number of bootstrap samples. Default is 2000.
+Number of bootstrap samples (default is 2000)
 
 **seed: bool**
 
@@ -120,21 +105,16 @@ _Return:_
 
 Dictonary of results
 
-<a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/linconb.ipynb" 
-target="_blank">Try this function right now in Colab!</a>
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### pb2gen
 
----
+`#!py pb2gen(x, y, est, *args, alpha=.05, nboot=2000, seed=False)`
 
-`pb2gen(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)`
-
----
-Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of `x` and `y`. `x` and `y` are possibly dependent.
+Compute a bootstrap confidence interval for the
+the difference between any two parameters corresponding to two
+independent groups.
 
 _Parameters:_
 
@@ -154,52 +134,41 @@ Measure of location (currently only `trim_mean` is supported)
 
 Parameter(s) for measure of location (e.g., .2)
 
-**pairwise_drop_na: bool**
-
-If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)
-
 **alpha: float**
 
-Alpha level. Default is .05.
+Alpha level (default is .05)
 
 **nboot: int**
 
-Number of bootstrap samples. Default is 2000.
+Number of bootstrap samples (default is 2000)
 
 **seed: bool**
 
-Random seed for reprodicible results. Default is `False`.
+Random seed for reprodicible results (default is `False`)
 
 _Return:_
 
 Dictonary of results
 
-<a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/pb2gen.ipynb" 
-target="_blank">Try this function right now in Colab!</a>
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### tmcppb
 
----
+`#!py tmcppb(x, est, *args, con=None, bhop=False, alpha=.05, nboot=None, seed=False)`
 
-`tmcppb(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)`
-
----
-Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of `x` and `y`. `x` and `y` are possibly dependent.
+Multiple comparisons for J independent groups using trimmed means and
+the percentile bootstrap method. Rom’s method is used to control the 
+probability of one or more type I errors. For C > 10 hypotheses, 
+or when the goal is to test at some level other than .05 and .01, 
+Hochberg’s method is used. Setting the argument `bhop` to `True` uses the
+Benjamini–Hochberg method instead.
 
 _Parameters:_
 
-**x: Pandas Series**
+**x: Pandas DataFrame**
 
-Data for group one
-
-**y: Pandas Series**
-
-Data for group two
+Each column represents a group of data
 
 **est: function**
 
@@ -209,10 +178,17 @@ Measure of location (currently only `trim_mean` is supported)
 
 Parameter(s) for measure of location (e.g., .2)
 
-**pairwise_drop_na: bool**
+**con: array**
 
-If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)
+`con` is a J (number of columns) by d (number of contrasts)
+matrix containing the contrast coefficents of interest.
+All linear constrasts can be created automatically by using the function [con1way](J)
+(the result of which can be used for `con`). The default is `None` and in this
+case all linear contrasts are created automatically.
+ 
+**bhop: bool**
+
+If `True`, the Benjamini–Hochberg method is used to control FWE
 
 **alpha: float**
 
@@ -220,31 +196,27 @@ Alpha level. Default is .05.
 
 **nboot: int**
 
-Number of bootstrap samples. Default is 2000.
+Number of bootstrap samples (default is 2000)
 
 **seed: bool**
 
-Random seed for reprodicible results. Default is `False`.
+Random seed for reproducible results. Default is `False`.
 
 _Return:_
 
 Dictonary of results
 
-<a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/tmcppb.ipynb" 
-target="_blank">Try this function right now in Colab!</a>
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### yuenbt
 
----
+`#!py yuenbt(x, y, tr=.2, alpha=.05, nboot=599, seed=False)`
 
-`yuenbt(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)`
-
----
-Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of `x` and `y`. `x` and `y` are possibly dependent.
+Compute a 1-alpha confidence interval for the difference between
+the trimmed means corresponding to two independent groups.
+The bootstrap-t method is used. During the bootstrapping, 
+the absolute value of the test statistic is used (the "two-sided method").
 
 _Parameters:_
 
@@ -256,26 +228,17 @@ Data for group one
 
 Data for group two
 
-**est: function**
+**tr: float**
 
-Measure of location (currently only `trim_mean` is supported)
-
-***args: list/value**
-
-Parameter(s) for measure of location (e.g., .2)
-
-**pairwise_drop_na: bool**
-
-If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)
+Proportion to trim (default is .2)
 
 **alpha: float**
 
-Alpha level. Default is .05.
+Alpha level (default is .05)
 
 **nboot: int**
 
-Number of bootstrap samples. Default is 2000.
+Number of bootstrap samples (default is 599)
 
 **seed: bool**
 
@@ -285,34 +248,42 @@ _Return:_
 
 Dictonary of results
 
-<a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/yuenbt.ipynb" 
-target="_blank">Try this function right now in Colab!</a>
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a>
 
-<a name="comp_single_dep"></a>
 ## Dependent groups
 
 ### bootdpci
 
----
+`#!py bootdpci(x, est, *args, nboot=None, alpha=.05, dif=True, BA=False, SR=False)`
 
-`bootdpci(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)`
+Use percentile bootstrap method, compute a .95 confidence interval 
+for the difference between a measure of location or scale 
+when comparing two dependent groups.
 
----
-Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of `x` and `y`. `x` and `y` are possibly dependent.
+The argument `dif` defaults to `True` indicating 
+that difference scores will be used, in which case Hochberg’s 
+method is used to control FWE. If `dif` is `False`, measures of 
+location associated with the marginal distributions are used 
+instead. 
+
+If `dif` is `False` and `BA` is `True`, the bias adjusted 
+estimate of the generalized p-value is recommended.
+Using `BA`=`True` (when `dif`=`False`) 
+is recommended when comparing groups 
+with M-estimators and MOM, but it is not necessary when 
+comparing 20% trimmed means (Wilcox & Keselman, 2002). 
+
+The so-called the SR method, which is a slight 
+modification of Hochberg's (1988) "sequentially rejective" 
+method can be applied to control FWE, especially when 
+comparing one-step M-estimators or M-estimators.
 
 _Parameters:_
 
-**x: Pandas Series**
+**x: Pandas DataFrame**
 
-Data for group one
-
-**y: Pandas Series**
-
-Data for group two
+Each column represents a group of data
 
 **est: function**
 
@@ -322,52 +293,68 @@ Measure of location (currently only `trim_mean` is supported)
 
 Parameter(s) for measure of location (e.g., .2)
 
-**pairwise_drop_na: bool**
-
-If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)
-
 **alpha: float**
 
 Alpha level. Default is .05.
 
 **nboot: int**
 
-Number of bootstrap samples. Default is 2000.
+Number of bootstrap samples. Default is `None`
+in which case `nboot` will be chosen for you 
+based on the number of contrasts.
 
-**seed: bool**
+**dif: bool**
 
-Random seed for reprodicible results. Default is `False`.
+When `True`, use difference scores, otherwise use marginal distributions
+
+**BA: bool**
+
+When `True`, use the bias adjusted estimate of the 
+generalized p-value is applied (e.g., when `dif` is `False`)
+
+**SR: bool**
+
+When `True`, use the modified "sequentially rejective", especially when 
+comparing one-step M-estimators or M-estimators.
 
 _Return:_
 
 Dictonary of results
 
-<a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/bootdpci.ipynb" 
-target="_blank">Try this function right now in Colab!</a>
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### rmmcppb
 
----
+`#!py rmmcppb(x, est, *args,  alpha=.05, con=None, dif=True, nboot=None, BA=False,
+    hoch=False, SR=False, seed=False)`
 
-`rmmcppb(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)`
+Use a percentile bootstrap method to compare dependent groups.
+By default, compute a .95 confidence interval for all linear contrasts
+specified by con, a J-by-C matrix, where C is the number of
+contrasts to be tested, and the columns of `con` are the
+contrast coefficients. If con is not specified, 
+all pairwise comparisons are done.
 
----
-Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of `x` and `y`. `x` and `y` are possibly dependent.
+If `est` is the function `onestep` or `mom` (these are not implemeted yet),
+method SR can be used to control the probability of at least one Type I error.
+Otherwise, Hochberg's method is used.
+
+If `dif` is `False` and `BA` is `True`, the bias adjusted 
+estimate of the generalized p-value is recommended.
+Using `BA`=`True` (when `dif`=`False`) 
+is recommended when comparing groups 
+with M-estimators and MOM, but it is not necessary when 
+comparing 20% trimmed means (Wilcox & Keselman, 2002). 
+
+Hochberg's sequentially rejective method can be used and is used 
+if n>=80.
 
 _Parameters:_
 
-**x: Pandas Series**
+**x: Pandas DataFrame**
 
-Data for group one
-
-**y: Pandas Series**
-
-Data for group two
+Each column represents a group of data
 
 **est: function**
 
@@ -377,65 +364,79 @@ Measure of location (currently only `trim_mean` is supported)
 
 Parameter(s) for measure of location (e.g., .2)
 
-**pairwise_drop_na: bool**
-
-If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)
-
 **alpha: float**
 
-Alpha level. Default is .05.
+Alpha level (default is .05)
+
+**con: array**
+
+`con` is a J (number of columns) by d (number of contrasts)
+matrix containing the contrast coefficents of interest.
+All linear constrasts can be created automatically by using the function [con1way](J)
+(the result of which can be used for `con`). The default is `None` and in this
+case all linear contrasts are created automatically.
+ 
+**dif: bool**
+
+When `True`, use difference scores, otherwise use marginal distributions
 
 **nboot: int**
 
-Number of bootstrap samples. Default is 2000.
+Number of bootstrap samples. Default is `None`
+in which case `nboot` will be chosen for you 
+based on the number of contrasts.
+
+**BA: bool**
+
+When `True`, use the bias adjusted estimate of the 
+generalized p-value is applied (e.g., when `dif` is `False`)
+
+**hoch: bool**
+
+When `True`, Hochberg's sequentially rejective method can be used and is used 
+if n>=80.
+
+**SR: bool**
+
+When `True`, use the modified "sequentially rejective", especially when 
+comparing one-step M-estimators or M-estimators.
 
 **seed: bool**
 
-Random seed for reprodicible results. Default is `False`.
+Random seed for reprodicible results (default is `False`)
 
 _Return:_
 
 Dictonary of results
 
-<a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/rmmcppb.ipynb" 
-target="_blank">Try this function right now in Colab!</a>
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### lindepbt
 
----
+`#!py lindepbt(x, tr=.2, con=None, alpha=.05, nboot=599, dif=True, seed=False)`
 
-`lindepbt(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)`
+Multiple comparisons on trimmed means with FWE controlled with Rom's method
+Using a bootstrap-t method.
 
----
-Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of `x` and `y`. `x` and `y` are possibly dependent.
 
 _Parameters:_
 
-**x: Pandas Series**
+**x: Pandas DataFrame**
 
-Data for group one
+Each column in the data represents a different group 
 
-**y: Pandas Series**
+**tr: float**
 
-Data for group two
+Proportion to trim (default is .2)
 
-**est: function**
+**con: array**
 
-Measure of location (currently only `trim_mean` is supported)
-
-***args: list/value**
-
-Parameter(s) for measure of location (e.g., .2)
-
-**pairwise_drop_na: bool**
-
-If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)
+`con` is a J (number of groups) by d (number of contrasts) 
+matrix containing the contrast coefficents of interest.
+All linear constrasts can be created automatically by using the function [con1way](J)
+(the result of which can be used for `con`). The default is `None` and in this 
+case all linear contrasts are created automatically.
 
 **alpha: float**
 
@@ -443,31 +444,31 @@ Alpha level. Default is .05.
 
 **nboot: int**
 
-Number of bootstrap samples. Default is 2000.
+Number of bootstrap samples (default is 2000)
+
+**dif: bool**
+
+When `True`, use difference scores, otherwise use marginal distributions
 
 **seed: bool**
 
-Random seed for reprodicible results. Default is `False`.
+Random seed for reprodicible results (default is `False`)
 
 _Return:_
 
 Dictonary of results
 
-<a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/lindepbt.ipynb" 
-target="_blank">Try this function right now in Colab!</a>
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### ydbt
 
----
+`#!py ydbt(x, y, tr=.2, alpha=.05, nboot=599, side=True, seed=False)`
 
-`ydbt(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)`
-
----
-Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of `x` and `y`. `x` and `y` are possibly dependent.
+Using the bootstrap-t method,
+compute a .95 confidence interval for the difference between
+the marginal trimmed means of paired data.
+By default, 20% trimming is used with 599 bootstrap samples.
 
 _Parameters:_
 
@@ -479,18 +480,9 @@ Data for group one
 
 Data for group two
 
-**est: function**
+**tr: float**
 
-Measure of location (currently only `trim_mean` is supported)
-
-***args: list/value**
-
-Parameter(s) for measure of location (e.g., .2)
-
-**pairwise_drop_na: bool**
-
-If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)
+Proportion to trim (default is .2)
 
 **alpha: float**
 
@@ -498,136 +490,180 @@ Alpha level. Default is .05.
 
 **nboot: int**
 
-Number of bootstrap samples. Default is 2000.
+Number of bootstrap samples (default is 2000)
+
+**side: bool**
+When `True` the function returns a symmetric CI and a p value, 
+otherwise the function returns equal-tailed CI (no p value)
 
 **seed: bool**
 
-Random seed for reprodicible results. Default is `False`.
+Random seed for reprodicible results (default is `False`)
 
 _Return:_
 
 Dictonary of results
 
-<a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/ydbt.ipynb" 
-target="_blank">Try this function right now in Colab!</a>
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ## Comparing groups with two factors
+---
 
-<a name="comp_double_dep"></a>
 ## Dependent groups
 
 ### wwmcppb
 
----
+`#!py wwmcppb(J, K, x,  est, *args,  alpha=.05, dif=True,
+            nboot=None, BA=True, hoch=True, seed=False)`
 
-`wwmcppb(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)`
-
----
-Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of `x` and `y`. `x` and `y` are possibly dependent.
+Do all multiple comparisons for a within-by-within design 
+using a percentile bootstrap method.A sequentially rejective 
+method is used to control alpha.
+Hochberg's method can be used and is if n>=80.
 
 _Parameters:_
 
-**x: Pandas Series**
+**J: int**
 
-Data for group one
+Number of J levels associated with Factor A
 
-**y: Pandas Series**
+**K: int**
 
-Data for group two
+Number of K levels associated with Factor B
 
+**x: Pandas DataFrame**
+
+Each column represents a cell in the factorial design. For example,
+a 2x3 design would correspond to a DataFrame with 6 columns 
+(levels of Factor A x levels of Factor B).
+
+Order your columns according to the following pattern
+(traversing each row in a matrix): 
+
+ - the first column contains data for level 1 of Factor A
+ and level 1 of Factor B
+ 
+ - the second column contains data for level 1 of Factor A
+ and level 2 of Factor B
+ 
+ - column `K` contains the data for level 1 of Factor A 
+ and level `K` of Factor B
+ 
+ - column `K` + 1 contains the data for level 2 of Factor A
+ and level 1 of Factor B
+ 
+ - and so on ... 
+ 
 **est: function**
 
 Measure of location (currently only `trim_mean` is supported)
-
+ 
 ***args: list/value**
 
 Parameter(s) for measure of location (e.g., .2)
 
-**pairwise_drop_na: bool**
-
-If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)
-
 **alpha: float**
 
-Alpha level. Default is .05.
+Alpha level (default is .05)
+
+**dif: bool**
+
+When `True`, use difference scores, otherwise use marginal distributions
 
 **nboot: int**
 
-Number of bootstrap samples. Default is 2000.
+Number of bootstrap samples (default is 599)
+
+**BA: bool**
+
+When `True`, use the bias adjusted estimate of the 
+generalized p-value is applied (e.g., when `dif` is `False`)
+
+**hoch: bool**
+
+When `True`, Hochberg's sequentially 
+rejective method can be used to control FWE
 
 **seed: bool**
 
-Random seed for reprodicible results. Default is `False`.
+Random seed for reprodicible results (default is `False`)
 
 _Return:_
 
 Dictonary of results
 
-<a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/wwmcppb.ipynb" 
-target="_blank">Try this function right now in Colab!</a>
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### wwmcpbt
 
----
+`#!py wwmcpbt(J, K, x, tr=.2, alpha=.05, nboot=599, seed=False)`
 
-`wwmcpbt(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)`
+Do multiple comparisons for a within-by-within design.
+using a bootstrap-t method and trimmed means.
+All linear contrasts relevant to main effects and interactions
+are tested. With trimmed means FWE is
+controlled with Rom's method.
 
----
-Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of `x` and `y`. `x` and `y` are possibly dependent.
-
+(currently unsure whether or not `dif` should be here)
+    
 _Parameters:_
 
-**x: Pandas Series**
+**J: int**
 
-Data for group one
+Number of J levels associated with Factor A
 
-**y: Pandas Series**
+**K: int**
 
-Data for group two
+Number of K levels associated with Factor B
 
-**est: function**
+**x: Pandas DataFrame**
 
-Measure of location (currently only `trim_mean` is supported)
+Each column represents a cell in the factorial design. For example,
+a 2x3 design would correspond to a DataFrame with 6 columns 
+(levels of Factor A x levels of Factor B).
 
-***args: list/value**
+Order your columns according to the following pattern
+(traversing each row in a matrix): 
 
-Parameter(s) for measure of location (e.g., .2)
+ - the first column contains data for level 1 of Factor A
+ and level 1 of Factor B
+ 
+ - the second column contains data for level 1 of Factor A
+ and level 2 of Factor B
+ 
+ - column `K` contains the data for level 1 of Factor A 
+ and level `K` of Factor B
+ 
+ - column `K` + 1 contains the data for level 2 of Factor A
+ and level 1 of Factor B
+ 
+ - and so on ... 
 
-**pairwise_drop_na: bool**
+**tr: float**
 
-If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)
+Proportion to trim (default is .2)
 
 **alpha: float**
 
-Alpha level. Default is .05.
+Alpha level (default is .05)
 
 **nboot: int**
 
-Number of bootstrap samples. Default is 2000.
+Number of bootstrap samples (default is 599)
 
 **seed: bool**
 
-Random seed for reprodicible results. Default is `False`.
+Random seed for reprodicible results (default is `False`)
 
 _Return:_
 
 Dictonary of results
 
-<a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/wwmcpbt.ipynb" 
-target="_blank">Try this function right now in Colab!</a>
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a>
 
-<a name="comp_double_mix"></a>
 ## Mixed designs
 
 These designs are also known as "split-plot" or "between-within" desgins.
@@ -642,246 +678,331 @@ there are 3 within-subjects conditions.
 
 ### bwamcp
 
----
+`#!py bwamcp(J, K, x, tr=.2, alpha=.05, pool=False)`
 
-`bwamcp(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)`
-
----
-Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of `x` and `y`. `x` and `y` are possibly dependent.
+All pairwise comparisons among levels of Factor A
+in a mixed design using trimmed means. The `pool`
+option allows you to pool dependent groups across 
+Factor A for each level of Factor B.
 
 _Parameters:_
 
-**x: Pandas Series**
+**J: int**
 
-Data for group one
+Number of J levels associated with Factor A
 
-**y: Pandas Series**
+**K: int**
 
-Data for group two
+Number of K levels associated with Factor B
 
-**est: function**
+**x: Pandas DataFrame**
 
-Measure of location (currently only `trim_mean` is supported)
+Each column represents a cell in the factorial design. For example,
+a 2x3 design would correspond to a DataFrame with 6 columns 
+(levels of Factor A x levels of Factor B).
 
-***args: list/value**
+Order your columns according to the following pattern
+(traversing each row in a matrix): 
 
-Parameter(s) for measure of location (e.g., .2)
+ - the first column contains data for level 1 of Factor A
+ and level 1 of Factor B
+ 
+ - the second column contains data for level 1 of Factor A
+ and level 2 of Factor B
+ 
+ - column `K` contains the data for level 1 of Factor A 
+ and level `K` of Factor B
+ 
+ - column `K` + 1 contains the data for level 2 of Factor A
+ and level 1 of Factor B
+ 
+ - and so on ... 
 
-**pairwise_drop_na: bool**
+**tr: float**
 
-If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)
+Proportion to trim (default is .2)
 
 **alpha: float**
 
-Alpha level. Default is .05.
+Alpha level (default is .05)
 
-**nboot: int**
+**pool: bool**
 
-Number of bootstrap samples. Default is 2000.
-
-**seed: bool**
-
-Random seed for reprodicible results. Default is `False`.
+If `True`, pool dependent groups together (default is `False`).
+Otherwise generate pairwise contrasts 
+across factor A for each level of factor B.
 
 _Return:_
 
 Dictonary of results
 
-<a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/bwamcp.ipynb" 
-target="_blank">Try this function right now in Colab!</a>
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### bwbmcp
 
----
+`#!py bwbmcp(J, K, x, tr=.2, con=None, alpha=.05,
+           dif=True, pool=False, hoch=False)`
 
-`bwbmcp(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)`
+All pairwise comparisons among levels of Factor B
+in a mixed design using trimmed means. The `pool`
+option allows you to pool dependent groups across 
+Factor A for each level of Factor B.
 
----
-Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of `x` and `y`. `x` and `y` are possibly dependent.
+Rom's method is used to control for FWE (when alpha is 0.5, .01, 
+or when number of comparisons are > 10).
+Hochberg's method can also be used. Note that CIs are adjusted based on the 
+corresponding critical p-value after controling for FWE.
 
+    
 _Parameters:_
 
-**x: Pandas Series**
+**J: int**
 
-Data for group one
+Number of J levels associated with Factor A
 
-**y: Pandas Series**
+**K: int**
 
-Data for group two
+Number of K levels associated with Factor B
 
-**est: function**
+**x: Pandas DataFrame**
 
-Measure of location (currently only `trim_mean` is supported)
+Each column represents a cell in the factorial design. For example,
+a 2x3 design would correspond to a DataFrame with 6 columns 
+(levels of Factor A x levels of Factor B).
 
-***args: list/value**
+Order your columns according to the following pattern
+(traversing each row in a matrix): 
 
-Parameter(s) for measure of location (e.g., .2)
+ - the first column contains data for level 1 of Factor A
+ and level 1 of Factor B
+ 
+ - the second column contains data for level 1 of Factor A
+ and level 2 of Factor B
+ 
+ - column `K` contains the data for level 1 of Factor A 
+ and level `K` of Factor B
+ 
+ - column `K` + 1 contains the data for level 2 of Factor A
+ and level 1 of Factor B
+ 
+ - and so on ... 
 
-**pairwise_drop_na: bool**
+**tr: float**
 
-If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)
+Proportion to trim (default is .2)
+
+**con: array**
+
+`con` is a K by d (number of contrasts)
+matrix containing the contrast coefficents of interest.
+All linear constrasts can be created automatically by using the function [con1way](K)
+(the result of which can be used for `con`).
 
 **alpha: float**
 
-Alpha level. Default is .05.
+Alpha level (default is .05)
 
-**nboot: int**
+**dif: bool**
 
-Number of bootstrap samples. Default is 2000.
+When `True`, use difference scores, otherwise use marginal distributions
 
-**seed: bool**
+**pool: bool**
 
-Random seed for reprodicible results. Default is `False`.
+If `True`, pool dependent groups together (default is `False`).
+Otherwise generate pairwise contrasts 
+across factor A for each level of factor B.
+
+**hoch: bool**
+
+When `True`, Hochberg's sequentially 
+rejective method can be used to control FWE
 
 _Return:_
 
 Dictonary of results
 
-<a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/bwbmcp.ipynb" 
-target="_blank">Try this function right now in Colab!</a>
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### bwcmp
 
----
+`#!py bwcmp(J, K, x, alpha=.05, tr=.2, nboot=599, seed=False)`
 
-`bwcmp(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)`
-
----
-Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of `x` and `y`. `x` and `y` are possibly dependent.
+A bootstrap-t for multiple comparisons among
+for all main effects and interactions in a between-by-within design.
+The analysis is done by generating bootstrap samples and
+using an appropriate linear contrast.
 
 _Parameters:_
 
-**x: Pandas Series**
+**J: int**
 
-Data for group one
+Number of J levels associated with Factor A
 
-**y: Pandas Series**
+**K: int**
 
-Data for group two
+Number of K levels associated with Factor B
 
-**est: function**
+**x: Pandas DataFrame**
 
-Measure of location (currently only `trim_mean` is supported)
+Each column represents a cell in the factorial design. For example,
+a 2x3 design would correspond to a DataFrame with 6 columns 
+(levels of Factor A x levels of Factor B).
 
-***args: list/value**
+Order your columns according to the following pattern
+(traversing each row in a matrix): 
 
-Parameter(s) for measure of location (e.g., .2)
-
-**pairwise_drop_na: bool**
-
-If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)
-
+ - the first column contains data for level 1 of Factor A
+ and level 1 of Factor B
+ 
+ - the second column contains data for level 1 of Factor A
+ and level 2 of Factor B
+ 
+ - column `K` contains the data for level 1 of Factor A 
+ and level `K` of Factor B
+ 
+ - column `K` + 1 contains the data for level 2 of Factor A
+ and level 1 of Factor B
+ 
+ - and so on ...
+ 
 **alpha: float**
 
-Alpha level. Default is .05.
+Alpha level (default is .05)
+
+**tr: float**
+
+Proportion to trim (default is .2)
 
 **nboot: int**
 
-Number of bootstrap samples. Default is 2000.
+Number of bootstrap samples (default is 500)
 
 **seed: bool**
 
-Random seed for reprodicible results. Default is `False`.
+Random seed for reprodicible results (default is `False`)
 
 _Return:_
 
 Dictonary of results
 
-<a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/bwcmp.ipynb" 
-target="_blank">Try this function right now in Colab!</a>
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### bwimcp
 
----
+`#!py bwimcp(J, K, x, tr=.2, alpha=.05)`
 
-`bwimcp(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)`
-
----
-Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of `x` and `y`. `x` and `y` are possibly dependent.
+Multiple comparisons for interactions
+in a split-plot design.
+The analysis is done by taking difference scores
+among all pairs of dependent groups and
+determining which of
+these differences differ across levels of Factor A
+using trimmed means. FWE is controlled via Hochberg's 
+method. For MOM or M-estimators 
+(possibly not implemented yet), use spmcpi which 
+uses a bootstrap method
 
 _Parameters:_
 
-**x: Pandas Series**
+**J: int**
 
-Data for group one
+Number of J levels associated with Factor A
 
-**y: Pandas Series**
+**K: int**
 
-Data for group two
+Number of K levels associated with Factor B
 
-**est: function**
+**x: Pandas DataFrame**
 
-Measure of location (currently only `trim_mean` is supported)
+Each column represents a cell in the factorial design. For example,
+a 2x3 design would correspond to a DataFrame with 6 columns 
+(levels of Factor A x levels of Factor B).
 
-***args: list/value**
+Order your columns according to the following pattern
+(traversing each row in a matrix): 
 
-Parameter(s) for measure of location (e.g., .2)
+ - the first column contains data for level 1 of Factor A
+ and level 1 of Factor B
+ 
+ - the second column contains data for level 1 of Factor A
+ and level 2 of Factor B
+ 
+ - column `K` contains the data for level 1 of Factor A 
+ and level `K` of Factor B
+ 
+ - column `K` + 1 contains the data for level 2 of Factor A
+ and level 1 of Factor B
+ 
+ - and so on ...
+ 
+**tr: float**
 
-**pairwise_drop_na: bool**
-
-If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)
+Proportion to trim (default is .2)
 
 **alpha: float**
 
-Alpha level. Default is .05.
-
-**nboot: int**
-
-Number of bootstrap samples. Default is 2000.
-
-**seed: bool**
-
-Random seed for reprodicible results. Default is `False`.
+Alpha level (default is .05)
 
 _Return:_
 
 Dictonary of results
 
-<a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/bwimcp.ipynb" 
-target="_blank">Try this function right now in Colab!</a>
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### bwmcppb
 
----
+`#!py bwmcppb(J, K, x, est, *args, alpha=.05,
+            nboot=500, bhop=True, seed=True)`
 
-`bwmcppb(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)`
+(note: this is for trimmed means only depite the `est` arg. 
+This will be fixed eventually. Use `trim_mean` from SciPy)
 
----
-Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of `x` and `y`. `x` and `y` are possibly dependent.
+A percentile bootstrap for multiple comparisons
+for all main effects and interactions
+The analysis is done by generating bootstrap samples and
+using an appropriate linear contrast.
+    
+Uses Rom's method to control FWE. Setting the 
+argument `bhop` to `True` uses the Benjamini–Hochberg 
+method instead.
 
 _Parameters:_
 
-**x: Pandas Series**
+**J: int**
 
-Data for group one
+Number of J levels associated with Factor A
 
-**y: Pandas Series**
+**K: int**
 
-Data for group two
+Number of K levels associated with Factor B
 
+**x: Pandas DataFrame**
+
+Each column represents a cell in the factorial design. For example,
+a 2x3 design would correspond to a DataFrame with 6 columns 
+(levels of Factor A x levels of Factor B).
+
+Order your columns according to the following pattern
+(traversing each row in a matrix): 
+
+ - the first column contains data for level 1 of Factor A
+ and level 1 of Factor B
+ 
+ - the second column contains data for level 1 of Factor A
+ and level 2 of Factor B
+ 
+ - column `K` contains the data for level 1 of Factor A 
+ and level `K` of Factor B
+ 
+ - column `K` + 1 contains the data for level 2 of Factor A
+ and level 1 of Factor B
+ 
+ - and so on ...
+ 
 **est: function**
 
 Measure of location (currently only `trim_mean` is supported)
@@ -890,52 +1011,48 @@ Measure of location (currently only `trim_mean` is supported)
 
 Parameter(s) for measure of location (e.g., .2)
 
-**pairwise_drop_na: bool**
-
-If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)
-
 **alpha: float**
 
 Alpha level. Default is .05.
 
 **nboot: int**
 
-Number of bootstrap samples. Default is 2000.
+Number of bootstrap samples (default is 500)
+
+**bhop: bool**
+
+When `True`, use the Benjamini–Hochberg 
+method to control FWE
 
 **seed: bool**
 
-Random seed for reprodicible results. Default is `False`.
+Random seed for reprodicible results (default is `False`)
 
 _Return:_
 
 Dictonary of results
 
-<a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/bwmcppb.ipynb" 
-target="_blank">Try this function right now in Colab!</a>
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### spmcpa
 
----
+`#!py spmcpa(J, K, x, est, *args,
+           avg=False, alpha=.05, nboot=None, seed=False)`
 
-`spmcpa(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)`
-
----
-Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of `x` and `y`. `x` and `y` are possibly dependent.
-
+All pairwise comparisons among levels of Factor A 
+in a mixed design. A sequentially rejective 
+method is used to control FWE. The `avg` option
+controls whether or not to average data across levels
+of Factor B prior to performing the statistical test. 
+If `False`, contrasts are created to test across Factor A
+for each level of Factor B.
+    
 _Parameters:_
 
-**x: Pandas Series**
+**x: Pandas DataFrame**
 
 Data for group one
-
-**y: Pandas Series**
-
-Data for group two
 
 **est: function**
 
@@ -945,52 +1062,50 @@ Measure of location (currently only `trim_mean` is supported)
 
 Parameter(s) for measure of location (e.g., .2)
 
-**pairwise_drop_na: bool**
+**avg: bool**
 
-If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)
+If `False`, contrasts are created to test across Factor A
+for each level of Factor B (default is `False`)
 
 **alpha: float**
 
-Alpha level. Default is .05.
+Alpha level (default is .05)
 
 **nboot: int**
 
-Number of bootstrap samples. Default is 2000.
+Number of bootstrap samples 
+(default is `None` in which case the 
+number is chosen based on the number of contrasts). 
 
 **seed: bool**
 
-Random seed for reprodicible results. Default is `False`.
+Random seed for reprodicible results (default is `False`)
 
 _Return:_
 
 Dictonary of results
 
-<a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/spmcpa.ipynb" 
-target="_blank">Try this function right now in Colab!</a>
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### spmcpb
 
----
+`#!py spmcpb(J, K, x, est, *args, dif=True, 
+alpha=.05, nboot=599, seed=False)`
 
-`spmcpb(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)`
+All pairwise comparisons among levels of Factor B
+in a split-plot design. A sequentially rejective 
+method is used to control FWE.
 
----
-Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of `x` and `y`. `x` and `y` are possibly dependent.
+If `est` is `onestep` or `mom` (not be implemeted yet),
+method SR is used to control the probability of at 
+least one Type I error. Otherwise, Hochberg is used.
 
 _Parameters:_
 
-**x: Pandas Series**
+**x: Pandas DataFrame**
 
 Data for group one
-
-**y: Pandas Series**
-
-Data for group two
 
 **est: function**
 
@@ -1000,52 +1115,51 @@ Measure of location (currently only `trim_mean` is supported)
 
 Parameter(s) for measure of location (e.g., .2)
 
-**pairwise_drop_na: bool**
+**dif: bool**
 
-If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)
+When `True`, use difference scores, otherwise use marginal distributions
 
 **alpha: float**
 
-Alpha level. Default is .05.
+Alpha level (default is .05)
 
 **nboot: int**
 
-Number of bootstrap samples. Default is 2000.
+Number of bootstrap samples (default is 599)
 
 **seed: bool**
 
-Random seed for reprodicible results. Default is `False`.
+Random seed for reprodicible results (default is `False`)
 
 _Return:_
 
 Dictonary of results
 
-<a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/spmcpb.ipynb" 
-target="_blank">Try this function right now in Colab!</a>
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### spmcpi
 
----
+`#!py spmcpi(J, K, x, est, *args, alpha=.05, 
+nboot=None, SR=False, seed=False)`
 
-`spmcpi(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)`
+Multiple comparisons for interactions
+in a split-plot design.
+The analysis is done by taking difference scores
+among all pairs of dependent groups and
+determining which of
+these differences differ across levels of Factor A.
 
----
-Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of `x` and `y`. `x` and `y` are possibly dependent.
+The so-called the SR method, which is a slight 
+modification of Hochberg's (1988) "sequentially rejective" 
+method can be applied to control FWE, especially when 
+comparing one-step M-estimators or M-estimators.
 
 _Parameters:_
 
-**x: Pandas Series**
+**x: Pandas DataFrame**
 
 Data for group one
-
-**y: Pandas Series**
-
-Data for group two
 
 **est: function**
 
@@ -1055,49 +1169,60 @@ Measure of location (currently only `trim_mean` is supported)
 
 Parameter(s) for measure of location (e.g., .2)
 
-**pairwise_drop_na: bool**
-
-If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)
-
 **alpha: float**
 
 Alpha level. Default is .05.
 
 **nboot: int**
 
-Number of bootstrap samples. Default is 2000.
+Number of bootstrap samples (default is `None`
+in which case the number is 
+chosen based on the number of contrasts)
+
+**SR: bool**
+
+When `True`, use the slight 
+modification of Hochberg's (1988) "sequentially rejective" 
+method to control FWE
 
 **seed: bool**
 
-Random seed for reprodicible results. Default is `False`.
+Random seed for reprodicible results (default is `False`)
 
 _Return:_
 
 Dictonary of results
 
-<a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/spmcpi.ipynb" 
-target="_blank">Try this function right now in Colab!</a>
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ## Measuring associations
 
-These functions deal with correlational statistics (and eventually regression).
-For some of these functions, the input data are given as a Pandas Series for `x` and for `y'.
+These functions deal with correlational 
+statistics (and eventually regression).
+For some of these functions, the 
+input data are given as a Pandas Series 
+for `x` and for `y`.
+
+---
 
 ### corb
 
----
+`#!py corb(corfun, x, y, alpha, nboot, *args, seed=False)`
 
-`corb(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)`
-
----
-Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of `x` and `y`. `x` and `y` are possibly dependent.
+Compute a 1-alpha confidence interval for a 
+correlation using percentile bootstrap method
+The function `corfun` is any function that returns a
+correlation coefficient. The functions pbcor and
+wincor follow this convention. When using 
+Pearson's correlation, and when n<250, use
+lsfitci instead (not yet implemented).
 
 _Parameters:_
+
+**corfun: function**
+
+corfun is any function that returns a correlation coefficient
 
 **x: Pandas Series**
 
@@ -1107,26 +1232,17 @@ Data for group one
 
 Data for group two
 
-**est: function**
-
-Measure of location (currently only `trim_mean` is supported)
-
-***args: list/value**
-
-Parameter(s) for measure of location (e.g., .2)
-
-**pairwise_drop_na: bool**
-
-If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)
-
 **alpha: float**
 
-Alpha level. Default is .05.
+Alpha level (default is .05)
 
 **nboot: int**
 
-Number of bootstrap samples. Default is 2000.
+Number of bootstrap samples
+
+***args: list/value**
+
+List of arguments to corfun (e.g., .2)
 
 **seed: bool**
 
@@ -1134,78 +1250,47 @@ Random seed for reprodicible results. Default is `False`.
 
 _Return:_
 
-Dictonary of results
+List containing CI, p_value, and correlation estimate
 
-<a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/corb.ipynb" 
-target="_blank">Try this function right now in Colab!</a>
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### pball
 
----
+`#!py pball(x, beta=.2)`
 
-`pball(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)`
-
----
-Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of `x` and `y`. `x` and `y` are possibly dependent.
+Compute the percentage bend correlation matrix 
+for all pairs of columns in `x`. This function also 
+returns the two-sided significance level for all pairs 
+of variables, plus a test of zero correlation
+among all pairs.
 
 _Parameters:_
 
-**x: Pandas Series**
+**x: Pandas DataFrame**
 
-Data for group one
+Each column represents a variable to use in the correlations
 
-**y: Pandas Series**
+**beta: float**
 
-Data for group two
-
-**est: function**
-
-Measure of location (currently only `trim_mean` is supported)
-
-***args: list/value**
-
-Parameter(s) for measure of location (e.g., .2)
-
-**pairwise_drop_na: bool**
-
-If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)
-
-**alpha: float**
-
-Alpha level. Default is .05.
-
-**nboot: int**
-
-Number of bootstrap samples. Default is 2000.
-
-**seed: bool**
-
-Random seed for reprodicible results. Default is `False`.
+`0 < beta < .5`. Beta is analogous to trimming in 
+other functions and related to the measure of 
+dispersion used in the percentage bend
+calculation.
 
 _Return:_
 
 Dictonary of results
 
-<a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/pball.ipynb" 
-target="_blank">Try this function right now in Colab!</a>
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### pbcor
 
----
+`#!py pbcor(x, y, beta=.2)`
 
-`pbcor(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)`
-
----
-Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of `x` and `y`. `x` and `y` are possibly dependent.
+Compute the percentage bend 
+correlation between `x` and `y`
 
 _Parameters:_
 
@@ -1217,105 +1302,53 @@ Data for group one
 
 Data for group two
 
-**est: function**
+**beta: float**
 
-Measure of location (currently only `trim_mean` is supported)
-
-***args: list/value**
-
-Parameter(s) for measure of location (e.g., .2)
-
-**pairwise_drop_na: bool**
-
-If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)
-
-**alpha: float**
-
-Alpha level. Default is .05.
-
-**nboot: int**
-
-Number of bootstrap samples. Default is 2000.
-
-**seed: bool**
-
-Random seed for reprodicible results. Default is `False`.
+`0 < beta < .5`. Beta is analogous to trimming in 
+other functions and related to the measure of 
+dispersion used in the percentage bend
+calculation.
 
 _Return:_
 
 Dictonary of results
 
-<a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/pbcor.ipynb" 
-target="_blank">Try this function right now in Colab!</a>
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### winall
 
----
+`#!py winall(x, tr=.2)`
 
-`winall(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)`
-
----
-Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of `x` and `y`. `x` and `y` are possibly dependent.
+Compute the Winsorized correlation and covariance matrix 
+for all pairs of columns in `x`. This function also 
+returns the two-sided significance level for all pairs 
+of variables, plus a test of zero correlation
+among all pairs.
 
 _Parameters:_
 
-**x: Pandas Series**
+**x: Pandas DataFrame**
 
-Data for group one
+Each column represents a variable to use in the correlations
 
-**y: Pandas Series**
+**tr: float**
 
-Data for group two
-
-**est: function**
-
-Measure of location (currently only `trim_mean` is supported)
-
-***args: list/value**
-
-Parameter(s) for measure of location (e.g., .2)
-
-**pairwise_drop_na: bool**
-
-If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)
-
-**alpha: float**
-
-Alpha level. Default is .05.
-
-**nboot: int**
-
-Number of bootstrap samples. Default is 2000.
-
-**seed: bool**
-
-Random seed for reprodicible results. Default is `False`.
+Proportion to winsorize (default is .2)
 
 _Return:_
 
 Dictonary of results
 
-<a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/winall.ipynb" 
-target="_blank">Try this function right now in Colab!</a>
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### wincor
 
----
+`#!py wincor(x, y, tr=.2)`
 
-`wincor(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)`
-
----
-Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of `x` and `y`. `x` and `y` are possibly dependent.
+Compute the winsorized correlation between `x` and `y`.
+This function also returns the winsorized covariance.
 
 _Parameters:_
 
@@ -1327,36 +1360,14 @@ Data for group one
 
 Data for group two
 
-**est: function**
+**tr: float**
 
-Measure of location (currently only `trim_mean` is supported)
-
-***args: list/value**
-
-Parameter(s) for measure of location (e.g., .2)
-
-**pairwise_drop_na: bool**
-
-If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)
-
-**alpha: float**
-
-Alpha level. Default is .05.
-
-**nboot: int**
-
-Number of bootstrap samples. Default is 2000.
-
-**seed: bool**
-
-Random seed for reprodicible results. Default is `False`.
+Proportion to winsorize (default is .2)
 
 _Return:_
 
 Dictonary of results
 
-<a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/wincor.ipynb" 
-target="_blank">Try this function right now in Colab!</a>
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a>
 

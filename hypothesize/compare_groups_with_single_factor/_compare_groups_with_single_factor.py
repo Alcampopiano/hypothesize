@@ -817,6 +817,9 @@ def ydbt(x, y, tr=.2, alpha=.05, nboot=599, side=True, seed=False):
     x=remove_nans_based_on_design(x, 2, 'dependent_groups')
     x,y=[x[0], x[1]]
 
+    if seed:
+        np.random.seed(seed)
+
     data = np.random.randint(len(x), size=(nboot, len(x)))
 
     xcen = x - trim_mean(x, tr)
