@@ -1,185 +1,817 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    
-    
-    <link rel="shortcut icon" href="../img/favicon.ico">
 
-    
-    <title>Function Reference - Hypothesize</title>
-    
 
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
-    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
-    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
-    <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
-    <link href="../css/base.min.css" rel="stylesheet">
-    <link href="../css/cinder.min.css" rel="stylesheet">
-
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
     
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1, mkdocs-material-5.1.3">
+    
+    
+      
+        <title>Function Reference - Hypothesize</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.62d34fff.min.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/palette.c8acc6db.min.css">
+      
+      
         
-        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
         
+        <meta name="theme-color" content="">
+      
     
-    <link href="https://unpkg.com/mermaid@7.1.2/dist/mermaid.css" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-        <![endif]-->
-
     
-
-     
-</head>
-
-<body>
-
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container">
-
-        <!-- Collapsed navigation -->
-        <div class="navbar-header">
-            <!-- Expander button -->
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            
-
-            <!-- Main title -->
-
-            <a class="navbar-brand" href="..">Hypothesize</a>
-        </div>
-
-        <!-- Expanded navigation -->
-        <div class="navbar-collapse collapse">
-                <!-- Main navigation -->
-                <ul class="nav navbar-nav">
-                
-                
-                    <li >
-                        <a href="..">Home</a>
-                    </li>
-                
-                
-                
-                    <li >
-                        <a href="../overview/">Overview</a>
-                    </li>
-                
-                
-                
-                    <li >
-                        <a href="../basic_tutorial/">Tutorial</a>
-                    </li>
-                
-                
-                
-                    <li class="active">
-                        <a href="./">Function Reference</a>
-                    </li>
-                
-                
-                </ul>
-
-            <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
-                            <i class="fas fa-search"></i> Search
-                        </a>
-                    </li>
-                    <li >
-                        <a rel="prev" href="../basic_tutorial/">
-                            <i class="fas fa-arrow-left"></i> Previous
-                        </a>
-                    </li>
-                    <li class="disabled">
-                        <a rel="next" >
-                            Next <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://github.com/Alcampopiano/hypothesize"><i class="fa fa-github"></i> Github</a>
-                    </li>
-            </ul>
-        </div>
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../stylesheets/al_extra.css">
+    
+      <link rel="stylesheet" href="https://unpkg.com/mermaid@7.1.2/dist/mermaid.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="black" data-md-color-accent="red">
+  
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#function-reference" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href=".." title="Hypothesize" class="md-header-nav__button md-logo" aria-label="Hypothesize">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,8A3,3 0 0,0 15,5A3,3 0 0,0 12,2A3,3 0 0,0 9,5A3,3 0 0,0 12,8M12,11.54C9.64,9.35 6.5,8 3,8V19C6.5,19 9.64,20.35 12,22.54C14.36,20.35 17.5,19 21,19V8C17.5,8 14.36,9.35 12,11.54Z" /></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" /></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Hypothesize
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Function Reference
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" /></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" /></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" /></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/Alcampopiano/hypothesize" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    <i class="fa fa-github"></i> Github
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Hypothesize" class="md-nav__button md-logo" aria-label="Hypothesize">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,8A3,3 0 0,0 15,5A3,3 0 0,0 12,2A3,3 0 0,0 9,5A3,3 0 0,0 12,8M12,11.54C9.64,9.35 6.5,8 3,8V19C6.5,19 9.64,20.35 12,22.54C14.36,20.35 17.5,19 21,19V8C17.5,8 14.36,9.35 12,11.54Z" /></svg>
 
-    <div class="container">
+    </a>
+    Hypothesize
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/Alcampopiano/hypothesize" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    <i class="fa fa-github"></i> Github
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../overview/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../basic_tutorial/" title="Tutorial" class="md-nav__link">
+      Tutorial
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Function Reference
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3,9H17V7H3V9M3,13H17V11H3V13M3,17H17V15H3V17M19,17H21V15H19V17M19,7V9H21V7H19M19,13H21V11H19V13Z" /></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="Function Reference" class="md-nav__link md-nav__link--active">
+      Function Reference
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#comparing-groups-with-a-single-factor" class="md-nav__link">
+    Comparing groups with a single factor
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#independent-groups" class="md-nav__link">
+    Independent groups
+  </a>
+  
+    <nav class="md-nav" aria-label="Independent groups">
+      <ul class="md-nav__list">
         
+          <li class="md-nav__item">
+  <a href="#l2drmci" class="md-nav__link">
+    l2drmci
+  </a>
+  
+</li>
         
-        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
-    <ul class="nav bs-sidenav">
-        <li class="first-level active"><a href="#function-reference">Function Reference</a></li>
-            <li class="second-level"><a href="#comparing-groups-with-a-single-factor">Comparing groups with a single factor</a></li>
-                
-            <li class="second-level"><a href="#independent-groups">Independent groups</a></li>
-                
-                <li class="third-level"><a href="#l2drmci">l2drmci</a></li>
-                <li class="third-level"><a href="#linconb">linconb</a></li>
-                <li class="third-level"><a href="#pb2gen">pb2gen</a></li>
-                <li class="third-level"><a href="#tmcppb">tmcppb</a></li>
-                <li class="third-level"><a href="#yuenbt">yuenbt</a></li>
-            <li class="second-level"><a href="#dependent-groups">Dependent groups</a></li>
-                
-                <li class="third-level"><a href="#bootdpci">bootdpci</a></li>
-                <li class="third-level"><a href="#rmmcppb">rmmcppb</a></li>
-                <li class="third-level"><a href="#lindepbt">lindepbt</a></li>
-                <li class="third-level"><a href="#ydbt">ydbt</a></li>
-            <li class="second-level"><a href="#comparing-groups-with-two-factors">Comparing groups with two factors</a></li>
-                
-            <li class="second-level"><a href="#dependent-groups_1">Dependent groups</a></li>
-                
-                <li class="third-level"><a href="#wwmcppb">wwmcppb</a></li>
-                <li class="third-level"><a href="#wwmcpbt">wwmcpbt</a></li>
-            <li class="second-level"><a href="#mixed-designs">Mixed designs</a></li>
-                
-                <li class="third-level"><a href="#bwamcp">bwamcp</a></li>
-                <li class="third-level"><a href="#bwbmcp">bwbmcp</a></li>
-                <li class="third-level"><a href="#bwcmp">bwcmp</a></li>
-                <li class="third-level"><a href="#bwimcp">bwimcp</a></li>
-                <li class="third-level"><a href="#bwmcppb">bwmcppb</a></li>
-                <li class="third-level"><a href="#spmcpa">spmcpa</a></li>
-                <li class="third-level"><a href="#spmcpb">spmcpb</a></li>
-                <li class="third-level"><a href="#spmcpi">spmcpi</a></li>
-            <li class="second-level"><a href="#measuring-associations">Measuring associations</a></li>
-                
-                <li class="third-level"><a href="#corb">corb</a></li>
-                <li class="third-level"><a href="#pball">pball</a></li>
-                <li class="third-level"><a href="#pbcor">pbcor</a></li>
-                <li class="third-level"><a href="#winall">winall</a></li>
-                <li class="third-level"><a href="#wincor">wincor</a></li>
+          <li class="md-nav__item">
+  <a href="#linconb" class="md-nav__link">
+    linconb
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pb2gen" class="md-nav__link">
+    pb2gen
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tmcppb" class="md-nav__link">
+    tmcppb
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#yuenbt" class="md-nav__link">
+    yuenbt
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependent-groups" class="md-nav__link">
+    Dependent groups
+  </a>
+  
+    <nav class="md-nav" aria-label="Dependent groups">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bootdpci" class="md-nav__link">
+    bootdpci
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rmmcppb" class="md-nav__link">
+    rmmcppb
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lindepbt" class="md-nav__link">
+    lindepbt
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ydbt" class="md-nav__link">
+    ydbt
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparing-groups-with-two-factors" class="md-nav__link">
+    Comparing groups with two factors
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependent-groups_1" class="md-nav__link">
+    Dependent groups
+  </a>
+  
+    <nav class="md-nav" aria-label="Dependent groups">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#wwmcppb" class="md-nav__link">
+    wwmcppb
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wwmcpbt" class="md-nav__link">
+    wwmcpbt
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mixed-designs" class="md-nav__link">
+    Mixed designs
+  </a>
+  
+    <nav class="md-nav" aria-label="Mixed designs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bwamcp" class="md-nav__link">
+    bwamcp
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bwbmcp" class="md-nav__link">
+    bwbmcp
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bwcmp" class="md-nav__link">
+    bwcmp
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bwimcp" class="md-nav__link">
+    bwimcp
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bwmcppb" class="md-nav__link">
+    bwmcppb
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spmcpa" class="md-nav__link">
+    spmcpa
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spmcpb" class="md-nav__link">
+    spmcpb
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spmcpi" class="md-nav__link">
+    spmcpi
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#measuring-associations" class="md-nav__link">
+    Measuring associations
+  </a>
+  
+    <nav class="md-nav" aria-label="Measuring associations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#corb" class="md-nav__link">
+    corb
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pball" class="md-nav__link">
+    pball
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pbcor" class="md-nav__link">
+    pbcor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#winall" class="md-nav__link">
+    winall
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wincor" class="md-nav__link">
+    wincor
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
-</div></div>
-        <div class="col-md-9" role="main">
+  
+</nav>
+    
+  </li>
 
-<h1 id="function-reference">Function Reference</h1>
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#comparing-groups-with-a-single-factor" class="md-nav__link">
+    Comparing groups with a single factor
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#independent-groups" class="md-nav__link">
+    Independent groups
+  </a>
+  
+    <nav class="md-nav" aria-label="Independent groups">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#l2drmci" class="md-nav__link">
+    l2drmci
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linconb" class="md-nav__link">
+    linconb
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pb2gen" class="md-nav__link">
+    pb2gen
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tmcppb" class="md-nav__link">
+    tmcppb
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#yuenbt" class="md-nav__link">
+    yuenbt
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependent-groups" class="md-nav__link">
+    Dependent groups
+  </a>
+  
+    <nav class="md-nav" aria-label="Dependent groups">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bootdpci" class="md-nav__link">
+    bootdpci
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rmmcppb" class="md-nav__link">
+    rmmcppb
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lindepbt" class="md-nav__link">
+    lindepbt
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ydbt" class="md-nav__link">
+    ydbt
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparing-groups-with-two-factors" class="md-nav__link">
+    Comparing groups with two factors
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependent-groups_1" class="md-nav__link">
+    Dependent groups
+  </a>
+  
+    <nav class="md-nav" aria-label="Dependent groups">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#wwmcppb" class="md-nav__link">
+    wwmcppb
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wwmcpbt" class="md-nav__link">
+    wwmcpbt
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mixed-designs" class="md-nav__link">
+    Mixed designs
+  </a>
+  
+    <nav class="md-nav" aria-label="Mixed designs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bwamcp" class="md-nav__link">
+    bwamcp
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bwbmcp" class="md-nav__link">
+    bwbmcp
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bwcmp" class="md-nav__link">
+    bwcmp
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bwimcp" class="md-nav__link">
+    bwimcp
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bwmcppb" class="md-nav__link">
+    bwmcppb
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spmcpa" class="md-nav__link">
+    spmcpa
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spmcpb" class="md-nav__link">
+    spmcpb
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spmcpi" class="md-nav__link">
+    spmcpi
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#measuring-associations" class="md-nav__link">
+    Measuring associations
+  </a>
+  
+    <nav class="md-nav" aria-label="Measuring associations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#corb" class="md-nav__link">
+    corb
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pball" class="md-nav__link">
+    pball
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pbcor" class="md-nav__link">
+    pbcor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#winall" class="md-nav__link">
+    winall
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wincor" class="md-nav__link">
+    wincor
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  
+                
+                
+                <h1 id="function-reference">Function Reference<a class="headerlink" href="#function-reference" title="Permanent link">&para;</a></h1>
 <p>Hypothesize exposes the following top-level functions for comparing 
 groups and measuring associations. The function names,  code, and descriptions
 are kept generally consistent with Wilcox's WRS package. 
 If you want to learn more about the theory and research
 behind any given function here, see Wilcox's books, especially
 <a href="https://play.google.com/store/books/details?id=8f8nBb4__EYC&amp;gl=ca&amp;hl=en-CA&amp;source=productsearch&amp;utm_source=HA_Desktop_US&amp;utm_medium=SEM&amp;utm_campaign=PLA&amp;pcampaignid=MKTAD0930BO1&amp;gclid=CjwKCAiA44LzBRB-EiwA-jJipJzyqx9kwNMq5MMU7fG2RrwBK9F7sirX4pfhS8wO7k9Uz_Sqf2P28BoCYzcQAvD_BwE&amp;gclsrc=aw.ds">Introduction to Robust Estimation and Hypothesis Testing</a>.</p>
+<h2 id="comparing-groups-with-a-single-factor">Comparing groups with a single factor<a class="headerlink" href="#comparing-groups-with-a-single-factor" title="Permanent link">&para;</a></h2>
 <hr />
-<h2 id="comparing-groups-with-a-single-factor">Comparing groups with a single factor</h2>
-<p><a name="comp_single_ind"></a></p>
-<h2 id="independent-groups">Independent groups</h2>
-<h3 id="l2drmci">l2drmci</h3>
-<hr />
-<p><code>l2drmci(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)</code></p>
-<hr />
+<h2 id="independent-groups">Independent groups<a class="headerlink" href="#independent-groups" title="Permanent link">&para;</a></h2>
+<h3 id="l2drmci">l2drmci<a class="headerlink" href="#l2drmci" title="Permanent link">&para;</a></h3>
+<p><code class="highlight"><span class="n">l2drmci</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">est</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">pairwise_drop_na</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">05</span><span class="p">,</span> <span class="n">nboot</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code></p>
 <p>Compute a bootstrap confidence interval for a
 measure of location associated with the distribution of x-y. 
 That is, compare x and y by looking at all possible difference scores
@@ -197,24 +829,46 @@ in random samples of <code>x</code> and <code>y</code>. <code>x</code> and <code
 <p>If True, treat data as dependent and remove any row with missing data. If False,
 remove missing data for each group seperately (cannot deal with unequal sample sizes)</p>
 <p><strong>alpha: float</strong></p>
-<p>Alpha level. Default is .05.</p>
+<p>Alpha level (default is .05)</p>
 <p><strong>nboot: int</strong></p>
-<p>Number of bootstrap samples. Default is 2000.</p>
+<p>Number of bootstrap samples (default is 2000)</p>
+<p><strong>seed: bool</strong></p>
+<p>Random seed for reprodicible results (default is <code>False</code>)</p>
+<p><em>Return:</em></p>
+<p>Dictonary of results</p>
+<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<h3 id="linconb">linconb<a class="headerlink" href="#linconb" title="Permanent link">&para;</a></h3>
+<p><code class="highlight"><span class="n">linconb</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">con</span><span class="p">,</span> <span class="n">tr</span><span class="o">=.</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">05</span><span class="p">,</span> <span class="n">nboot</span><span class="o">=</span><span class="mi">599</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code></p>
+<p>Compute a 1-alpha confidence interval for a set of d linear contrasts
+involving trimmed means using the bootstrap-t bootstrap method.
+Independent groups are assumed. CIs are adjusted to control FWE 
+(p values are not adjusted).</p>
+<p><em>Parameters:</em></p>
+<p><strong>x: DataFrame</strong></p>
+<p>Each column represents a group of data</p>
+<p><strong>con: array</strong></p>
+<p><code>con</code> is a J (number of columns) by d (number of contrasts)
+matrix containing the contrast coefficents of interest.
+All linear constrasts can be created automatically by using the function <a href="J">con1way</a>
+(the result of which can be used for <code>con</code>).</p>
+<p><strong>tr: float</strong></p>
+<p>Proportion to trim (default is .2)</p>
+<p><strong>alpha: float</strong></p>
+<p>Alpha level (default is .05)</p>
+<p><strong>nboot: int</strong></p>
+<p>Number of bootstrap samples (default is 2000)</p>
 <p><strong>seed: bool</strong></p>
 <p>Random seed for reprodicible results. Default is <code>False</code>.</p>
 <p><em>Return:</em></p>
 <p>Dictonary of results</p>
-<p><a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/l2drmci.ipynb" 
-target="_blank">Try this function right now in Colab!</a></p>
-<h3 id="linconb">linconb</h3>
-<hr />
-<p><code>linconb(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)</code></p>
-<hr />
-<p>Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of <code>x</code> and <code>y</code>. <code>x</code> and <code>y</code> are possibly dependent.</p>
+<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<h3 id="pb2gen">pb2gen<a class="headerlink" href="#pb2gen" title="Permanent link">&para;</a></h3>
+<p><code class="highlight"><span class="n">pb2gen</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">est</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">05</span><span class="p">,</span> <span class="n">nboot</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code></p>
+<p>Compute a bootstrap confidence interval for the
+the difference between any two parameters corresponding to two
+independent groups.</p>
 <p><em>Parameters:</em></p>
 <p><strong>x: Pandas Series</strong></p>
 <p>Data for group one</p>
@@ -224,306 +878,342 @@ in random samples of <code>x</code> and <code>y</code>. <code>x</code> and <code
 <p>Measure of location (currently only <code>trim_mean</code> is supported)</p>
 <p><strong>*args: list/value</strong></p>
 <p>Parameter(s) for measure of location (e.g., .2)</p>
-<p><strong>pairwise_drop_na: bool</strong></p>
-<p>If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)</p>
+<p><strong>alpha: float</strong></p>
+<p>Alpha level (default is .05)</p>
+<p><strong>nboot: int</strong></p>
+<p>Number of bootstrap samples (default is 2000)</p>
+<p><strong>seed: bool</strong></p>
+<p>Random seed for reprodicible results (default is <code>False</code>)</p>
+<p><em>Return:</em></p>
+<p>Dictonary of results</p>
+<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<h3 id="tmcppb">tmcppb<a class="headerlink" href="#tmcppb" title="Permanent link">&para;</a></h3>
+<p><code class="highlight"><span class="n">tmcppb</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">est</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">con</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bhop</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">05</span><span class="p">,</span> <span class="n">nboot</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code></p>
+<p>Multiple comparisons for J independent groups using trimmed means and
+the percentile bootstrap method. Rom’s method is used to control the 
+probability of one or more type I errors. For C &gt; 10 hypotheses, 
+or when the goal is to test at some level other than .05 and .01, 
+Hochberg’s method is used. Setting the argument <code>bhop</code> to <code>True</code> uses the
+Benjamini–Hochberg method instead.</p>
+<p><em>Parameters:</em></p>
+<p><strong>x: Pandas DataFrame</strong></p>
+<p>Each column represents a group of data</p>
+<p><strong>est: function</strong></p>
+<p>Measure of location (currently only <code>trim_mean</code> is supported)</p>
+<p><strong>*args: list/value</strong></p>
+<p>Parameter(s) for measure of location (e.g., .2)</p>
+<p><strong>con: array</strong></p>
+<p><code>con</code> is a J (number of columns) by d (number of contrasts)
+matrix containing the contrast coefficents of interest.
+All linear constrasts can be created automatically by using the function <a href="J">con1way</a>
+(the result of which can be used for <code>con</code>). The default is <code>None</code> and in this
+case all linear contrasts are created automatically.</p>
+<p><strong>bhop: bool</strong></p>
+<p>If <code>True</code>, the Benjamini–Hochberg method is used to control FWE</p>
 <p><strong>alpha: float</strong></p>
 <p>Alpha level. Default is .05.</p>
 <p><strong>nboot: int</strong></p>
-<p>Number of bootstrap samples. Default is 2000.</p>
+<p>Number of bootstrap samples (default is 2000)</p>
 <p><strong>seed: bool</strong></p>
-<p>Random seed for reprodicible results. Default is <code>False</code>.</p>
+<p>Random seed for reproducible results. Default is <code>False</code>.</p>
 <p><em>Return:</em></p>
 <p>Dictonary of results</p>
-<p><a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/linconb.ipynb" 
-target="_blank">Try this function right now in Colab!</a></p>
-<h3 id="pb2gen">pb2gen</h3>
-<hr />
-<p><code>pb2gen(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)</code></p>
-<hr />
-<p>Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of <code>x</code> and <code>y</code>. <code>x</code> and <code>y</code> are possibly dependent.</p>
+<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<h3 id="yuenbt">yuenbt<a class="headerlink" href="#yuenbt" title="Permanent link">&para;</a></h3>
+<p><code class="highlight"><span class="n">yuenbt</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">tr</span><span class="o">=.</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">05</span><span class="p">,</span> <span class="n">nboot</span><span class="o">=</span><span class="mi">599</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code></p>
+<p>Compute a 1-alpha confidence interval for the difference between
+the trimmed means corresponding to two independent groups.
+The bootstrap-t method is used. During the bootstrapping, 
+the absolute value of the test statistic is used (the "two-sided method").</p>
 <p><em>Parameters:</em></p>
 <p><strong>x: Pandas Series</strong></p>
 <p>Data for group one</p>
 <p><strong>y: Pandas Series</strong></p>
 <p>Data for group two</p>
-<p><strong>est: function</strong></p>
-<p>Measure of location (currently only <code>trim_mean</code> is supported)</p>
-<p><strong>*args: list/value</strong></p>
-<p>Parameter(s) for measure of location (e.g., .2)</p>
-<p><strong>pairwise_drop_na: bool</strong></p>
-<p>If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)</p>
+<p><strong>tr: float</strong></p>
+<p>Proportion to trim (default is .2)</p>
 <p><strong>alpha: float</strong></p>
-<p>Alpha level. Default is .05.</p>
+<p>Alpha level (default is .05)</p>
 <p><strong>nboot: int</strong></p>
-<p>Number of bootstrap samples. Default is 2000.</p>
+<p>Number of bootstrap samples (default is 599)</p>
 <p><strong>seed: bool</strong></p>
 <p>Random seed for reprodicible results. Default is <code>False</code>.</p>
 <p><em>Return:</em></p>
 <p>Dictonary of results</p>
-<p><a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/pb2gen.ipynb" 
-target="_blank">Try this function right now in Colab!</a></p>
-<h3 id="tmcppb">tmcppb</h3>
-<hr />
-<p><code>tmcppb(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)</code></p>
-<hr />
-<p>Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of <code>x</code> and <code>y</code>. <code>x</code> and <code>y</code> are possibly dependent.</p>
+<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<h2 id="dependent-groups">Dependent groups<a class="headerlink" href="#dependent-groups" title="Permanent link">&para;</a></h2>
+<h3 id="bootdpci">bootdpci<a class="headerlink" href="#bootdpci" title="Permanent link">&para;</a></h3>
+<p><code class="highlight"><span class="n">bootdpci</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">est</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">nboot</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">05</span><span class="p">,</span> <span class="n">dif</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">BA</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">SR</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code></p>
+<p>Use percentile bootstrap method, compute a .95 confidence interval 
+for the difference between a measure of location or scale 
+when comparing two dependent groups.</p>
+<p>The argument <code>dif</code> defaults to <code>True</code> indicating 
+that difference scores will be used, in which case Hochberg’s 
+method is used to control FWE. If <code>dif</code> is <code>False</code>, measures of 
+location associated with the marginal distributions are used 
+instead. </p>
+<p>If <code>dif</code> is <code>False</code> and <code>BA</code> is <code>True</code>, the bias adjusted 
+estimate of the generalized p-value is recommended.
+Using <code>BA</code>=<code>True</code> (when <code>dif</code>=<code>False</code>) 
+is recommended when comparing groups 
+with M-estimators and MOM, but it is not necessary when 
+comparing 20% trimmed means (Wilcox &amp; Keselman, 2002). </p>
+<p>The so-called the SR method, which is a slight 
+modification of Hochberg's (1988) "sequentially rejective" 
+method can be applied to control FWE, especially when 
+comparing one-step M-estimators or M-estimators.</p>
+<p><em>Parameters:</em></p>
+<p><strong>x: Pandas DataFrame</strong></p>
+<p>Each column represents a group of data</p>
+<p><strong>est: function</strong></p>
+<p>Measure of location (currently only <code>trim_mean</code> is supported)</p>
+<p><strong>*args: list/value</strong></p>
+<p>Parameter(s) for measure of location (e.g., .2)</p>
+<p><strong>alpha: float</strong></p>
+<p>Alpha level. Default is .05.</p>
+<p><strong>nboot: int</strong></p>
+<p>Number of bootstrap samples. Default is <code>None</code>
+in which case <code>nboot</code> will be chosen for you 
+based on the number of contrasts.</p>
+<p><strong>dif: bool</strong></p>
+<p>When <code>True</code>, use difference scores, otherwise use marginal distributions</p>
+<p><strong>BA: bool</strong></p>
+<p>When <code>True</code>, use the bias adjusted estimate of the 
+generalized p-value is applied (e.g., when <code>dif</code> is <code>False</code>)</p>
+<p><strong>SR: bool</strong></p>
+<p>When <code>True</code>, use the modified "sequentially rejective", especially when 
+comparing one-step M-estimators or M-estimators.</p>
+<p><em>Return:</em></p>
+<p>Dictonary of results</p>
+<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<h3 id="rmmcppb">rmmcppb<a class="headerlink" href="#rmmcppb" title="Permanent link">&para;</a></h3>
+<p><code class="highlight"><span class="n">rmmcppb</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">est</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span>  <span class="n">alpha</span><span class="o">=.</span><span class="mi">05</span><span class="p">,</span> <span class="n">con</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dif</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">nboot</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">BA</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">hoch</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">SR</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code></p>
+<p>Use a percentile bootstrap method to compare dependent groups.
+By default, compute a .95 confidence interval for all linear contrasts
+specified by con, a J-by-C matrix, where C is the number of
+contrasts to be tested, and the columns of <code>con</code> are the
+contrast coefficients. If con is not specified, 
+all pairwise comparisons are done.</p>
+<p>If <code>est</code> is the function <code>onestep</code> or <code>mom</code> (these are not implemeted yet),
+method SR can be used to control the probability of at least one Type I error.
+Otherwise, Hochberg's method is used.</p>
+<p>If <code>dif</code> is <code>False</code> and <code>BA</code> is <code>True</code>, the bias adjusted 
+estimate of the generalized p-value is recommended.
+Using <code>BA</code>=<code>True</code> (when <code>dif</code>=<code>False</code>) 
+is recommended when comparing groups 
+with M-estimators and MOM, but it is not necessary when 
+comparing 20% trimmed means (Wilcox &amp; Keselman, 2002). </p>
+<p>Hochberg's sequentially rejective method can be used and is used 
+if n&gt;=80.</p>
+<p><em>Parameters:</em></p>
+<p><strong>x: Pandas DataFrame</strong></p>
+<p>Each column represents a group of data</p>
+<p><strong>est: function</strong></p>
+<p>Measure of location (currently only <code>trim_mean</code> is supported)</p>
+<p><strong>*args: list/value</strong></p>
+<p>Parameter(s) for measure of location (e.g., .2)</p>
+<p><strong>alpha: float</strong></p>
+<p>Alpha level (default is .05)</p>
+<p><strong>con: array</strong></p>
+<p><code>con</code> is a J (number of columns) by d (number of contrasts)
+matrix containing the contrast coefficents of interest.
+All linear constrasts can be created automatically by using the function <a href="J">con1way</a>
+(the result of which can be used for <code>con</code>). The default is <code>None</code> and in this
+case all linear contrasts are created automatically.</p>
+<p><strong>dif: bool</strong></p>
+<p>When <code>True</code>, use difference scores, otherwise use marginal distributions</p>
+<p><strong>nboot: int</strong></p>
+<p>Number of bootstrap samples. Default is <code>None</code>
+in which case <code>nboot</code> will be chosen for you 
+based on the number of contrasts.</p>
+<p><strong>BA: bool</strong></p>
+<p>When <code>True</code>, use the bias adjusted estimate of the 
+generalized p-value is applied (e.g., when <code>dif</code> is <code>False</code>)</p>
+<p><strong>hoch: bool</strong></p>
+<p>When <code>True</code>, Hochberg's sequentially rejective method can be used and is used 
+if n&gt;=80.</p>
+<p><strong>SR: bool</strong></p>
+<p>When <code>True</code>, use the modified "sequentially rejective", especially when 
+comparing one-step M-estimators or M-estimators.</p>
+<p><strong>seed: bool</strong></p>
+<p>Random seed for reprodicible results (default is <code>False</code>)</p>
+<p><em>Return:</em></p>
+<p>Dictonary of results</p>
+<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<h3 id="lindepbt">lindepbt<a class="headerlink" href="#lindepbt" title="Permanent link">&para;</a></h3>
+<p><code class="highlight"><span class="n">lindepbt</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">tr</span><span class="o">=.</span><span class="mi">2</span><span class="p">,</span> <span class="n">con</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">05</span><span class="p">,</span> <span class="n">nboot</span><span class="o">=</span><span class="mi">599</span><span class="p">,</span> <span class="n">dif</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code></p>
+<p>Multiple comparisons on trimmed means with FWE controlled with Rom's method
+Using a bootstrap-t method.</p>
+<p><em>Parameters:</em></p>
+<p><strong>x: Pandas DataFrame</strong></p>
+<p>Each column in the data represents a different group </p>
+<p><strong>tr: float</strong></p>
+<p>Proportion to trim (default is .2)</p>
+<p><strong>con: array</strong></p>
+<p><code>con</code> is a J (number of groups) by d (number of contrasts) 
+matrix containing the contrast coefficents of interest.
+All linear constrasts can be created automatically by using the function <a href="J">con1way</a>
+(the result of which can be used for <code>con</code>). The default is <code>None</code> and in this 
+case all linear contrasts are created automatically.</p>
+<p><strong>alpha: float</strong></p>
+<p>Alpha level. Default is .05.</p>
+<p><strong>nboot: int</strong></p>
+<p>Number of bootstrap samples (default is 2000)</p>
+<p><strong>dif: bool</strong></p>
+<p>When <code>True</code>, use difference scores, otherwise use marginal distributions</p>
+<p><strong>seed: bool</strong></p>
+<p>Random seed for reprodicible results (default is <code>False</code>)</p>
+<p><em>Return:</em></p>
+<p>Dictonary of results</p>
+<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<h3 id="ydbt">ydbt<a class="headerlink" href="#ydbt" title="Permanent link">&para;</a></h3>
+<p><code class="highlight"><span class="n">ydbt</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">tr</span><span class="o">=.</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">05</span><span class="p">,</span> <span class="n">nboot</span><span class="o">=</span><span class="mi">599</span><span class="p">,</span> <span class="n">side</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code></p>
+<p>Using the bootstrap-t method,
+compute a .95 confidence interval for the difference between
+the marginal trimmed means of paired data.
+By default, 20% trimming is used with 599 bootstrap samples.</p>
 <p><em>Parameters:</em></p>
 <p><strong>x: Pandas Series</strong></p>
 <p>Data for group one</p>
 <p><strong>y: Pandas Series</strong></p>
 <p>Data for group two</p>
-<p><strong>est: function</strong></p>
-<p>Measure of location (currently only <code>trim_mean</code> is supported)</p>
-<p><strong>*args: list/value</strong></p>
-<p>Parameter(s) for measure of location (e.g., .2)</p>
-<p><strong>pairwise_drop_na: bool</strong></p>
-<p>If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)</p>
+<p><strong>tr: float</strong></p>
+<p>Proportion to trim (default is .2)</p>
 <p><strong>alpha: float</strong></p>
 <p>Alpha level. Default is .05.</p>
 <p><strong>nboot: int</strong></p>
-<p>Number of bootstrap samples. Default is 2000.</p>
+<p>Number of bootstrap samples (default is 2000)</p>
+<p><strong>side: bool</strong>
+When <code>True</code> the function returns a symmetric CI and a p value, 
+otherwise the function returns equal-tailed CI (no p value)</p>
 <p><strong>seed: bool</strong></p>
-<p>Random seed for reprodicible results. Default is <code>False</code>.</p>
+<p>Random seed for reprodicible results (default is <code>False</code>)</p>
 <p><em>Return:</em></p>
 <p>Dictonary of results</p>
-<p><a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/tmcppb.ipynb" 
-target="_blank">Try this function right now in Colab!</a></p>
-<h3 id="yuenbt">yuenbt</h3>
+<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<h2 id="comparing-groups-with-two-factors">Comparing groups with two factors<a class="headerlink" href="#comparing-groups-with-two-factors" title="Permanent link">&para;</a></h2>
 <hr />
-<p><code>yuenbt(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)</code></p>
-<hr />
-<p>Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of <code>x</code> and <code>y</code>. <code>x</code> and <code>y</code> are possibly dependent.</p>
+<h2 id="dependent-groups_1">Dependent groups<a class="headerlink" href="#dependent-groups_1" title="Permanent link">&para;</a></h2>
+<h3 id="wwmcppb">wwmcppb<a class="headerlink" href="#wwmcppb" title="Permanent link">&para;</a></h3>
+<p><code class="highlight"><span class="n">wwmcppb</span><span class="p">(</span><span class="n">J</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span>  <span class="n">est</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span>  <span class="n">alpha</span><span class="o">=.</span><span class="mi">05</span><span class="p">,</span> <span class="n">dif</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">nboot</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">BA</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">hoch</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code></p>
+<p>Do all multiple comparisons for a within-by-within design 
+using a percentile bootstrap method.A sequentially rejective 
+method is used to control alpha.
+Hochberg's method can be used and is if n&gt;=80.</p>
 <p><em>Parameters:</em></p>
-<p><strong>x: Pandas Series</strong></p>
-<p>Data for group one</p>
-<p><strong>y: Pandas Series</strong></p>
-<p>Data for group two</p>
+<p><strong>J: int</strong></p>
+<p>Number of J levels associated with Factor A</p>
+<p><strong>K: int</strong></p>
+<p>Number of K levels associated with Factor B</p>
+<p><strong>x: Pandas DataFrame</strong></p>
+<p>Each column represents a cell in the factorial design. For example,
+a 2x3 design would correspond to a DataFrame with 6 columns 
+(levels of Factor A x levels of Factor B).</p>
+<p>Order your columns according to the following pattern
+(traversing each row in a matrix): </p>
+<ul>
+<li>
+<p>the first column contains data for level 1 of Factor A
+ and level 1 of Factor B</p>
+</li>
+<li>
+<p>the second column contains data for level 1 of Factor A
+ and level 2 of Factor B</p>
+</li>
+<li>
+<p>column <code>K</code> contains the data for level 1 of Factor A 
+ and level <code>K</code> of Factor B</p>
+</li>
+<li>
+<p>column <code>K</code> + 1 contains the data for level 2 of Factor A
+ and level 1 of Factor B</p>
+</li>
+<li>
+<p>and so on ... </p>
+</li>
+</ul>
 <p><strong>est: function</strong></p>
 <p>Measure of location (currently only <code>trim_mean</code> is supported)</p>
 <p><strong>*args: list/value</strong></p>
 <p>Parameter(s) for measure of location (e.g., .2)</p>
-<p><strong>pairwise_drop_na: bool</strong></p>
-<p>If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)</p>
 <p><strong>alpha: float</strong></p>
-<p>Alpha level. Default is .05.</p>
+<p>Alpha level (default is .05)</p>
+<p><strong>dif: bool</strong></p>
+<p>When <code>True</code>, use difference scores, otherwise use marginal distributions</p>
 <p><strong>nboot: int</strong></p>
-<p>Number of bootstrap samples. Default is 2000.</p>
+<p>Number of bootstrap samples (default is 599)</p>
+<p><strong>BA: bool</strong></p>
+<p>When <code>True</code>, use the bias adjusted estimate of the 
+generalized p-value is applied (e.g., when <code>dif</code> is <code>False</code>)</p>
+<p><strong>hoch: bool</strong></p>
+<p>When <code>True</code>, Hochberg's sequentially 
+rejective method can be used to control FWE</p>
 <p><strong>seed: bool</strong></p>
-<p>Random seed for reprodicible results. Default is <code>False</code>.</p>
+<p>Random seed for reprodicible results (default is <code>False</code>)</p>
 <p><em>Return:</em></p>
 <p>Dictonary of results</p>
-<p><a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/yuenbt.ipynb" 
-target="_blank">Try this function right now in Colab!</a></p>
-<p><a name="comp_single_dep"></a></p>
-<h2 id="dependent-groups">Dependent groups</h2>
-<h3 id="bootdpci">bootdpci</h3>
-<hr />
-<p><code>bootdpci(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)</code></p>
-<hr />
-<p>Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of <code>x</code> and <code>y</code>. <code>x</code> and <code>y</code> are possibly dependent.</p>
+<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<h3 id="wwmcpbt">wwmcpbt<a class="headerlink" href="#wwmcpbt" title="Permanent link">&para;</a></h3>
+<p><code class="highlight"><span class="n">wwmcpbt</span><span class="p">(</span><span class="n">J</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">tr</span><span class="o">=.</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">05</span><span class="p">,</span> <span class="n">nboot</span><span class="o">=</span><span class="mi">599</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code></p>
+<p>Do multiple comparisons for a within-by-within design.
+using a bootstrap-t method and trimmed means.
+All linear contrasts relevant to main effects and interactions
+are tested. With trimmed means FWE is
+controlled with Rom's method.</p>
+<p>(currently unsure whether or not <code>dif</code> should be here)</p>
 <p><em>Parameters:</em></p>
-<p><strong>x: Pandas Series</strong></p>
-<p>Data for group one</p>
-<p><strong>y: Pandas Series</strong></p>
-<p>Data for group two</p>
-<p><strong>est: function</strong></p>
-<p>Measure of location (currently only <code>trim_mean</code> is supported)</p>
-<p><strong>*args: list/value</strong></p>
-<p>Parameter(s) for measure of location (e.g., .2)</p>
-<p><strong>pairwise_drop_na: bool</strong></p>
-<p>If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)</p>
+<p><strong>J: int</strong></p>
+<p>Number of J levels associated with Factor A</p>
+<p><strong>K: int</strong></p>
+<p>Number of K levels associated with Factor B</p>
+<p><strong>x: Pandas DataFrame</strong></p>
+<p>Each column represents a cell in the factorial design. For example,
+a 2x3 design would correspond to a DataFrame with 6 columns 
+(levels of Factor A x levels of Factor B).</p>
+<p>Order your columns according to the following pattern
+(traversing each row in a matrix): </p>
+<ul>
+<li>
+<p>the first column contains data for level 1 of Factor A
+ and level 1 of Factor B</p>
+</li>
+<li>
+<p>the second column contains data for level 1 of Factor A
+ and level 2 of Factor B</p>
+</li>
+<li>
+<p>column <code>K</code> contains the data for level 1 of Factor A 
+ and level <code>K</code> of Factor B</p>
+</li>
+<li>
+<p>column <code>K</code> + 1 contains the data for level 2 of Factor A
+ and level 1 of Factor B</p>
+</li>
+<li>
+<p>and so on ... </p>
+</li>
+</ul>
+<p><strong>tr: float</strong></p>
+<p>Proportion to trim (default is .2)</p>
 <p><strong>alpha: float</strong></p>
-<p>Alpha level. Default is .05.</p>
+<p>Alpha level (default is .05)</p>
 <p><strong>nboot: int</strong></p>
-<p>Number of bootstrap samples. Default is 2000.</p>
+<p>Number of bootstrap samples (default is 599)</p>
 <p><strong>seed: bool</strong></p>
-<p>Random seed for reprodicible results. Default is <code>False</code>.</p>
+<p>Random seed for reprodicible results (default is <code>False</code>)</p>
 <p><em>Return:</em></p>
 <p>Dictonary of results</p>
-<p><a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/bootdpci.ipynb" 
-target="_blank">Try this function right now in Colab!</a></p>
-<h3 id="rmmcppb">rmmcppb</h3>
-<hr />
-<p><code>rmmcppb(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)</code></p>
-<hr />
-<p>Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of <code>x</code> and <code>y</code>. <code>x</code> and <code>y</code> are possibly dependent.</p>
-<p><em>Parameters:</em></p>
-<p><strong>x: Pandas Series</strong></p>
-<p>Data for group one</p>
-<p><strong>y: Pandas Series</strong></p>
-<p>Data for group two</p>
-<p><strong>est: function</strong></p>
-<p>Measure of location (currently only <code>trim_mean</code> is supported)</p>
-<p><strong>*args: list/value</strong></p>
-<p>Parameter(s) for measure of location (e.g., .2)</p>
-<p><strong>pairwise_drop_na: bool</strong></p>
-<p>If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)</p>
-<p><strong>alpha: float</strong></p>
-<p>Alpha level. Default is .05.</p>
-<p><strong>nboot: int</strong></p>
-<p>Number of bootstrap samples. Default is 2000.</p>
-<p><strong>seed: bool</strong></p>
-<p>Random seed for reprodicible results. Default is <code>False</code>.</p>
-<p><em>Return:</em></p>
-<p>Dictonary of results</p>
-<p><a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/rmmcppb.ipynb" 
-target="_blank">Try this function right now in Colab!</a></p>
-<h3 id="lindepbt">lindepbt</h3>
-<hr />
-<p><code>lindepbt(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)</code></p>
-<hr />
-<p>Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of <code>x</code> and <code>y</code>. <code>x</code> and <code>y</code> are possibly dependent.</p>
-<p><em>Parameters:</em></p>
-<p><strong>x: Pandas Series</strong></p>
-<p>Data for group one</p>
-<p><strong>y: Pandas Series</strong></p>
-<p>Data for group two</p>
-<p><strong>est: function</strong></p>
-<p>Measure of location (currently only <code>trim_mean</code> is supported)</p>
-<p><strong>*args: list/value</strong></p>
-<p>Parameter(s) for measure of location (e.g., .2)</p>
-<p><strong>pairwise_drop_na: bool</strong></p>
-<p>If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)</p>
-<p><strong>alpha: float</strong></p>
-<p>Alpha level. Default is .05.</p>
-<p><strong>nboot: int</strong></p>
-<p>Number of bootstrap samples. Default is 2000.</p>
-<p><strong>seed: bool</strong></p>
-<p>Random seed for reprodicible results. Default is <code>False</code>.</p>
-<p><em>Return:</em></p>
-<p>Dictonary of results</p>
-<p><a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/lindepbt.ipynb" 
-target="_blank">Try this function right now in Colab!</a></p>
-<h3 id="ydbt">ydbt</h3>
-<hr />
-<p><code>ydbt(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)</code></p>
-<hr />
-<p>Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of <code>x</code> and <code>y</code>. <code>x</code> and <code>y</code> are possibly dependent.</p>
-<p><em>Parameters:</em></p>
-<p><strong>x: Pandas Series</strong></p>
-<p>Data for group one</p>
-<p><strong>y: Pandas Series</strong></p>
-<p>Data for group two</p>
-<p><strong>est: function</strong></p>
-<p>Measure of location (currently only <code>trim_mean</code> is supported)</p>
-<p><strong>*args: list/value</strong></p>
-<p>Parameter(s) for measure of location (e.g., .2)</p>
-<p><strong>pairwise_drop_na: bool</strong></p>
-<p>If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)</p>
-<p><strong>alpha: float</strong></p>
-<p>Alpha level. Default is .05.</p>
-<p><strong>nboot: int</strong></p>
-<p>Number of bootstrap samples. Default is 2000.</p>
-<p><strong>seed: bool</strong></p>
-<p>Random seed for reprodicible results. Default is <code>False</code>.</p>
-<p><em>Return:</em></p>
-<p>Dictonary of results</p>
-<p><a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/ydbt.ipynb" 
-target="_blank">Try this function right now in Colab!</a></p>
-<h2 id="comparing-groups-with-two-factors">Comparing groups with two factors</h2>
-<p><a name="comp_double_dep"></a></p>
-<h2 id="dependent-groups_1">Dependent groups</h2>
-<h3 id="wwmcppb">wwmcppb</h3>
-<hr />
-<p><code>wwmcppb(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)</code></p>
-<hr />
-<p>Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of <code>x</code> and <code>y</code>. <code>x</code> and <code>y</code> are possibly dependent.</p>
-<p><em>Parameters:</em></p>
-<p><strong>x: Pandas Series</strong></p>
-<p>Data for group one</p>
-<p><strong>y: Pandas Series</strong></p>
-<p>Data for group two</p>
-<p><strong>est: function</strong></p>
-<p>Measure of location (currently only <code>trim_mean</code> is supported)</p>
-<p><strong>*args: list/value</strong></p>
-<p>Parameter(s) for measure of location (e.g., .2)</p>
-<p><strong>pairwise_drop_na: bool</strong></p>
-<p>If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)</p>
-<p><strong>alpha: float</strong></p>
-<p>Alpha level. Default is .05.</p>
-<p><strong>nboot: int</strong></p>
-<p>Number of bootstrap samples. Default is 2000.</p>
-<p><strong>seed: bool</strong></p>
-<p>Random seed for reprodicible results. Default is <code>False</code>.</p>
-<p><em>Return:</em></p>
-<p>Dictonary of results</p>
-<p><a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/wwmcppb.ipynb" 
-target="_blank">Try this function right now in Colab!</a></p>
-<h3 id="wwmcpbt">wwmcpbt</h3>
-<hr />
-<p><code>wwmcpbt(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)</code></p>
-<hr />
-<p>Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of <code>x</code> and <code>y</code>. <code>x</code> and <code>y</code> are possibly dependent.</p>
-<p><em>Parameters:</em></p>
-<p><strong>x: Pandas Series</strong></p>
-<p>Data for group one</p>
-<p><strong>y: Pandas Series</strong></p>
-<p>Data for group two</p>
-<p><strong>est: function</strong></p>
-<p>Measure of location (currently only <code>trim_mean</code> is supported)</p>
-<p><strong>*args: list/value</strong></p>
-<p>Parameter(s) for measure of location (e.g., .2)</p>
-<p><strong>pairwise_drop_na: bool</strong></p>
-<p>If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)</p>
-<p><strong>alpha: float</strong></p>
-<p>Alpha level. Default is .05.</p>
-<p><strong>nboot: int</strong></p>
-<p>Number of bootstrap samples. Default is 2000.</p>
-<p><strong>seed: bool</strong></p>
-<p>Random seed for reprodicible results. Default is <code>False</code>.</p>
-<p><em>Return:</em></p>
-<p>Dictonary of results</p>
-<p><a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/wwmcpbt.ipynb" 
-target="_blank">Try this function right now in Colab!</a></p>
-<p><a name="comp_double_mix"></a></p>
-<h2 id="mixed-designs">Mixed designs</h2>
+<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<h2 id="mixed-designs">Mixed designs<a class="headerlink" href="#mixed-designs" title="Permanent link">&para;</a></h2>
 <p>These designs are also known as "split-plot" or "between-within" desgins.
 Hypothesize follws the common convention that assumes that the between-subjects
 factor is factor A and the within-subjects conditions are Factor B. For example,
@@ -534,506 +1224,549 @@ there are 3 within-subjects conditions.</p>
 <p>For example, in a 2x3 mixed design, the first 3 columns correspond to the first level of Factor A. The last 3
 columns correspond to the second level of factor A.</p>
 </div>
-<h3 id="bwamcp">bwamcp</h3>
+<h3 id="bwamcp">bwamcp<a class="headerlink" href="#bwamcp" title="Permanent link">&para;</a></h3>
+<p><code class="highlight"><span class="n">bwamcp</span><span class="p">(</span><span class="n">J</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">tr</span><span class="o">=.</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">05</span><span class="p">,</span> <span class="n">pool</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code></p>
+<p>All pairwise comparisons among levels of Factor A
+in a mixed design using trimmed means. The <code>pool</code>
+option allows you to pool dependent groups across 
+Factor A for each level of Factor B.</p>
+<p><em>Parameters:</em></p>
+<p><strong>J: int</strong></p>
+<p>Number of J levels associated with Factor A</p>
+<p><strong>K: int</strong></p>
+<p>Number of K levels associated with Factor B</p>
+<p><strong>x: Pandas DataFrame</strong></p>
+<p>Each column represents a cell in the factorial design. For example,
+a 2x3 design would correspond to a DataFrame with 6 columns 
+(levels of Factor A x levels of Factor B).</p>
+<p>Order your columns according to the following pattern
+(traversing each row in a matrix): </p>
+<ul>
+<li>
+<p>the first column contains data for level 1 of Factor A
+ and level 1 of Factor B</p>
+</li>
+<li>
+<p>the second column contains data for level 1 of Factor A
+ and level 2 of Factor B</p>
+</li>
+<li>
+<p>column <code>K</code> contains the data for level 1 of Factor A 
+ and level <code>K</code> of Factor B</p>
+</li>
+<li>
+<p>column <code>K</code> + 1 contains the data for level 2 of Factor A
+ and level 1 of Factor B</p>
+</li>
+<li>
+<p>and so on ... </p>
+</li>
+</ul>
+<p><strong>tr: float</strong></p>
+<p>Proportion to trim (default is .2)</p>
+<p><strong>alpha: float</strong></p>
+<p>Alpha level (default is .05)</p>
+<p><strong>pool: bool</strong></p>
+<p>If <code>True</code>, pool dependent groups together (default is <code>False</code>).
+Otherwise generate pairwise contrasts 
+across factor A for each level of factor B.</p>
+<p><em>Return:</em></p>
+<p>Dictonary of results</p>
+<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<h3 id="bwbmcp">bwbmcp<a class="headerlink" href="#bwbmcp" title="Permanent link">&para;</a></h3>
+<p><code class="highlight"><span class="n">bwbmcp</span><span class="p">(</span><span class="n">J</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">tr</span><span class="o">=.</span><span class="mi">2</span><span class="p">,</span> <span class="n">con</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">05</span><span class="p">,</span><span class="n">dif</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">pool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">hoch</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code></p>
+<p>All pairwise comparisons among levels of Factor B
+in a mixed design using trimmed means. The <code>pool</code>
+option allows you to pool dependent groups across 
+Factor A for each level of Factor B.</p>
+<p>Rom's method is used to control for FWE (when alpha is 0.5, .01, 
+or when number of comparisons are &gt; 10).
+Hochberg's method can also be used. Note that CIs are adjusted based on the 
+corresponding critical p-value after controling for FWE.</p>
+<p><em>Parameters:</em></p>
+<p><strong>J: int</strong></p>
+<p>Number of J levels associated with Factor A</p>
+<p><strong>K: int</strong></p>
+<p>Number of K levels associated with Factor B</p>
+<p><strong>x: Pandas DataFrame</strong></p>
+<p>Each column represents a cell in the factorial design. For example,
+a 2x3 design would correspond to a DataFrame with 6 columns 
+(levels of Factor A x levels of Factor B).</p>
+<p>Order your columns according to the following pattern
+(traversing each row in a matrix): </p>
+<ul>
+<li>
+<p>the first column contains data for level 1 of Factor A
+ and level 1 of Factor B</p>
+</li>
+<li>
+<p>the second column contains data for level 1 of Factor A
+ and level 2 of Factor B</p>
+</li>
+<li>
+<p>column <code>K</code> contains the data for level 1 of Factor A 
+ and level <code>K</code> of Factor B</p>
+</li>
+<li>
+<p>column <code>K</code> + 1 contains the data for level 2 of Factor A
+ and level 1 of Factor B</p>
+</li>
+<li>
+<p>and so on ... </p>
+</li>
+</ul>
+<p><strong>tr: float</strong></p>
+<p>Proportion to trim (default is .2)</p>
+<p><strong>con: array</strong></p>
+<p><code>con</code> is a K by d (number of contrasts)
+matrix containing the contrast coefficents of interest.
+All linear constrasts can be created automatically by using the function <a href="K">con1way</a>
+(the result of which can be used for <code>con</code>).</p>
+<p><strong>alpha: float</strong></p>
+<p>Alpha level (default is .05)</p>
+<p><strong>dif: bool</strong></p>
+<p>When <code>True</code>, use difference scores, otherwise use marginal distributions</p>
+<p><strong>pool: bool</strong></p>
+<p>If <code>True</code>, pool dependent groups together (default is <code>False</code>).
+Otherwise generate pairwise contrasts 
+across factor A for each level of factor B.</p>
+<p><strong>hoch: bool</strong></p>
+<p>When <code>True</code>, Hochberg's sequentially 
+rejective method can be used to control FWE</p>
+<p><em>Return:</em></p>
+<p>Dictonary of results</p>
+<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<h3 id="bwcmp">bwcmp<a class="headerlink" href="#bwcmp" title="Permanent link">&para;</a></h3>
+<p><code class="highlight"><span class="n">bwcmp</span><span class="p">(</span><span class="n">J</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">05</span><span class="p">,</span> <span class="n">tr</span><span class="o">=.</span><span class="mi">2</span><span class="p">,</span> <span class="n">nboot</span><span class="o">=</span><span class="mi">599</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code></p>
+<p>A bootstrap-t for multiple comparisons among
+for all main effects and interactions in a between-by-within design.
+The analysis is done by generating bootstrap samples and
+using an appropriate linear contrast.</p>
+<p><em>Parameters:</em></p>
+<p><strong>J: int</strong></p>
+<p>Number of J levels associated with Factor A</p>
+<p><strong>K: int</strong></p>
+<p>Number of K levels associated with Factor B</p>
+<p><strong>x: Pandas DataFrame</strong></p>
+<p>Each column represents a cell in the factorial design. For example,
+a 2x3 design would correspond to a DataFrame with 6 columns 
+(levels of Factor A x levels of Factor B).</p>
+<p>Order your columns according to the following pattern
+(traversing each row in a matrix): </p>
+<ul>
+<li>
+<p>the first column contains data for level 1 of Factor A
+ and level 1 of Factor B</p>
+</li>
+<li>
+<p>the second column contains data for level 1 of Factor A
+ and level 2 of Factor B</p>
+</li>
+<li>
+<p>column <code>K</code> contains the data for level 1 of Factor A 
+ and level <code>K</code> of Factor B</p>
+</li>
+<li>
+<p>column <code>K</code> + 1 contains the data for level 2 of Factor A
+ and level 1 of Factor B</p>
+</li>
+<li>
+<p>and so on ...</p>
+</li>
+</ul>
+<p><strong>alpha: float</strong></p>
+<p>Alpha level (default is .05)</p>
+<p><strong>tr: float</strong></p>
+<p>Proportion to trim (default is .2)</p>
+<p><strong>nboot: int</strong></p>
+<p>Number of bootstrap samples (default is 500)</p>
+<p><strong>seed: bool</strong></p>
+<p>Random seed for reprodicible results (default is <code>False</code>)</p>
+<p><em>Return:</em></p>
+<p>Dictonary of results</p>
+<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<h3 id="bwimcp">bwimcp<a class="headerlink" href="#bwimcp" title="Permanent link">&para;</a></h3>
+<p><code class="highlight"><span class="n">bwimcp</span><span class="p">(</span><span class="n">J</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">tr</span><span class="o">=.</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">05</span><span class="p">)</span></code></p>
+<p>Multiple comparisons for interactions
+in a split-plot design.
+The analysis is done by taking difference scores
+among all pairs of dependent groups and
+determining which of
+these differences differ across levels of Factor A
+using trimmed means. FWE is controlled via Hochberg's 
+method. For MOM or M-estimators 
+(possibly not implemented yet), use spmcpi which 
+uses a bootstrap method</p>
+<p><em>Parameters:</em></p>
+<p><strong>J: int</strong></p>
+<p>Number of J levels associated with Factor A</p>
+<p><strong>K: int</strong></p>
+<p>Number of K levels associated with Factor B</p>
+<p><strong>x: Pandas DataFrame</strong></p>
+<p>Each column represents a cell in the factorial design. For example,
+a 2x3 design would correspond to a DataFrame with 6 columns 
+(levels of Factor A x levels of Factor B).</p>
+<p>Order your columns according to the following pattern
+(traversing each row in a matrix): </p>
+<ul>
+<li>
+<p>the first column contains data for level 1 of Factor A
+ and level 1 of Factor B</p>
+</li>
+<li>
+<p>the second column contains data for level 1 of Factor A
+ and level 2 of Factor B</p>
+</li>
+<li>
+<p>column <code>K</code> contains the data for level 1 of Factor A 
+ and level <code>K</code> of Factor B</p>
+</li>
+<li>
+<p>column <code>K</code> + 1 contains the data for level 2 of Factor A
+ and level 1 of Factor B</p>
+</li>
+<li>
+<p>and so on ...</p>
+</li>
+</ul>
+<p><strong>tr: float</strong></p>
+<p>Proportion to trim (default is .2)</p>
+<p><strong>alpha: float</strong></p>
+<p>Alpha level (default is .05)</p>
+<p><em>Return:</em></p>
+<p>Dictonary of results</p>
+<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<h3 id="bwmcppb">bwmcppb<a class="headerlink" href="#bwmcppb" title="Permanent link">&para;</a></h3>
+<p><code class="highlight"><span class="n">bwmcppb</span><span class="p">(</span><span class="n">J</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">est</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">05</span><span class="p">,</span><span class="n">nboot</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">bhop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code></p>
+<p>(note: this is for trimmed means only depite the <code>est</code> arg. 
+This will be fixed eventually. Use <code>trim_mean</code> from SciPy)</p>
+<p>A percentile bootstrap for multiple comparisons
+for all main effects and interactions
+The analysis is done by generating bootstrap samples and
+using an appropriate linear contrast.</p>
+<p>Uses Rom's method to control FWE. Setting the 
+argument <code>bhop</code> to <code>True</code> uses the Benjamini–Hochberg 
+method instead.</p>
+<p><em>Parameters:</em></p>
+<p><strong>J: int</strong></p>
+<p>Number of J levels associated with Factor A</p>
+<p><strong>K: int</strong></p>
+<p>Number of K levels associated with Factor B</p>
+<p><strong>x: Pandas DataFrame</strong></p>
+<p>Each column represents a cell in the factorial design. For example,
+a 2x3 design would correspond to a DataFrame with 6 columns 
+(levels of Factor A x levels of Factor B).</p>
+<p>Order your columns according to the following pattern
+(traversing each row in a matrix): </p>
+<ul>
+<li>
+<p>the first column contains data for level 1 of Factor A
+ and level 1 of Factor B</p>
+</li>
+<li>
+<p>the second column contains data for level 1 of Factor A
+ and level 2 of Factor B</p>
+</li>
+<li>
+<p>column <code>K</code> contains the data for level 1 of Factor A 
+ and level <code>K</code> of Factor B</p>
+</li>
+<li>
+<p>column <code>K</code> + 1 contains the data for level 2 of Factor A
+ and level 1 of Factor B</p>
+</li>
+<li>
+<p>and so on ...</p>
+</li>
+</ul>
+<p><strong>est: function</strong></p>
+<p>Measure of location (currently only <code>trim_mean</code> is supported)</p>
+<p><strong>*args: list/value</strong></p>
+<p>Parameter(s) for measure of location (e.g., .2)</p>
+<p><strong>alpha: float</strong></p>
+<p>Alpha level. Default is .05.</p>
+<p><strong>nboot: int</strong></p>
+<p>Number of bootstrap samples (default is 500)</p>
+<p><strong>bhop: bool</strong></p>
+<p>When <code>True</code>, use the Benjamini–Hochberg 
+method to control FWE</p>
+<p><strong>seed: bool</strong></p>
+<p>Random seed for reprodicible results (default is <code>False</code>)</p>
+<p><em>Return:</em></p>
+<p>Dictonary of results</p>
+<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<h3 id="spmcpa">spmcpa<a class="headerlink" href="#spmcpa" title="Permanent link">&para;</a></h3>
+<p><code class="highlight"><span class="n">spmcpa</span><span class="p">(</span><span class="n">J</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">est</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="n">avg</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">05</span><span class="p">,</span> <span class="n">nboot</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code></p>
+<p>All pairwise comparisons among levels of Factor A 
+in a mixed design. A sequentially rejective 
+method is used to control FWE. The <code>avg</code> option
+controls whether or not to average data across levels
+of Factor B prior to performing the statistical test. 
+If <code>False</code>, contrasts are created to test across Factor A
+for each level of Factor B.</p>
+<p><em>Parameters:</em></p>
+<p><strong>x: Pandas DataFrame</strong></p>
+<p>Data for group one</p>
+<p><strong>est: function</strong></p>
+<p>Measure of location (currently only <code>trim_mean</code> is supported)</p>
+<p><strong>*args: list/value</strong></p>
+<p>Parameter(s) for measure of location (e.g., .2)</p>
+<p><strong>avg: bool</strong></p>
+<p>If <code>False</code>, contrasts are created to test across Factor A
+for each level of Factor B (default is <code>False</code>)</p>
+<p><strong>alpha: float</strong></p>
+<p>Alpha level (default is .05)</p>
+<p><strong>nboot: int</strong></p>
+<p>Number of bootstrap samples 
+(default is <code>None</code> in which case the 
+number is chosen based on the number of contrasts). </p>
+<p><strong>seed: bool</strong></p>
+<p>Random seed for reprodicible results (default is <code>False</code>)</p>
+<p><em>Return:</em></p>
+<p>Dictonary of results</p>
+<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<h3 id="spmcpb">spmcpb<a class="headerlink" href="#spmcpb" title="Permanent link">&para;</a></h3>
+<p><code class="highlight"><span class="n">spmcpb</span><span class="p">(</span><span class="n">J</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">est</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">dif</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">alpha</span><span class="o">=.</span><span class="mi">05</span><span class="p">,</span> <span class="n">nboot</span><span class="o">=</span><span class="mi">599</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code></p>
+<p>All pairwise comparisons among levels of Factor B
+in a split-plot design. A sequentially rejective 
+method is used to control FWE.</p>
+<p>If <code>est</code> is <code>onestep</code> or <code>mom</code> (not be implemeted yet),
+method SR is used to control the probability of at 
+least one Type I error. Otherwise, Hochberg is used.</p>
+<p><em>Parameters:</em></p>
+<p><strong>x: Pandas DataFrame</strong></p>
+<p>Data for group one</p>
+<p><strong>est: function</strong></p>
+<p>Measure of location (currently only <code>trim_mean</code> is supported)</p>
+<p><strong>*args: list/value</strong></p>
+<p>Parameter(s) for measure of location (e.g., .2)</p>
+<p><strong>dif: bool</strong></p>
+<p>When <code>True</code>, use difference scores, otherwise use marginal distributions</p>
+<p><strong>alpha: float</strong></p>
+<p>Alpha level (default is .05)</p>
+<p><strong>nboot: int</strong></p>
+<p>Number of bootstrap samples (default is 599)</p>
+<p><strong>seed: bool</strong></p>
+<p>Random seed for reprodicible results (default is <code>False</code>)</p>
+<p><em>Return:</em></p>
+<p>Dictonary of results</p>
+<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<h3 id="spmcpi">spmcpi<a class="headerlink" href="#spmcpi" title="Permanent link">&para;</a></h3>
+<p><code class="highlight"><span class="n">spmcpi</span><span class="p">(</span><span class="n">J</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">est</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">05</span><span class="p">,</span><span class="n">nboot</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">SR</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code></p>
+<p>Multiple comparisons for interactions
+in a split-plot design.
+The analysis is done by taking difference scores
+among all pairs of dependent groups and
+determining which of
+these differences differ across levels of Factor A.</p>
+<p>The so-called the SR method, which is a slight 
+modification of Hochberg's (1988) "sequentially rejective" 
+method can be applied to control FWE, especially when 
+comparing one-step M-estimators or M-estimators.</p>
+<p><em>Parameters:</em></p>
+<p><strong>x: Pandas DataFrame</strong></p>
+<p>Data for group one</p>
+<p><strong>est: function</strong></p>
+<p>Measure of location (currently only <code>trim_mean</code> is supported)</p>
+<p><strong>*args: list/value</strong></p>
+<p>Parameter(s) for measure of location (e.g., .2)</p>
+<p><strong>alpha: float</strong></p>
+<p>Alpha level. Default is .05.</p>
+<p><strong>nboot: int</strong></p>
+<p>Number of bootstrap samples (default is <code>None</code>
+in which case the number is 
+chosen based on the number of contrasts)</p>
+<p><strong>SR: bool</strong></p>
+<p>When <code>True</code>, use the slight 
+modification of Hochberg's (1988) "sequentially rejective" 
+method to control FWE</p>
+<p><strong>seed: bool</strong></p>
+<p>Random seed for reprodicible results (default is <code>False</code>)</p>
+<p><em>Return:</em></p>
+<p>Dictonary of results</p>
+<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<h2 id="measuring-associations">Measuring associations<a class="headerlink" href="#measuring-associations" title="Permanent link">&para;</a></h2>
+<p>These functions deal with correlational 
+statistics (and eventually regression).
+For some of these functions, the 
+input data are given as a Pandas Series 
+for <code>x</code> and for <code>y</code>.</p>
 <hr />
-<p><code>bwamcp(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)</code></p>
-<hr />
-<p>Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of <code>x</code> and <code>y</code>. <code>x</code> and <code>y</code> are possibly dependent.</p>
+<h3 id="corb">corb<a class="headerlink" href="#corb" title="Permanent link">&para;</a></h3>
+<p><code class="highlight"><span class="n">corb</span><span class="p">(</span><span class="n">corfun</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">nboot</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code></p>
+<p>Compute a 1-alpha confidence interval for a 
+correlation using percentile bootstrap method
+The function <code>corfun</code> is any function that returns a
+correlation coefficient. The functions pbcor and
+wincor follow this convention. When using 
+Pearson's correlation, and when n&lt;250, use
+lsfitci instead (not yet implemented).</p>
+<p><em>Parameters:</em></p>
+<p><strong>corfun: function</strong></p>
+<p>corfun is any function that returns a correlation coefficient</p>
+<p><strong>x: Pandas Series</strong></p>
+<p>Data for group one</p>
+<p><strong>y: Pandas Series</strong></p>
+<p>Data for group two</p>
+<p><strong>alpha: float</strong></p>
+<p>Alpha level (default is .05)</p>
+<p><strong>nboot: int</strong></p>
+<p>Number of bootstrap samples</p>
+<p><strong>*args: list/value</strong></p>
+<p>List of arguments to corfun (e.g., .2)</p>
+<p><strong>seed: bool</strong></p>
+<p>Random seed for reprodicible results. Default is <code>False</code>.</p>
+<p><em>Return:</em></p>
+<p>List containing CI, p_value, and correlation estimate</p>
+<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<h3 id="pball">pball<a class="headerlink" href="#pball" title="Permanent link">&para;</a></h3>
+<p><code class="highlight"><span class="n">pball</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">beta</span><span class="o">=.</span><span class="mi">2</span><span class="p">)</span></code></p>
+<p>Compute the percentage bend correlation matrix 
+for all pairs of columns in <code>x</code>. This function also 
+returns the two-sided significance level for all pairs 
+of variables, plus a test of zero correlation
+among all pairs.</p>
+<p><em>Parameters:</em></p>
+<p><strong>x: Pandas DataFrame</strong></p>
+<p>Each column represents a variable to use in the correlations</p>
+<p><strong>beta: float</strong></p>
+<p><code>0 &lt; beta &lt; .5</code>. Beta is analogous to trimming in 
+other functions and related to the measure of 
+dispersion used in the percentage bend
+calculation.</p>
+<p><em>Return:</em></p>
+<p>Dictonary of results</p>
+<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<h3 id="pbcor">pbcor<a class="headerlink" href="#pbcor" title="Permanent link">&para;</a></h3>
+<p><code class="highlight"><span class="n">pbcor</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">beta</span><span class="o">=.</span><span class="mi">2</span><span class="p">)</span></code></p>
+<p>Compute the percentage bend 
+correlation between <code>x</code> and <code>y</code></p>
 <p><em>Parameters:</em></p>
 <p><strong>x: Pandas Series</strong></p>
 <p>Data for group one</p>
 <p><strong>y: Pandas Series</strong></p>
 <p>Data for group two</p>
-<p><strong>est: function</strong></p>
-<p>Measure of location (currently only <code>trim_mean</code> is supported)</p>
-<p><strong>*args: list/value</strong></p>
-<p>Parameter(s) for measure of location (e.g., .2)</p>
-<p><strong>pairwise_drop_na: bool</strong></p>
-<p>If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)</p>
-<p><strong>alpha: float</strong></p>
-<p>Alpha level. Default is .05.</p>
-<p><strong>nboot: int</strong></p>
-<p>Number of bootstrap samples. Default is 2000.</p>
-<p><strong>seed: bool</strong></p>
-<p>Random seed for reprodicible results. Default is <code>False</code>.</p>
+<p><strong>beta: float</strong></p>
+<p><code>0 &lt; beta &lt; .5</code>. Beta is analogous to trimming in 
+other functions and related to the measure of 
+dispersion used in the percentage bend
+calculation.</p>
 <p><em>Return:</em></p>
 <p>Dictonary of results</p>
-<p><a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/bwamcp.ipynb" 
-target="_blank">Try this function right now in Colab!</a></p>
-<h3 id="bwbmcp">bwbmcp</h3>
-<hr />
-<p><code>bwbmcp(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)</code></p>
-<hr />
-<p>Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of <code>x</code> and <code>y</code>. <code>x</code> and <code>y</code> are possibly dependent.</p>
+<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<h3 id="winall">winall<a class="headerlink" href="#winall" title="Permanent link">&para;</a></h3>
+<p><code class="highlight"><span class="n">winall</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">tr</span><span class="o">=.</span><span class="mi">2</span><span class="p">)</span></code></p>
+<p>Compute the Winsorized correlation and covariance matrix 
+for all pairs of columns in <code>x</code>. This function also 
+returns the two-sided significance level for all pairs 
+of variables, plus a test of zero correlation
+among all pairs.</p>
+<p><em>Parameters:</em></p>
+<p><strong>x: Pandas DataFrame</strong></p>
+<p>Each column represents a variable to use in the correlations</p>
+<p><strong>tr: float</strong></p>
+<p>Proportion to winsorize (default is .2)</p>
+<p><em>Return:</em></p>
+<p>Dictonary of results</p>
+<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<h3 id="wincor">wincor<a class="headerlink" href="#wincor" title="Permanent link">&para;</a></h3>
+<p><code class="highlight"><span class="n">wincor</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">tr</span><span class="o">=.</span><span class="mi">2</span><span class="p">)</span></code></p>
+<p>Compute the winsorized correlation between <code>x</code> and <code>y</code>.
+This function also returns the winsorized covariance.</p>
 <p><em>Parameters:</em></p>
 <p><strong>x: Pandas Series</strong></p>
 <p>Data for group one</p>
 <p><strong>y: Pandas Series</strong></p>
 <p>Data for group two</p>
-<p><strong>est: function</strong></p>
-<p>Measure of location (currently only <code>trim_mean</code> is supported)</p>
-<p><strong>*args: list/value</strong></p>
-<p>Parameter(s) for measure of location (e.g., .2)</p>
-<p><strong>pairwise_drop_na: bool</strong></p>
-<p>If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)</p>
-<p><strong>alpha: float</strong></p>
-<p>Alpha level. Default is .05.</p>
-<p><strong>nboot: int</strong></p>
-<p>Number of bootstrap samples. Default is 2000.</p>
-<p><strong>seed: bool</strong></p>
-<p>Random seed for reprodicible results. Default is <code>False</code>.</p>
+<p><strong>tr: float</strong></p>
+<p>Proportion to winsorize (default is .2)</p>
 <p><em>Return:</em></p>
 <p>Dictonary of results</p>
-<p><a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/bwbmcp.ipynb" 
-target="_blank">Try this function right now in Colab!</a></p>
-<h3 id="bwcmp">bwcmp</h3>
-<hr />
-<p><code>bwcmp(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)</code></p>
-<hr />
-<p>Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of <code>x</code> and <code>y</code>. <code>x</code> and <code>y</code> are possibly dependent.</p>
-<p><em>Parameters:</em></p>
-<p><strong>x: Pandas Series</strong></p>
-<p>Data for group one</p>
-<p><strong>y: Pandas Series</strong></p>
-<p>Data for group two</p>
-<p><strong>est: function</strong></p>
-<p>Measure of location (currently only <code>trim_mean</code> is supported)</p>
-<p><strong>*args: list/value</strong></p>
-<p>Parameter(s) for measure of location (e.g., .2)</p>
-<p><strong>pairwise_drop_na: bool</strong></p>
-<p>If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)</p>
-<p><strong>alpha: float</strong></p>
-<p>Alpha level. Default is .05.</p>
-<p><strong>nboot: int</strong></p>
-<p>Number of bootstrap samples. Default is 2000.</p>
-<p><strong>seed: bool</strong></p>
-<p>Random seed for reprodicible results. Default is <code>False</code>.</p>
-<p><em>Return:</em></p>
-<p>Dictonary of results</p>
-<p><a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/bwcmp.ipynb" 
-target="_blank">Try this function right now in Colab!</a></p>
-<h3 id="bwimcp">bwimcp</h3>
-<hr />
-<p><code>bwimcp(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)</code></p>
-<hr />
-<p>Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of <code>x</code> and <code>y</code>. <code>x</code> and <code>y</code> are possibly dependent.</p>
-<p><em>Parameters:</em></p>
-<p><strong>x: Pandas Series</strong></p>
-<p>Data for group one</p>
-<p><strong>y: Pandas Series</strong></p>
-<p>Data for group two</p>
-<p><strong>est: function</strong></p>
-<p>Measure of location (currently only <code>trim_mean</code> is supported)</p>
-<p><strong>*args: list/value</strong></p>
-<p>Parameter(s) for measure of location (e.g., .2)</p>
-<p><strong>pairwise_drop_na: bool</strong></p>
-<p>If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)</p>
-<p><strong>alpha: float</strong></p>
-<p>Alpha level. Default is .05.</p>
-<p><strong>nboot: int</strong></p>
-<p>Number of bootstrap samples. Default is 2000.</p>
-<p><strong>seed: bool</strong></p>
-<p>Random seed for reprodicible results. Default is <code>False</code>.</p>
-<p><em>Return:</em></p>
-<p>Dictonary of results</p>
-<p><a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/bwimcp.ipynb" 
-target="_blank">Try this function right now in Colab!</a></p>
-<h3 id="bwmcppb">bwmcppb</h3>
-<hr />
-<p><code>bwmcppb(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)</code></p>
-<hr />
-<p>Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of <code>x</code> and <code>y</code>. <code>x</code> and <code>y</code> are possibly dependent.</p>
-<p><em>Parameters:</em></p>
-<p><strong>x: Pandas Series</strong></p>
-<p>Data for group one</p>
-<p><strong>y: Pandas Series</strong></p>
-<p>Data for group two</p>
-<p><strong>est: function</strong></p>
-<p>Measure of location (currently only <code>trim_mean</code> is supported)</p>
-<p><strong>*args: list/value</strong></p>
-<p>Parameter(s) for measure of location (e.g., .2)</p>
-<p><strong>pairwise_drop_na: bool</strong></p>
-<p>If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)</p>
-<p><strong>alpha: float</strong></p>
-<p>Alpha level. Default is .05.</p>
-<p><strong>nboot: int</strong></p>
-<p>Number of bootstrap samples. Default is 2000.</p>
-<p><strong>seed: bool</strong></p>
-<p>Random seed for reprodicible results. Default is <code>False</code>.</p>
-<p><em>Return:</em></p>
-<p>Dictonary of results</p>
-<p><a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/bwmcppb.ipynb" 
-target="_blank">Try this function right now in Colab!</a></p>
-<h3 id="spmcpa">spmcpa</h3>
-<hr />
-<p><code>spmcpa(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)</code></p>
-<hr />
-<p>Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of <code>x</code> and <code>y</code>. <code>x</code> and <code>y</code> are possibly dependent.</p>
-<p><em>Parameters:</em></p>
-<p><strong>x: Pandas Series</strong></p>
-<p>Data for group one</p>
-<p><strong>y: Pandas Series</strong></p>
-<p>Data for group two</p>
-<p><strong>est: function</strong></p>
-<p>Measure of location (currently only <code>trim_mean</code> is supported)</p>
-<p><strong>*args: list/value</strong></p>
-<p>Parameter(s) for measure of location (e.g., .2)</p>
-<p><strong>pairwise_drop_na: bool</strong></p>
-<p>If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)</p>
-<p><strong>alpha: float</strong></p>
-<p>Alpha level. Default is .05.</p>
-<p><strong>nboot: int</strong></p>
-<p>Number of bootstrap samples. Default is 2000.</p>
-<p><strong>seed: bool</strong></p>
-<p>Random seed for reprodicible results. Default is <code>False</code>.</p>
-<p><em>Return:</em></p>
-<p>Dictonary of results</p>
-<p><a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/spmcpa.ipynb" 
-target="_blank">Try this function right now in Colab!</a></p>
-<h3 id="spmcpb">spmcpb</h3>
-<hr />
-<p><code>spmcpb(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)</code></p>
-<hr />
-<p>Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of <code>x</code> and <code>y</code>. <code>x</code> and <code>y</code> are possibly dependent.</p>
-<p><em>Parameters:</em></p>
-<p><strong>x: Pandas Series</strong></p>
-<p>Data for group one</p>
-<p><strong>y: Pandas Series</strong></p>
-<p>Data for group two</p>
-<p><strong>est: function</strong></p>
-<p>Measure of location (currently only <code>trim_mean</code> is supported)</p>
-<p><strong>*args: list/value</strong></p>
-<p>Parameter(s) for measure of location (e.g., .2)</p>
-<p><strong>pairwise_drop_na: bool</strong></p>
-<p>If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)</p>
-<p><strong>alpha: float</strong></p>
-<p>Alpha level. Default is .05.</p>
-<p><strong>nboot: int</strong></p>
-<p>Number of bootstrap samples. Default is 2000.</p>
-<p><strong>seed: bool</strong></p>
-<p>Random seed for reprodicible results. Default is <code>False</code>.</p>
-<p><em>Return:</em></p>
-<p>Dictonary of results</p>
-<p><a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/spmcpb.ipynb" 
-target="_blank">Try this function right now in Colab!</a></p>
-<h3 id="spmcpi">spmcpi</h3>
-<hr />
-<p><code>spmcpi(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)</code></p>
-<hr />
-<p>Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of <code>x</code> and <code>y</code>. <code>x</code> and <code>y</code> are possibly dependent.</p>
-<p><em>Parameters:</em></p>
-<p><strong>x: Pandas Series</strong></p>
-<p>Data for group one</p>
-<p><strong>y: Pandas Series</strong></p>
-<p>Data for group two</p>
-<p><strong>est: function</strong></p>
-<p>Measure of location (currently only <code>trim_mean</code> is supported)</p>
-<p><strong>*args: list/value</strong></p>
-<p>Parameter(s) for measure of location (e.g., .2)</p>
-<p><strong>pairwise_drop_na: bool</strong></p>
-<p>If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)</p>
-<p><strong>alpha: float</strong></p>
-<p>Alpha level. Default is .05.</p>
-<p><strong>nboot: int</strong></p>
-<p>Number of bootstrap samples. Default is 2000.</p>
-<p><strong>seed: bool</strong></p>
-<p>Random seed for reprodicible results. Default is <code>False</code>.</p>
-<p><em>Return:</em></p>
-<p>Dictonary of results</p>
-<p><a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/spmcpi.ipynb" 
-target="_blank">Try this function right now in Colab!</a></p>
-<h2 id="measuring-associations">Measuring associations</h2>
-<p>These functions deal with correlational statistics (and eventually regression).
-For some of these functions, the input data are given as a Pandas Series for <code>x</code> and for `y'.</p>
-<h3 id="corb">corb</h3>
-<hr />
-<p><code>corb(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)</code></p>
-<hr />
-<p>Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of <code>x</code> and <code>y</code>. <code>x</code> and <code>y</code> are possibly dependent.</p>
-<p><em>Parameters:</em></p>
-<p><strong>x: Pandas Series</strong></p>
-<p>Data for group one</p>
-<p><strong>y: Pandas Series</strong></p>
-<p>Data for group two</p>
-<p><strong>est: function</strong></p>
-<p>Measure of location (currently only <code>trim_mean</code> is supported)</p>
-<p><strong>*args: list/value</strong></p>
-<p>Parameter(s) for measure of location (e.g., .2)</p>
-<p><strong>pairwise_drop_na: bool</strong></p>
-<p>If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)</p>
-<p><strong>alpha: float</strong></p>
-<p>Alpha level. Default is .05.</p>
-<p><strong>nboot: int</strong></p>
-<p>Number of bootstrap samples. Default is 2000.</p>
-<p><strong>seed: bool</strong></p>
-<p>Random seed for reprodicible results. Default is <code>False</code>.</p>
-<p><em>Return:</em></p>
-<p>Dictonary of results</p>
-<p><a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/corb.ipynb" 
-target="_blank">Try this function right now in Colab!</a></p>
-<h3 id="pball">pball</h3>
-<hr />
-<p><code>pball(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)</code></p>
-<hr />
-<p>Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of <code>x</code> and <code>y</code>. <code>x</code> and <code>y</code> are possibly dependent.</p>
-<p><em>Parameters:</em></p>
-<p><strong>x: Pandas Series</strong></p>
-<p>Data for group one</p>
-<p><strong>y: Pandas Series</strong></p>
-<p>Data for group two</p>
-<p><strong>est: function</strong></p>
-<p>Measure of location (currently only <code>trim_mean</code> is supported)</p>
-<p><strong>*args: list/value</strong></p>
-<p>Parameter(s) for measure of location (e.g., .2)</p>
-<p><strong>pairwise_drop_na: bool</strong></p>
-<p>If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)</p>
-<p><strong>alpha: float</strong></p>
-<p>Alpha level. Default is .05.</p>
-<p><strong>nboot: int</strong></p>
-<p>Number of bootstrap samples. Default is 2000.</p>
-<p><strong>seed: bool</strong></p>
-<p>Random seed for reprodicible results. Default is <code>False</code>.</p>
-<p><em>Return:</em></p>
-<p>Dictonary of results</p>
-<p><a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/pball.ipynb" 
-target="_blank">Try this function right now in Colab!</a></p>
-<h3 id="pbcor">pbcor</h3>
-<hr />
-<p><code>pbcor(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)</code></p>
-<hr />
-<p>Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of <code>x</code> and <code>y</code>. <code>x</code> and <code>y</code> are possibly dependent.</p>
-<p><em>Parameters:</em></p>
-<p><strong>x: Pandas Series</strong></p>
-<p>Data for group one</p>
-<p><strong>y: Pandas Series</strong></p>
-<p>Data for group two</p>
-<p><strong>est: function</strong></p>
-<p>Measure of location (currently only <code>trim_mean</code> is supported)</p>
-<p><strong>*args: list/value</strong></p>
-<p>Parameter(s) for measure of location (e.g., .2)</p>
-<p><strong>pairwise_drop_na: bool</strong></p>
-<p>If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)</p>
-<p><strong>alpha: float</strong></p>
-<p>Alpha level. Default is .05.</p>
-<p><strong>nboot: int</strong></p>
-<p>Number of bootstrap samples. Default is 2000.</p>
-<p><strong>seed: bool</strong></p>
-<p>Random seed for reprodicible results. Default is <code>False</code>.</p>
-<p><em>Return:</em></p>
-<p>Dictonary of results</p>
-<p><a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/pbcor.ipynb" 
-target="_blank">Try this function right now in Colab!</a></p>
-<h3 id="winall">winall</h3>
-<hr />
-<p><code>winall(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)</code></p>
-<hr />
-<p>Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of <code>x</code> and <code>y</code>. <code>x</code> and <code>y</code> are possibly dependent.</p>
-<p><em>Parameters:</em></p>
-<p><strong>x: Pandas Series</strong></p>
-<p>Data for group one</p>
-<p><strong>y: Pandas Series</strong></p>
-<p>Data for group two</p>
-<p><strong>est: function</strong></p>
-<p>Measure of location (currently only <code>trim_mean</code> is supported)</p>
-<p><strong>*args: list/value</strong></p>
-<p>Parameter(s) for measure of location (e.g., .2)</p>
-<p><strong>pairwise_drop_na: bool</strong></p>
-<p>If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)</p>
-<p><strong>alpha: float</strong></p>
-<p>Alpha level. Default is .05.</p>
-<p><strong>nboot: int</strong></p>
-<p>Number of bootstrap samples. Default is 2000.</p>
-<p><strong>seed: bool</strong></p>
-<p>Random seed for reprodicible results. Default is <code>False</code>.</p>
-<p><em>Return:</em></p>
-<p>Dictonary of results</p>
-<p><a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/winall.ipynb" 
-target="_blank">Try this function right now in Colab!</a></p>
-<h3 id="wincor">wincor</h3>
-<hr />
-<p><code>wincor(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)</code></p>
-<hr />
-<p>Compute a bootstrap confidence interval for a
-measure of location associated with the distribution of x-y. 
-That is, compare x and y by looking at all possible difference scores
-in random samples of <code>x</code> and <code>y</code>. <code>x</code> and <code>y</code> are possibly dependent.</p>
-<p><em>Parameters:</em></p>
-<p><strong>x: Pandas Series</strong></p>
-<p>Data for group one</p>
-<p><strong>y: Pandas Series</strong></p>
-<p>Data for group two</p>
-<p><strong>est: function</strong></p>
-<p>Measure of location (currently only <code>trim_mean</code> is supported)</p>
-<p><strong>*args: list/value</strong></p>
-<p>Parameter(s) for measure of location (e.g., .2)</p>
-<p><strong>pairwise_drop_na: bool</strong></p>
-<p>If True, treat data as dependent and remove any row with missing data. If False,
-remove missing data for each group seperately (cannot deal with unequal sample sizes)</p>
-<p><strong>alpha: float</strong></p>
-<p>Alpha level. Default is .05.</p>
-<p><strong>nboot: int</strong></p>
-<p>Number of bootstrap samples. Default is 2000.</p>
-<p><strong>seed: bool</strong></p>
-<p>Random seed for reprodicible results. Default is <code>False</code>.</p>
-<p><em>Return:</em></p>
-<p>Dictonary of results</p>
-<p><a class="btn btn-info btn-lg btn-block" 
-href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/wincor.ipynb" 
-target="_blank">Try this function right now in Colab!</a></p></div>
-        
-        
-    </div>
+<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+target="_blank" class="button">Try this example yourself in Colab!</a></p>
+                
+              
+              
+                
 
-    <footer class="col-md-12 text-center">
-        
-        <hr>
-        <p>
-        <small>Hypothesize is licensed under the <a href='https://github.com/Alcampopiano/hypothesize/blob/master/LICENSE'>BSD 3-Clause license</small><br>
-        
-        <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
-        </p>
 
-        
-        
-    </footer>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="../js/bootstrap-3.0.3.min.js"></script>
-    
-    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
-    
-    <script>var base_url = ".."</script>
-    
-    <script src="../js/base.js"></script>
-    <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script>
-    <script src="../search/main.js"></script>
-
-    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">
-                    <span aria-hidden="true">&times;</span>
-                    <span class="sr-only">Close</span>
-                </button>
-                <h4 class="modal-title" id="searchModalLabel">Search</h4>
-            </div>
-            <div class="modal-body">
-                <p>
-                    From here you can search these documents. Enter
-                    your search terms below.
-                </p>
-                <form>
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
-                    </div>
-                </form>
-                <div id="mkdocs-search-results"></div>
-            </div>
-            <div class="modal-footer">
-            </div>
+              
+            </article>
+          </div>
         </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../basic_tutorial/" title="Tutorial" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" /></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Tutorial
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
     </div>
-</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            </div>
-            <div class="modal-body">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th style="width: 20%;">Keys</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="help shortcut"><kbd>?</kbd></td>
-                    <td>Open this help</td>
-                  </tr>
-                  <tr>
-                    <td class="next shortcut"><kbd>n</kbd></td>
-                    <td>Next page</td>
-                  </tr>
-                  <tr>
-                    <td class="prev shortcut"><kbd>p</kbd></td>
-                    <td>Previous page</td>
-                  </tr>
-                  <tr>
-                    <td class="search shortcut"><kbd>s</kbd></td>
-                    <td>Search</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Hypothesize is licensed under the <a href='https://github.com/Alcampopiano/hypothesize/blob/master/LICENSE'>BSD 3-Clause license
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
     </div>
-</div>
-    </body>
-
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/vendor.f81b9e8b.min.js"></script>
+      <script src="../assets/javascripts/bundle.23546af0.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "..",
+          features: [],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.58d22e8e.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script>
+      
+    
+  </body>
 </html>
