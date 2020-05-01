@@ -30,7 +30,7 @@ this is reflected in practice when importing from the library:
 graph TB
 linkStyle default interpolate basis
 A[Hypothesize]
-A --> B(compare groups with single factor)
+A --> B(<center>compare groups with single factor</center>)
 A --> C(compare groups with two factors)
 A --> D(measure associations)
 
@@ -76,7 +76,7 @@ Hypothesize allows you to specify optional parameters to control the following (
     - mean
     - median
     
-    !!! warning "For group comparisons, the trimmed mean may be the only supported robust estimator"
+    !!! warning "For group comparisons, so far the trimmed mean may be the only supported robust estimator"
 
 - parameters specific to the chosen estimator
 (e.g., proportion to trim/winsorize, bending constant, etc)
@@ -88,6 +88,7 @@ Hypothesize allows you to specify optional parameters to control the following (
 - random seed (for reprodicible results when using bootstrap-based tests)
 
 <br>
-Visit the [tutorial section](somwhere) and the 
-[function documentation](somwhere) for complete examples
+
+Visit the [tutorial section](basic_tutorial.md) and the 
+[function documentation](function_guide.md) for complete examples
 using Hypothesize.

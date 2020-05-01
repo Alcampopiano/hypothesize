@@ -9,6 +9,8 @@ repo_name: <i class="fa fa-github"></i> Github
 repo_url: https://github.com/Alcampopiano/hypothesize
 edit_uri: ""
 theme:
+  logo: img/vp.png
+  favicon: img/vp_inv.png
   name: material
   palette:
     primary: black
