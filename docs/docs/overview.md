@@ -31,9 +31,9 @@ this is reflected in practice when importing from the library:
 graph TB
 linkStyle default interpolate basis
 A[Hypothesize]
-A --> B(compare groups with single factor)
-A --> C(compare groups with two factors)
-A --> D(measure associations)
+A --> B(<center>compare groups with single factor</center>)
+A --> C(<center>compare groups with two factors</center>)
+A --> D(<center>measure associations</center>)
 
 B --> F(f<sub>1</sub>)
 B --> G(f<sub>2</sub>)
