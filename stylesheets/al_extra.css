@@ -18,5 +18,5 @@
 }
 
 .mermaid svg {
-  text-align: center;
+  text-align: center !important;
 }
