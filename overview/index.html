@@ -233,11 +233,11 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-hypothesize-api" class="md-nav__link">
-    The Hypothesize API
+  <a href="#hypothesize-is-easy-to-use" class="md-nav__link">
+    Hypothesize is easy to use
   </a>
   
-    <nav class="md-nav" aria-label="The Hypothesize API">
+    <nav class="md-nav" aria-label="Hypothesize is easy to use">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -247,15 +247,15 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#input-parameters" class="md-nav__link">
-    Input Parameters
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hypothesize-is-flexible-and-powerful" class="md-nav__link">
+    Hypothesize is flexible and powerful
+  </a>
   
 </li>
       
@@ -316,11 +316,11 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-hypothesize-api" class="md-nav__link">
-    The Hypothesize API
+  <a href="#hypothesize-is-easy-to-use" class="md-nav__link">
+    Hypothesize is easy to use
   </a>
   
-    <nav class="md-nav" aria-label="The Hypothesize API">
+    <nav class="md-nav" aria-label="Hypothesize is easy to use">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -330,15 +330,15 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#input-parameters" class="md-nav__link">
-    Input Parameters
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hypothesize-is-flexible-and-powerful" class="md-nav__link">
+    Hypothesize is flexible and powerful
+  </a>
   
 </li>
       
@@ -368,21 +368,22 @@ The issues of robustness and the functions in this library are described in deta
 <p>The code and function names in Hypothesize are based on Wilcox's R functions in the <a href="somwhere">WRS</a> package. 
 Hypothesize simply brings many of these helpful and well-studied robust methods to the Python ecosystem. 
 In addition, Hypothesize provides a user-friendly API and package structure 
-as well as one-click, <a href="somewhere">ready-to-run examples</a> for every top-level 
+as well as one-click, <a href="../function_guide/">ready-to-run examples</a> for every top-level 
 function.</p>
-<h2 id="the-hypothesize-api">The Hypothesize API<a class="headerlink" href="#the-hypothesize-api" title="Permanent link">&para;</a></h2>
+<h2 id="hypothesize-is-easy-to-use">Hypothesize is easy to use<a class="headerlink" href="#hypothesize-is-easy-to-use" title="Permanent link">&para;</a></h2>
 <p>Hypothesize's API is friendly and 
 consistent, making it easy for you to discover 
-and use robust functions that are appropriate for your statistical design.</p>
+and use robust functions that are appropriate for 
+your statistical design.</p>
 <h3 id="package-structure">Package Structure<a class="headerlink" href="#package-structure" title="Permanent link">&para;</a></h3>
-<p>Hypothesize uses its package stucture to organize functions
-based on the statistical design. The following flow chart 
-and GIF show how Hypothesize organizes its functions and how
+<p>Hypothesize organizes functions
+based on the statistical design. The following visualizations show
+how the package is structured and how
 this is reflected in practice when importing from the library:</p>
 <div class="mermaid">graph TB
 linkStyle default interpolate basis
 A[Hypothesize]
-A --&gt; B(&lt;center&gt;compare groups with single factor&lt;/center&gt;)
+A --&gt; B(compare groups with single factor)
 A --&gt; C(compare groups with two factors)
 A --&gt; D(measure associations)
 
@@ -398,25 +399,16 @@ D --&gt; F5(f&lt;sub&gt;1&lt;/sub&gt;)
 D --&gt; G6(f&lt;sub&gt;2&lt;/sub&gt;)
 D --&gt; H7(f&lt;sub&gt;n&lt;/sub&gt;)</div>
 
-<p><br>
-<img alt="Screenshot" src="../img/api_structure.gif" /></p>
-<p><br></p>
-<h3 id="input-parameters">Input Parameters<a class="headerlink" href="#input-parameters" title="Permanent link">&para;</a></h3>
-<p>After importing the desired function, 
-Hypothesize requires the necessary input arguments. 
-For example,
-the following statistical test only requires the number of J and K levels, 
-and the data to be specified (i.e., the parameter <code>x</code>):</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">hypothesize.compare_groups_with_two_factors</span> <span class="kn">import</span> <span class="n">bwmcp</span>
-
-<span class="n">results</span><span class="o">=</span><span class="n">bwmcp</span><span class="p">(</span><span class="n">J</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">K</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
-</code></pre></div>
-
+<hr />
+<p><img alt="Screenshot" src="../img/package_import_viz.gif" /></p>
+<hr />
+<h2 id="hypothesize-is-flexible-and-powerful">Hypothesize is flexible and powerful<a class="headerlink" href="#hypothesize-is-flexible-and-powerful" title="Permanent link">&para;</a></h2>
 <p>Depending on the statistical test, 
-Hypothesize allows you to specify optional parameters to control the following (not an exhaustive list):</p>
+Hypothesize allows you to specify parameters to control the
+following (not an exhaustive list):</p>
 <ul>
 <li>
-<p>The estimator. For example: </p>
+<p>the estimator</p>
 <ul>
 <li>trimmed mean</li>
 <li>winsorized correlation</li>
@@ -424,20 +416,20 @@ Hypothesize allows you to specify optional parameters to control the following (
 <li>mean</li>
 <li>median</li>
 </ul>
-<div class="admonition warning">
-<p class="admonition-title">For group comparisons, so far the trimmed mean may be the only supported robust estimator</p>
+<div class="admonition note">
+<p class="admonition-title">Hypothesize focuses on methods that relate to the trimmed mean</p>
+<p>However, in places where Hypothesize accepts a function as an input,
+there is a good chance that other estimators will also work
+(e.g., one-step M-estimator, MOM)</p>
 </div>
 </li>
 <li>
-<p>parameters specific to the chosen estimator
-(e.g., proportion to trim/winsorize, bending constant, etc)</p>
+<p>family-wise error (FWE) using sequentially rejective methods</p>
 </li>
-<li>options for controlling FWE</li>
-<li>options for how to compute group differences (e.g., marginal, pairwise, all combinations of differences)</li>
-<li>number of bootstrap samples</li>
-<li>contrast matrix to specify linear contrasts</li>
-<li>alpha level</li>
-<li>random seed (for reprodicible results when using bootstrap-based tests)</li>
+<li>how group differences are calculated (e.g., marginal, pairwise, all combinations of differences)</li>
+<li>linear contrasts</li>
+<li>the alpha level</li>
+<li>the random seed (for reprodicible results when using bootstrap-based tests)</li>
 </ul>
 <p><br></p>
 <p>Visit the <a href="../basic_tutorial/">tutorial section</a> and the 
