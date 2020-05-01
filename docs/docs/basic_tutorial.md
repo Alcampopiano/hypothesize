@@ -11,7 +11,7 @@ In Hypothesize, input data are always specified as a Pandas DataFrame or Series.
 In this example, we have a 2x3 factorial design so the data would take the form of 
 a six-column DataFrame (i.e., J levels x K levels). Using Pandas you can read your data into Python and 
 use one of the appropriate functions from Hypothesize. In this case we will use the function `bwmcp`
-but there are [many others](somewhere) to choose from.
+but there are [many others](function_guide.md) to choose from.
 
 !!! note ""What about my column names?""
     Don't worry, Hypothesize doesn't make use of your column names. 
