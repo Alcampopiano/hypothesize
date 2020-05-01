@@ -13,6 +13,8 @@ a six-column DataFrame (i.e., J levels x K levels). Using Pandas you can read yo
 use one of the appropriate functions from Hypothesize. In this case we will use the function `bwmcp`
 but there are [many others](function_guide.md) to choose from.
 
+[many others](function_guide.md)
+
 !!! note ""What about my column names?""
     Don't worry, Hypothesize doesn't make use of your column names. 
     Feel free to name them however you like!
