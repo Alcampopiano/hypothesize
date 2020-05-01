@@ -16,3 +16,7 @@
   color: white !important;
 
 }
+
+.mermaid svg {
+  text-align: center;
+}

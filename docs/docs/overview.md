@@ -10,27 +10,28 @@ The issues of robustness and the functions in this library are described in deta
 The code and function names in Hypothesize are based on Wilcox's R functions in the [WRS](somwhere) package. 
 Hypothesize simply brings many of these helpful and well-studied robust methods to the Python ecosystem. 
 In addition, Hypothesize provides a user-friendly API and package structure 
-as well as one-click, [ready-to-run examples](somewhere) for every top-level 
+as well as one-click, [ready-to-run examples](function_guide.md) for every top-level 
 function.
 
-## The Hypothesize API
+## Hypothesize is easy to use
 
 Hypothesize's API is friendly and 
 consistent, making it easy for you to discover 
-and use robust functions that are appropriate for your statistical design.
+and use robust functions that are appropriate for 
+your statistical design.
 
 ### Package Structure
 
-Hypothesize uses its package stucture to organize functions
-based on the statistical design. The following flow chart 
-and GIF show how Hypothesize organizes its functions and how
+Hypothesize organizes functions
+based on the statistical design. The following visualizations show
+how the package is structured and how
 this is reflected in practice when importing from the library:
 
 ```mermaid
 graph TB
 linkStyle default interpolate basis
 A[Hypothesize]
-A --> B(<center>compare groups with single factor</center>)
+A --> B(compare groups with single factor)
 A --> C(compare groups with two factors)
 A --> D(measure associations)
 
@@ -47,45 +48,34 @@ D --> G6(f<sub>2</sub>)
 D --> H7(f<sub>n</sub>)
 ```
 	
-<br>
-![Screenshot](img/api_structure.gif)
+---
+![Screenshot](img/package_import_viz.gif)
 
-<br>
+---
+## Hypothesize is flexible and powerful
 
-### Input Parameters
-
-After importing the desired function, 
-Hypothesize requires the necessary input arguments. 
-For example,
-the following statistical test only requires the number of J and K levels, 
-and the data to be specified (i.e., the parameter `x`):
-
-```python
-from hypothesize.compare_groups_with_two_factors import bwmcp
-
-results=bwmcp(J=2, K=3, x=df)
-```
- 
 Depending on the statistical test, 
-Hypothesize allows you to specify optional parameters to control the following (not an exhaustive list):
+Hypothesize allows you to specify parameters to control the
+following (not an exhaustive list):
 
-- The estimator. For example: 
+- the estimator
     - trimmed mean
     - winsorized correlation
     - percentage bend correlation
     - mean
     - median
     
-    !!! warning "For group comparisons, so far the trimmed mean may be the only supported robust estimator"
+    !!! note "Hypothesize focuses on methods that relate to the trimmed mean"
+        However, in places where Hypothesize accepts a function as an input,
+        there is a good chance that other estimators will also work
+        (e.g., one-step M-estimator, MOM)
 
-- parameters specific to the chosen estimator
-(e.g., proportion to trim/winsorize, bending constant, etc)
-- options for controlling FWE
-- options for how to compute group differences (e.g., marginal, pairwise, all combinations of differences)
-- number of bootstrap samples
-- contrast matrix to specify linear contrasts
-- alpha level
-- random seed (for reprodicible results when using bootstrap-based tests)
+
+- family-wise error (FWE) using sequentially rejective methods
+- how group differences are calculated (e.g., marginal, pairwise, all combinations of differences)
+- linear contrasts
+- the alpha level
+- the random seed (for reprodicible results when using bootstrap-based tests)
 
 <br>
 
