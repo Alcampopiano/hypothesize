@@ -14,10 +14,12 @@ For more information on robust methods please see Wilcox's book
 
 ## Getting Started
 
-- [Overview](overview.md#overview)
-- [Installation](install_dep.md#installation)
+- [Overview](overview.md)
+- [Installation](install_dep.md)
 - [Dependencies](install_dep.md#dependencies)
-- [Basic Tutorial](basic_tutorial.md#basic-tutorial)
+- [Basic Tutorial](basic_tutorial.md#)
+- [FAQ](FAQ.md)
+
 
 ## Function Guide
 

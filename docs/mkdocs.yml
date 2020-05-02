@@ -4,6 +4,7 @@ nav:
     - Overview: overview.md
     - Tutorial: basic_tutorial.md
     - Function Reference: function_guide.md
+    - FAQ: FAQ.md
 
 repo_name: <i class="fa fa-github"></i> Github
 repo_url: https://github.com/Alcampopiano/hypothesize
@@ -26,6 +27,7 @@ markdown_extensions:
       permalink: true
   - pymdownx.tabbed
   - pymdownx.inlinehilite
+  - pymdownx.arithmatex
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid
@@ -37,3 +39,4 @@ extra_css:
   - https://unpkg.com/mermaid@7.1.2/dist/mermaid.css
 extra_javascript:
   - https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js
+  - https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML
