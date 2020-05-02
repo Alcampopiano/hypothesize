@@ -291,8 +291,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#here-are-some-examples-of-contrasts-matrices-for-different-designs" class="md-nav__link">
-    Here are some examples of contrasts matrices for different designs
+  <a href="#examples-of-contrasts-matrices-for-different-designs" class="md-nav__link">
+    Examples of contrasts matrices for different designs
   </a>
   
 </li>
@@ -357,8 +357,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#here-are-some-examples-of-contrasts-matrices-for-different-designs" class="md-nav__link">
-    Here are some examples of contrasts matrices for different designs
+  <a href="#examples-of-contrasts-matrices-for-different-designs" class="md-nav__link">
+    Examples of contrasts matrices for different designs
   </a>
   
 </li>
@@ -415,25 +415,34 @@ which assume the shape of the particular sampling distribution under study.
 Once we have an emprically derived sampling distribution,
 obtaining CIs and p values is relatively straightforward.</p>
 <h2 id="what-is-a-contrast-matrix">What is a contrast matrix?<a class="headerlink" href="#what-is-a-contrast-matrix" title="Permanent link">&para;</a></h2>
-<p>A contrast matrix is an array of 1's and 0's
-that indicates how conditions (or groups) are
-to be compared. Hypothesize uses these matrices
-internally to make certain calculations more
-convienient and requires them to be specified 
-as inputs to some functions.</p>
-<p>The rows in a contrast matrix correspond to
-the groups in your design (in order). The columns
-correspond to each linear contrasts that you want to
-make. That is, they indicate which conditions are being compared.</p>
-<div class="admonition success">
-<p class="admonition-title">Not a fan of contrast matrices?</p>
-<p>Don't worry, Hypothesize can generate all pairwise
-contrasts automatically, even for factorial designs.
-See the functions <a href="">con1Way</a> and <a href="">con2way</a>; however,
-it is useful to understand how to read a contrast matrix.</p>
+<p>First, it is helpful to imagine your
+design arranged into a JxK matrix. </p>
+<div>
+<div class="MathJax_Preview">
+A=\begin{bmatrix} 
+a_{1,1} &amp; a_{1,2} &amp; ... &amp; a_{1,K} \\ 
+a_{2,1} &amp; a_{2,2} &amp; ... &amp; a_{2,K} \\
+a_{J,1} &amp; a_{J,2} &amp; ... &amp; a_{J,K}
+\end{bmatrix}
 </div>
-<h3 id="here-are-some-examples-of-contrasts-matrices-for-different-designs">Here are some examples of contrasts matrices for different designs<a class="headerlink" href="#here-are-some-examples-of-contrasts-matrices-for-different-designs" title="Permanent link">&para;</a></h3>
+<script type="math/tex; mode=display">
+A=\begin{bmatrix} 
+a_{1,1} & a_{1,2} & ... & a_{1,K} \\ 
+a_{2,1} & a_{2,2} & ... & a_{2,K} \\
+a_{J,1} & a_{J,2} & ... & a_{J,K}
+\end{bmatrix}
+</script>
+</div>
+<p>A contrast matrix specifies which cells (or elements) in the above
+design are to be compared. The rows in a contrast matrix
+correspond to the cells in your design. The columns correspond
+to the contrasts that you wish to make.</p>
+<h3 id="examples-of-contrasts-matrices-for-different-designs">Examples of contrasts matrices for different designs<a class="headerlink" href="#examples-of-contrasts-matrices-for-different-designs" title="Permanent link">&para;</a></h3>
+<p>Matrix notation is used to explain which cells are
+being compared followed by the corresponding 
+contrast matrix.</p>
 <div class="tabbed-set" data-tabs="1:4"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">design with 2 groups</label><div class="tabbed-content">
+<p><span><span class="MathJax_Preview">{A_{1,1} - A_{1,2}}</span><script type="math/tex">{A_{1,1} - A_{1,2}}</script></span></p>
 <table>
 <thead>
 <tr>
@@ -451,6 +460,11 @@ it is useful to understand how to read a contrast matrix.</p>
 </table>
 </div>
 <input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">design with 3 groups</label><div class="tabbed-content">
+<ol>
+<li><span><span class="MathJax_Preview">\Large{A_{1,1} - A_{1,2}}</span><script type="math/tex">\Large{A_{1,1} - A_{1,2}}</script></span>  </li>
+<li><span><span class="MathJax_Preview">\Large{A_{1,1} - A_{1,3}}</span><script type="math/tex">\Large{A_{1,1} - A_{1,3}}</script></span>  </li>
+<li><span><span class="MathJax_Preview">\Large{A_{1,2} - A_{1,3}}</span><script type="math/tex">\Large{A_{1,2} - A_{1,3}}</script></span>  </li>
+</ol>
 <table>
 <thead>
 <tr>
@@ -480,6 +494,7 @@ it is useful to understand how to read a contrast matrix.</p>
 </div>
 <input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><label for="__tabbed_1_3">2x2 design</label><div class="tabbed-content">
 <p><strong>Factor A</strong></p>
+<p><span><span class="MathJax_Preview">\Large{(A_{1,1} + A_{1,2})-(A_{2,1} + A_{2,2})}</span><script type="math/tex">\Large{(A_{1,1} + A_{1,2})-(A_{2,1} + A_{2,2})}</script></span>  </p>
 <table>
 <thead>
 <tr>
@@ -502,6 +517,7 @@ it is useful to understand how to read a contrast matrix.</p>
 </tbody>
 </table>
 <p><strong>Factor B</strong></p>
+<p><span><span class="MathJax_Preview">\Large{(A_{1,1} + A_{2,1})-(A_{1,2} + A_{2,2})}</span><script type="math/tex">\Large{(A_{1,1} + A_{2,1})-(A_{1,2} + A_{2,2})}</script></span>  </p>
 <table>
 <thead>
 <tr>
@@ -524,6 +540,8 @@ it is useful to understand how to read a contrast matrix.</p>
 </tbody>
 </table>
 <p><strong>Interaction</strong></p>
+<p><span><span class="MathJax_Preview">\Large{(A_{1,1} + A_{2,2})-(A_{1,2} + A_{2,1})}</span><script type="math/tex">\Large{(A_{1,1} + A_{2,2})-(A_{1,2} + A_{2,1})}</script></span>  </p>
+<p>That is, the difference of the differences</p>
 <table>
 <thead>
 <tr>
@@ -548,6 +566,7 @@ it is useful to understand how to read a contrast matrix.</p>
 </div>
 <input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><label for="__tabbed_1_4">2x3 design</label><div class="tabbed-content">
 <p><strong>Factor A</strong></p>
+<p><span><span class="MathJax_Preview">\Large{(A_{1,1} + A_{1,2} + A_{1,3})-(A_{2,1} + A_{2,2} + A_{2,3})}</span><script type="math/tex">\Large{(A_{1,1} + A_{1,2} + A_{1,3})-(A_{2,1} + A_{2,2} + A_{2,3})}</script></span>  </p>
 <table>
 <thead>
 <tr>
@@ -576,6 +595,11 @@ it is useful to understand how to read a contrast matrix.</p>
 </tbody>
 </table>
 <p><strong>Factor B</strong></p>
+<ol>
+<li><span><span class="MathJax_Preview">\Large{(A_{1,1} + A_{2,1})-(A_{1,2} + A_{2,2})}</span><script type="math/tex">\Large{(A_{1,1} + A_{2,1})-(A_{1,2} + A_{2,2})}</script></span>  </li>
+<li><span><span class="MathJax_Preview">\Large{(A_{1,1} + A_{2,1})-(A_{1,3} + A_{2,3})}</span><script type="math/tex">\Large{(A_{1,1} + A_{2,1})-(A_{1,3} + A_{2,3})}</script></span>   </li>
+<li><span><span class="MathJax_Preview">\Large{(A_{1,2} + A_{2,2})-(A_{1,3} + A_{2,3})}</span><script type="math/tex">\Large{(A_{1,2} + A_{2,2})-(A_{1,3} + A_{2,3})}</script></span>    </li>
+</ol>
 <table>
 <thead>
 <tr>
@@ -618,6 +642,11 @@ it is useful to understand how to read a contrast matrix.</p>
 </tbody>
 </table>
 <p><strong>Interactions</strong></p>
+<ol>
+<li><span><span class="MathJax_Preview">\Large{(A_{1,1} + A_{2,2})-(A_{1,2} + A_{2,1})}</span><script type="math/tex">\Large{(A_{1,1} + A_{2,2})-(A_{1,2} + A_{2,1})}</script></span>  </li>
+<li><span><span class="MathJax_Preview">\Large{(A_{1,1} + A_{2,3})-(A_{1,3} + A_{2,1})}</span><script type="math/tex">\Large{(A_{1,1} + A_{2,3})-(A_{1,3} + A_{2,1})}</script></span>   </li>
+<li><span><span class="MathJax_Preview">\Large{(A_{1,2} + A_{2,3})-(A_{1,3} + A_{2,2})}</span><script type="math/tex">\Large{(A_{1,2} + A_{2,3})-(A_{1,3} + A_{2,2})}</script></span>  </li>
+</ol>
 <table>
 <thead>
 <tr>
@@ -661,6 +690,16 @@ it is useful to understand how to read a contrast matrix.</p>
 </table>
 </div>
 </div>
+<div class="admonition success">
+<p class="admonition-title">Not a fan of contrast matrices?</p>
+<p>Don't worry, Hypothesize can generate all linear
+contrasts automatically (see functions <a href="">con1Way</a>
+and <a href="">con2way</a>). However, it is useful to 
+understand this concept so that you know
+which comparisons are being made and 
+how to specify your own if necessary.</p>
+</div>
+<p><br></p>
                 
               
               
