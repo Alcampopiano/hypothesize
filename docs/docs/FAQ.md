@@ -33,33 +33,43 @@ obtaining CIs and p values is relatively straightforward.
 
 ## What is a contrast matrix?
 
-A contrast matrix is an array of 1's and 0's
-that indicates how conditions (or groups) are
-to be compared. Hypothesize uses these matrices
-internally to make certain calculations more
-convienient and requires them to be specified 
-as inputs to some functions.
+First, it is helpful to imagine your
+design arranged into a JxK matrix. 
 
-The rows in a contrast matrix correspond to
-the groups in your design (in order). The columns
-correspond to each linear contrasts that you want to
-make. That is, they indicate which conditions are being compared.
+$$
+A=\begin{bmatrix} 
+a_{1,1} & a_{1,2} & ... & a_{1,K} \\ 
+a_{2,1} & a_{2,2} & ... & a_{2,K} \\
+a_{J,1} & a_{J,2} & ... & a_{J,K}
+\end{bmatrix}
+$$
 
-!!! success "Not a fan of contrast matrices?"
-    Don't worry, Hypothesize can generate all pairwise
-    contrasts automatically, even for factorial designs.
-    See the functions [con1Way]() and [con2way](); however,
-    it is useful to understand how to read a contrast matrix.
+A contrast matrix specifies which cells (or elements) in the above
+design are to be compared. The rows in a contrast matrix
+correspond to the cells in your design. The columns correspond
+to the contrasts that you wish to make.
+    
+### Examples of contrasts matrices for different designs
 
-### Here are some examples of contrasts matrices for different designs
+Matrix notation is used to explain which cells are
+being compared followed by the corresponding 
+contrast matrix.
 
 === "design with 2 groups"
+    
+    ${A_{1,1} - A_{1,2}}$
+    
     | contrast 1 |
     |------------|
     |  1         |
     |  -1        |
     
 === "design with 3 groups"
+
+    1. $\Large{A_{1,1} - A_{1,2}}$  
+    2. $\Large{A_{1,1} - A_{1,3}}$  
+    3. $\Large{A_{1,2} - A_{1,3}}$  
+
     | contrast 1 | contrast 2 | contrast 3 | 
     |------------|------------|------------|
     |  1         |   1        |    0       | 
@@ -68,6 +78,8 @@ make. That is, they indicate which conditions are being compared.
 
 === "2x2 design"
     **Factor A**
+    
+    $\Large{(A_{1,1} + A_{1,2})-(A_{2,1} + A_{2,2})}$  
     
     | contrast 1 | 
     |------------|
@@ -78,6 +90,8 @@ make. That is, they indicate which conditions are being compared.
     
     **Factor B**
     
+    $\Large{(A_{1,1} + A_{2,1})-(A_{1,2} + A_{2,2})}$  
+    
     | contrast 1 | 
     |------------|
     |  1         |  
@@ -87,6 +101,10 @@ make. That is, they indicate which conditions are being compared.
     
     **Interaction**
     
+    $\Large{(A_{1,1} + A_{2,2})-(A_{1,2} + A_{2,1})}$  
+    
+    That is, the difference of the differences
+
     | contrast 1 | 
     |------------|
     |  1         |  
@@ -96,6 +114,8 @@ make. That is, they indicate which conditions are being compared.
     
 === "2x3 design"
     **Factor A**
+    
+    $\Large{(A_{1,1} + A_{1,2} + A_{1,3})-(A_{2,1} + A_{2,2} + A_{2,3})}$  
     
     | contrast 1 |   
     |------------|
@@ -108,6 +128,10 @@ make. That is, they indicate which conditions are being compared.
         
     **Factor B**
     
+    1. $\Large{(A_{1,1} + A_{2,1})-(A_{1,2} + A_{2,2})}$  
+    -  $\Large{(A_{1,1} + A_{2,1})-(A_{1,3} + A_{2,3})}$   
+    -  $\Large{(A_{1,2} + A_{2,2})-(A_{1,3} + A_{2,3})}$    
+    
     | contrast 1 | contrast 2 | contrast 3 | 
     |------------|------------|------------|
     |  1         |   1        |    0       | 
@@ -119,6 +143,10 @@ make. That is, they indicate which conditions are being compared.
     
     **Interactions**
     
+    1. $\Large{(A_{1,1} + A_{2,2})-(A_{1,2} + A_{2,1})}$  
+    -  $\Large{(A_{1,1} + A_{2,3})-(A_{1,3} + A_{2,1})}$   
+    -  $\Large{(A_{1,2} + A_{2,3})-(A_{1,3} + A_{2,2})}$  
+    
     | contrast 1 | contrast 2 | contrast 3 | 
     |------------|------------|------------|
     |  1         |   1        |    0       | 
@@ -127,3 +155,14 @@ make. That is, they indicate which conditions are being compared.
     |  -1        |  -1        |     0      | 
     |  1         |   0        |   -1       | 
     |  0         |   1        |    1       | 
+    
+    
+!!! success "Not a fan of contrast matrices?"
+    Don't worry, Hypothesize can generate all linear
+    contrasts automatically (see functions [con1Way]()
+    and [con2way]()). However, it is useful to 
+    understand this concept so that you know
+    which comparisons are being made and 
+    how to specify your own if necessary.
+    
+<br>
