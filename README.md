@@ -4,7 +4,8 @@
 [![license](https://img.shields.io/pypi/l/hypothesize?style=flat-square)](https://github.com/Alcampopiano/hypothesize/blob/master/LICENSE)
 [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb)
 
-![Screenshot](docs/docs/img/vp_inv.png)
+
+<img src="https://github.com/Alcampopiano/hypothesize/blob/master/docs/docs/img/vp_inv.png?raw=true" alt="drawing" width="150"/>
 
 A Python package for comparing groups and measuring associations using robust statistics
 
