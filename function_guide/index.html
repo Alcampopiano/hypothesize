@@ -818,6 +818,8 @@ If you want to learn more about the theory and research
 behind any given function here, see Wilcox's books, especially
 <a href="https://play.google.com/store/books/details?id=8f8nBb4__EYC&amp;gl=ca&amp;hl=en-CA&amp;source=productsearch&amp;utm_source=HA_Desktop_US&amp;utm_medium=SEM&amp;utm_campaign=PLA&amp;pcampaignid=MKTAD0930BO1&amp;gclid=CjwKCAiA44LzBRB-EiwA-jJipJzyqx9kwNMq5MMU7fG2RrwBK9F7sirX4pfhS8wO7k9Uz_Sqf2P28BoCYzcQAvD_BwE&amp;gclsrc=aw.ds">Introduction to Robust Estimation and Hypothesis Testing</a>.</p>
 <h2 id="comparing-groups-with-a-single-factor">Comparing groups with a single factor<a class="headerlink" href="#comparing-groups-with-a-single-factor" title="Permanent link">&para;</a></h2>
+<p>Statistical tests analogous to a 1-way ANOVA or T-tests. 
+That is, group tests that have a single factor.</p>
 <hr />
 <h2 id="independent-groups">Independent groups<a class="headerlink" href="#independent-groups" title="Permanent link">&para;</a></h2>
 <h3 id="l2drmci">l2drmci<a class="headerlink" href="#l2drmci" title="Permanent link">&para;</a></h3>
@@ -1109,6 +1111,8 @@ otherwise the function returns equal-tailed CI (no p value)</p>
 <p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a></p>
 <h2 id="comparing-groups-with-two-factors">Comparing groups with two factors<a class="headerlink" href="#comparing-groups-with-two-factors" title="Permanent link">&para;</a></h2>
+<p>Statistical tests analogous to a 2-way ANOVA. 
+That is, group tests that have a two factors.</p>
 <hr />
 <h2 id="dependent-groups_1">Dependent groups<a class="headerlink" href="#dependent-groups_1" title="Permanent link">&para;</a></h2>
 <h3 id="wwmcppb">wwmcppb<a class="headerlink" href="#wwmcppb" title="Permanent link">&para;</a></h3>
@@ -1604,11 +1608,9 @@ method to control FWE</p>
 <p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a></p>
 <h2 id="measuring-associations">Measuring associations<a class="headerlink" href="#measuring-associations" title="Permanent link">&para;</a></h2>
-<p>These functions deal with correlational 
-statistics (and eventually regression).
-For some of these functions, the 
-input data are given as a Pandas Series 
-for <code>x</code> and for <code>y</code>.</p>
+<p>For statistical tests and measurements that 
+include robust correlations and tests of independence.
+Note that regression functions will be added here eventually.</p>
 <hr />
 <h3 id="corb">corb<a class="headerlink" href="#corb" title="Permanent link">&para;</a></h3>
 <p><code class="highlight"><span class="n">corb</span><span class="p">(</span><span class="n">corfun</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">nboot</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code></p>
