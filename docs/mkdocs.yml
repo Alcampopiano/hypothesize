@@ -1,4 +1,8 @@
 site_name: Hypothesize
+google_analytics:
+  - UA-165284209-1
+  - auto
+
 nav:
     - Home: index.md
     - Overview: overview.md
