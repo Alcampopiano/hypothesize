@@ -7,9 +7,16 @@ If you want to learn more about the theory and research
 behind any given function here, see Wilcox's books, especially
 [Introduction to Robust Estimation and Hypothesis Testing](https://play.google.com/store/books/details?id=8f8nBb4__EYC&gl=ca&hl=en-CA&source=productsearch&utm_source=HA_Desktop_US&utm_medium=SEM&utm_campaign=PLA&pcampaignid=MKTAD0930BO1&gclid=CjwKCAiA44LzBRB-EiwA-jJipJzyqx9kwNMq5MMU7fG2RrwBK9F7sirX4pfhS8wO7k9Uz_Sqf2P28BoCYzcQAvD_BwE&gclsrc=aw.ds).
 
-- [Comparing groups with a single factor](function_guide.md#Comparing-groups-with-a-single-factor)
-- [Comparing groups with two factors](function_guide.md#comparing-groups-with-two-factors)
-- [Measuring associations](function_guide.md#measuring-associations)
+---
+Jump to:
+
+**[Comparing groups with a single factor](function_guide.md#comparing-groups-with-a-single-factor)**
+
+**[Comparing groups with two factors](function_guide.md#comparing-groups-with-two-factors)**
+
+**[Measuring associations](function_guide.md#measuring-associations)**
+
+---
 
 ## Comparing groups with a single factor
 Statistical tests analogous to a 1-way ANOVA or T-tests. 
