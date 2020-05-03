@@ -57,7 +57,7 @@ contrast matrix.
 
 === "design with 2 groups"
     
-    ${A_{1,1} - A_{1,2}}$
+    ${a_{1,1} - a_{1,2}}$
     
     | contrast 1 |
     |------------|
@@ -66,9 +66,9 @@ contrast matrix.
     
 === "design with 3 groups"
 
-    1. $\Large{A_{1,1} - A_{1,2}}$  
-    2. $\Large{A_{1,1} - A_{1,3}}$  
-    3. $\Large{A_{1,2} - A_{1,3}}$  
+    1. $\Large{a_{1,1} - a_{1,2}}$  
+    2. $\Large{a_{1,1} - a_{1,3}}$  
+    3. $\Large{a_{1,2} - a_{1,3}}$  
 
     | contrast 1 | contrast 2 | contrast 3 | 
     |------------|------------|------------|
@@ -79,7 +79,7 @@ contrast matrix.
 === "2x2 design"
     **Factor A**
     
-    $\Large{(A_{1,1} + A_{1,2})-(A_{2,1} + A_{2,2})}$  
+    $\Large{(a_{1,1} + a_{1,2})-(a_{2,1} + a_{2,2})}$  
     
     | contrast 1 | 
     |------------|
@@ -90,7 +90,7 @@ contrast matrix.
     
     **Factor B**
     
-    $\Large{(A_{1,1} + A_{2,1})-(A_{1,2} + A_{2,2})}$  
+    $\Large{(a_{1,1} + a_{2,1})-(a_{1,2} + a_{2,2})}$  
     
     | contrast 1 | 
     |------------|
@@ -101,7 +101,7 @@ contrast matrix.
     
     **Interaction**
     
-    $\Large{(A_{1,1} + A_{2,2})-(A_{1,2} + A_{2,1})}$  
+    $\Large{(a_{1,1} + a_{2,2})-(a_{1,2} + a_{2,1})}$  
     
     That is, the difference of the differences
 
@@ -115,7 +115,7 @@ contrast matrix.
 === "2x3 design"
     **Factor A**
     
-    $\Large{(A_{1,1} + A_{1,2} + A_{1,3})-(A_{2,1} + A_{2,2} + A_{2,3})}$  
+    $\Large{(a_{1,1} + a_{1,2} + a_{1,3})-(a_{2,1} + a_{2,2} + a_{2,3})}$  
     
     | contrast 1 |   
     |------------|
@@ -128,9 +128,9 @@ contrast matrix.
         
     **Factor B**
     
-    1. $\Large{(A_{1,1} + A_{2,1})-(A_{1,2} + A_{2,2})}$  
-    -  $\Large{(A_{1,1} + A_{2,1})-(A_{1,3} + A_{2,3})}$   
-    -  $\Large{(A_{1,2} + A_{2,2})-(A_{1,3} + A_{2,3})}$    
+    1. $\Large{(a_{1,1} + a_{2,1})-(a_{1,2} + a_{2,2})}$  
+    -  $\Large{(a_{1,1} + a_{2,1})-(a_{1,3} + a_{2,3})}$   
+    -  $\Large{(a_{1,2} + a_{2,2})-(a_{1,3} + a_{2,3})}$    
     
     | contrast 1 | contrast 2 | contrast 3 | 
     |------------|------------|------------|
@@ -143,9 +143,9 @@ contrast matrix.
     
     **Interactions**
     
-    1. $\Large{(A_{1,1} + A_{2,2})-(A_{1,2} + A_{2,1})}$  
-    -  $\Large{(A_{1,1} + A_{2,3})-(A_{1,3} + A_{2,1})}$   
-    -  $\Large{(A_{1,2} + A_{2,3})-(A_{1,3} + A_{2,2})}$  
+    1. $\Large{(a_{1,1} + a_{2,2})-(a_{1,2} + a_{2,1})}$  
+    -  $\Large{(a_{1,1} + a_{2,3})-(a_{1,3} + a_{2,1})}$   
+    -  $\Large{(a_{1,2} + a_{2,3})-(a_{1,3} + a_{2,2})}$  
     
     | contrast 1 | contrast 2 | contrast 3 | 
     |------------|------------|------------|
