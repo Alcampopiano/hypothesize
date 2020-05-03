@@ -16,37 +16,19 @@ For more information on robust methods please see Wilcox's book
 
 - [Overview](overview.md)
 - [Installation](install_dep.md)
-- [Dependencies](install_dep.md#dependencies)
 - [Basic Tutorial](basic_tutorial.md#)
-- [FAQ](FAQ.md)
-
 
 ## Function Guide
 
-### [Comparing groups with a single factor](function_guide.md#Comparing-groups-with-a-single-factor)
+- [Comparing groups with a single factor](function_guide.md#Comparing-groups-with-a-single-factor)
+- [Comparing groups with two factors](function_guide.md#comparing-groups-with-two-factors)
+- [Measuring associations](function_guide.md#measuring-associations)
 
-For statistical tests analogous to a 1-way ANOVA or T-tests. 
-That is, group tests that have a single factor. 
-
-- [Independent groups](function_guide.md#independent-groups)
-- [Dependent groups](function_guide.md#dependent-groups)
-
-### [Comparing groups with two factors](function_guide.md#comparing-groups-with-two-factors)
-
-For statistical tests analogous to a 2-way ANOVA. 
-That is, group tests that have a two factors.
-
-- [Dependent groups](function_guide.md#dependent-groups_1)
-- [Mixed designs](function_guide.md#mixed_designs)
-
-### [Measuring associations](function_guide.md#measuring-associations)
-
-For statistical tests and measurements that include robust correlations and tests of independence.
-Note that regression functions will be added here eventually. 
+## [Frequently Asked Questions](FAQ.md)
 
 ## Bug reports and Questions
 Hypothesize is BSD-licenced and the source code is available
 on [GitHub](https://github.com/Alcampopiano/hypothesize).
 For issues and questions, 
-please use [GitHub Issues](https://github.com/Alcampopiano/hypothesize/issues)
+please use [GitHub Issues](https://github.com/Alcampopiano/hypothesize/issues).
 

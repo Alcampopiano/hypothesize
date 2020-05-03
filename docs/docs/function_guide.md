@@ -8,6 +8,8 @@ behind any given function here, see Wilcox's books, especially
 [Introduction to Robust Estimation and Hypothesis Testing](https://play.google.com/store/books/details?id=8f8nBb4__EYC&gl=ca&hl=en-CA&source=productsearch&utm_source=HA_Desktop_US&utm_medium=SEM&utm_campaign=PLA&pcampaignid=MKTAD0930BO1&gclid=CjwKCAiA44LzBRB-EiwA-jJipJzyqx9kwNMq5MMU7fG2RrwBK9F7sirX4pfhS8wO7k9Uz_Sqf2P28BoCYzcQAvD_BwE&gclsrc=aw.ds).
 
 ## Comparing groups with a single factor
+Statistical tests analogous to a 1-way ANOVA or T-tests. 
+That is, group tests that have a single factor.
 ---
 
 ## Independent groups
@@ -508,6 +510,8 @@ Dictonary of results
 target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ## Comparing groups with two factors
+Statistical tests analogous to a 2-way ANOVA. 
+That is, group tests that have a two factors.
 ---
 
 ## Dependent groups
@@ -1198,11 +1202,9 @@ target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ## Measuring associations
 
-These functions deal with correlational 
-statistics (and eventually regression).
-For some of these functions, the 
-input data are given as a Pandas Series 
-for `x` and for `y`.
+For statistical tests and measurements that 
+include robust correlations and tests of independence.
+Note that regression functions will be added here eventually.
 
 ---
 

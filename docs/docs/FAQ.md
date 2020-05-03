@@ -49,10 +49,10 @@ design are to be compared. The rows in a contrast matrix
 correspond to the cells in your design. The columns correspond
 to the contrasts that you wish to make.
     
-### Examples of contrasts matrices for different designs
+### Examples of contrast matrices for different designs
 
 Matrix notation is used to explain which cells are
-being compared followed by the corresponding 
+being compared, followed by the corresponding 
 contrast matrix.
 
 === "design with 2 groups"
