@@ -18,13 +18,10 @@ For more information on robust methods please see Wilcox's book
 - [Installation](install_dep.md)
 - [Basic Tutorial](basic_tutorial.md#)
 
-## Function Guide
+## User Guide
 
-- [Comparing groups with a single factor](function_guide.md#Comparing-groups-with-a-single-factor)
-- [Comparing groups with two factors](function_guide.md#comparing-groups-with-two-factors)
-- [Measuring associations](function_guide.md#measuring-associations)
-
-## [Frequently Asked Questions](FAQ.md)
+- [Function reference](function_guide.md)
+- [Frequently asked questions](FAQ.md)
 
 ## Bug reports and Questions
 Hypothesize is BSD-licenced and the source code is available
