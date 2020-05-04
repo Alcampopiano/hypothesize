@@ -34,7 +34,7 @@ def wincor(x, y, tr=.2):
     test = wcor * np.sqrt((len(x) - 2) / (1. - wcor ** 2))
     sig = 2 * (1 - t.cdf(abs(test), len(x) - 2 * g - 2))
 
-    res={'wcor': wcor, 'wcov': wcov, 'sig': sig, 'nval': nval}
+    res={'cor': wcor, 'wcov': wcov, 'sig': sig, 'nval': nval}
 
     return res
 
@@ -77,7 +77,7 @@ def pbcor(x, y, beta=.2):
     test = pbcor_result * np.sqrt((len(x) - 2) / (1 - pbcor_result ** 2))
     sig = 2 * (1 - t.cdf(abs(test), len(x) - 2))
 
-    res = {'pbcor': pbcor_result, 'test': test, 'p_value': sig, 'nval': nval}
+    res = {'cor': pbcor_result, 'test': test, 'p_value': sig, 'nval': nval}
     return res
 
 def pbos(x, beta=.2):
@@ -133,7 +133,7 @@ def corb(corfun, x, y, alpha, nboot, *args, seed=False):
     nval = m1.shape[0]
     x = m1[:, 0]
     y = m1[:, 1]
-    est = corfun(x, y, *args)[0]
+    est = corfun(x, y, *args)['cor']#[0]
 
     if seed:
         np.random.seed(seed)
@@ -164,7 +164,7 @@ def corbsub(isub, x, y, corfun, *args):
     corfun is some correlation function
     """
 
-    corbsub_results = corfun(x[isub], y[isub], *args)[0]
+    corbsub_results = corfun(x[isub], y[isub], *args)['cor']#[0]
 
     return corbsub_results
 
@@ -195,7 +195,7 @@ def pball(x, beta=.2):
         for j in range(i,ncol):
             if i < j:
                 pbc = pbcor(m[:, i], m[:, j], beta)
-                pbcorm[i, j] = pbc['pbcor']
+                pbcorm[i, j] = pbc['cor']
                 temp[i, j] = pbcorm[i, j]
                 temp[j, i] = pbcorm[i, j]
                 siglevel[i, j] = pbc['p_value']
@@ -244,13 +244,13 @@ def winall(x, tr=.2):
         #ip = i
         for j in range(i,ncol):
             val = wincor(m[:, i], m[:, j], tr)
-            wcor[i, j] = val['wcor']
+            wcor[i, j] = val['cor']
             wcor[j, i] = wcor[i, j]
 
             if i == j:
                 wcor[i, j] = 1
 
-            wcov[i, j] = val['wcov']
+            wcov[i, j] = val['cor']
             wcov[j, i] = wcov[i, j]
 
             if i != j:

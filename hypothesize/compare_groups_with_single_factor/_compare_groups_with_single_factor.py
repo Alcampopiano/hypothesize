@@ -229,8 +229,17 @@ def rmmcppb(x,  est, *args,  alpha=.05, con=None,
         temp=rmmcppbd(x,est, *args, alpha=alpha,con=con,
                       nboot=nboot,hoch=True)
 
-        return {'output': temp['output'],
-                'con':  temp['con'], "num_sig": temp['num_sig']}
+        if called_directly:
+
+            col_names = ['con_num', 'psihat', 'p_value', 'p_crit', 'ci_lower', 'ci_upper']
+
+            return {'output': pd.DataFrame(temp['output'], columns=col_names),
+                    'con':  temp['con'], "num_sig": temp['num_sig']}
+
+        else:
+
+            return {'output': temp['output'],
+                    'con':  temp['con'], "num_sig": temp['num_sig']}
 
     else:
         print("dif=False so using marginal distributions")
@@ -398,6 +407,7 @@ def rmmcppb(x,  est, *args,  alpha=.05, con=None,
     if called_directly:
         col_names=['con_num', 'psihat', 'p_value', 'p_crit', 'ci_lower', 'ci_upper']
         results={"output": pd.DataFrame(output, columns=col_names), "con": con, "num_sig": num_sig}
+        print(results)
 
     else:
         results={"output": output, "con": con, "num_sig": num_sig}
@@ -570,13 +580,20 @@ def lindepbt(x, tr=.2, con=None, alpha=.05, nboot=599, dif=True, seed=False):
     :return:
     """
 
+    called_directly=False
+    if type(x) is pd.DataFrame:
+        x = pandas_to_arrays(x)
+        x = remove_nans_based_on_design(x, design_values=len(x), design_type='dependent_groups')
+        x = np.r_[x].T
+        called_directly=True
+
     from hypothesize.measuring_associations import wincor
 
     if seed:
         np.random.seed(seed)
 
     if con is None:
-        con=con2way(1,x.shape[1])
+        con=con2way(1,x.shape[1])[1] # all pairwise
         ncon = con.shape[1]
 
     else:
@@ -690,6 +707,12 @@ def lindepbt(x, tr=.2, con=None, alpha=.05, nboot=599, dif=True, seed=False):
 
     # if flagcon
     num_sig = np.sum(test[:, 2] <= test[:, 3])
+
+    if called_directly:
+
+        test=pd.DataFrame(test, columns=["con_num", "test", "p_value", "p_crit", "se"])
+        psihat=pd.DataFrame(psihat, columns=["con_num", "psihat", "ci_lower", "ci_upper"])
+
 
     return {'test': test, 'psihat': psihat, 'con': con, 'num_sig': num_sig}
 

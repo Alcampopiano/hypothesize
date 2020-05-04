@@ -840,9 +840,9 @@ Dictonary of results
 <a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
 
-### bwcmp
+### bwmcp
 
-`#!py bwcmp(J, K, x, alpha=.05, tr=.2, nboot=599, seed=False)`
+`#!py bwmcp(J, K, x, alpha=.05, tr=.2, nboot=599, seed=False)`
 
 A bootstrap-t for multiple comparisons among
 for all main effects and interactions in a between-by-within design.
