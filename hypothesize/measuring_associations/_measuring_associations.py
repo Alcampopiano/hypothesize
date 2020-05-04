@@ -148,7 +148,8 @@ def corb(corfun, x, y, alpha, nboot, *args, seed=False):
     phat = sum(bvec < 0) / nboot
     sig =  2 * min(phat, 1 - phat)
 
-    return corci, sig, est
+    #return corci, sig, est
+    return {'ci': corci, 'p_value': sig, 'cor': est}
 
 def corbsub(isub, x, y, corfun, *args):
 
