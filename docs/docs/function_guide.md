@@ -73,7 +73,7 @@ _Return:_
 
 Dictonary of results
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/l2drmci.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### linconb
@@ -118,7 +118,7 @@ _Return:_
 
 Dictonary of results
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/linconb.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### pb2gen
@@ -163,7 +163,7 @@ _Return:_
 
 Dictonary of results
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/pb2gen.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### tmcppb
@@ -219,7 +219,7 @@ _Return:_
 
 Dictonary of results
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/tmcppb.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### yuenbt
@@ -261,7 +261,7 @@ _Return:_
 
 Dictonary of results
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/yuenbt.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ## Dependent groups
@@ -334,7 +334,7 @@ _Return:_
 
 Dictonary of results
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/bootdpci.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### rmmcppb
@@ -422,7 +422,7 @@ _Return:_
 
 Dictonary of results
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/rmmcppb.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### lindepbt
@@ -471,7 +471,7 @@ _Return:_
 
 Dictonary of results
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/lindepbt.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### ydbt
@@ -517,7 +517,7 @@ _Return:_
 
 Dictonary of results
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/ydbt.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ## Comparing groups with two factors
@@ -608,7 +608,7 @@ _Return:_
 
 Dictonary of results
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/wwmcppb.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### wwmcpbt
@@ -676,7 +676,7 @@ _Return:_
 
 Dictonary of results
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/wwmcpbt.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ## Mixed designs
@@ -751,7 +751,7 @@ _Return:_
 
 Dictonary of results
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/bwamcp.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### bwbmcp
@@ -837,7 +837,7 @@ _Return:_
 
 Dictonary of results
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/bwbmcp.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### bwmcp
@@ -902,7 +902,7 @@ _Return:_
 
 Dictonary of results
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/bwmcp.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### bwimcp
@@ -965,7 +965,7 @@ _Return:_
 
 Dictonary of results
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/bwimcp.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### bwmcppb
@@ -1047,7 +1047,7 @@ _Return:_
 
 Dictonary of results
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/bwmcppb.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### spmcpa
@@ -1100,7 +1100,7 @@ _Return:_
 
 Dictonary of results
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/spmcpa.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### spmcpb
@@ -1150,7 +1150,7 @@ _Return:_
 
 Dictonary of results
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/spmcpb.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### spmcpi
@@ -1208,7 +1208,7 @@ _Return:_
 
 Dictonary of results
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/spmcpi.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ## Measuring associations
@@ -1265,7 +1265,7 @@ _Return:_
 
 List containing CI, p_value, and correlation estimate
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/corb.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### pball
@@ -1295,7 +1295,7 @@ _Return:_
 
 Dictonary of results
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/pball.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### pbcor
@@ -1326,7 +1326,7 @@ _Return:_
 
 Dictonary of results
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/pbcor.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### winall
@@ -1353,7 +1353,7 @@ _Return:_
 
 Dictonary of results
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/winall.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### wincor
@@ -1381,6 +1381,6 @@ _Return:_
 
 Dictonary of results
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
+<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/wincor.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
 
