@@ -14,7 +14,7 @@ def read(path, encoding="utf-8"):
 
 setup(
     name='hypothesize',
-    version='0.1.dev25',
+    version='0.1.b1',
     description='A Python package for comparing groups and measuring associations using robust statistics.',
     author='Allan Campopiano',
     author_email="campopianoa@hcdsb.org",
@@ -27,7 +27,7 @@ setup(
     install_requires=get_install_requirements("requirements.txt"),
     python_requires=">=3.6",
     classifiers=[
-        "Development Status :: 1 - Planning",
+        "Development Status :: 4 - Beta",
         "Environment :: Console",
         "Intended Audience :: Science/Research",
         "License :: OSI Approved :: BSD License",
