@@ -328,7 +328,7 @@ generalized p-value is applied (e.g., when `dif` is `False`)
 **SR: bool**
 
 When `True`, use the modified "sequentially rejective", especially when 
-comparing one-step M-estimators or M-estimators.
+comparing one-step M-estimators or M-estimators
 
 _Return:_
 
