@@ -6,6 +6,7 @@ import numpy as np
 import pandas as pd
 from pandas._testing import assert_frame_equal
 import pickle
+import os
 
 alpha=.05
 nboot=100
@@ -81,6 +82,7 @@ def check_dict_items_equality(expected_results, actual_results):
     return actual_truth
 
 def test_l2drmci():
+    print('HHHEEERRREEE', os.getcwd())
 
     np.random.seed(42)
     df = create_example_data(2)
