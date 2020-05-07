@@ -91,6 +91,7 @@ def check_dict_items_equality(expected_results, actual_results):
     return actual_truth
 
 def test_l2drmci():
+    os.chdir('tests')
     print('HHHEEERRREEE', os.getcwd())
 
     np.random.seed(42)
