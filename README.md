@@ -10,4 +10,4 @@ A Python package for comparing groups and measuring associations using robust st
 
 Please visit the [Hypothesize documentation site](https://Alcampopiano.github.io/hypothesize/)
 
-### :warning: Hypothesize is currently in the beta stage of development
+### :warning: Hypothesize is currently in the beta stage of development.
