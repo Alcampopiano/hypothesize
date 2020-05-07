@@ -1800,7 +1800,7 @@ def pandas_to_arrays(obj):
 
         return x
 
-def create_example_data(design_values, missing_data_proportion=0, save_arrays=False):
+def create_example_data(design_values, missing_data_proportion=0, save_array_path=None, seed=False):
 
     """
     Create a Pandas DataFrame of random data with a certain number of columns which
@@ -1814,11 +1814,14 @@ def create_example_data(design_values, missing_data_proportion=0, save_arrays=Fa
         indicate a 2-by-3 design and will produce a six column DataFrame with appropriately named columns.
 
     :param missing_data_proportion:
-
-    :param save_arrays: save each group as an array for loading into R
+    :param save_array_path: save each group as an array for loading into R to path (e.g. , /home/allan/)
+    :param seed:
 
     :return:
     """
+
+    if seed:
+        np.random.seed(seed)
 
     if type(design_values) is not list:
         design_values=[design_values]
@@ -1861,11 +1864,11 @@ def create_example_data(design_values, missing_data_proportion=0, save_arrays=Fa
 
     x=pd.DataFrame(x, columns=cell_str)
 
-    if save_arrays:
+    if save_array_path:
 
         for i, xi in enumerate(x.values.T):
             #xi = xi[~np.isnan(xi)]
-            np.save(f'/home/allan/test_{i + 1}.npy', xi)
+            np.save(f'{save_array_path}test_{i + 1}.npy', xi)
             # x[np.random.randint(0, len(x))]=np.nan
 
     return x
