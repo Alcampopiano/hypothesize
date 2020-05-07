@@ -13,6 +13,15 @@ nboot=100
 tr=.2
 beta=.2
 
+# git     /home/runner/work/hypothesize/hypothesize
+# git cwd /home/runner/work/hypothesize/hypothesize
+
+try:
+    os.chdir('tests')
+except:
+    pass
+
+
 def run_all_pkl_funcs():
 
     from hypothesize.tests import build_test_data
