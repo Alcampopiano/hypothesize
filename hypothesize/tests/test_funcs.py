@@ -13,19 +13,10 @@ nboot=100
 tr=.2
 beta=.2
 
-#
-# ['examples', 'requirements.txt', 'MANIFEST.in', '.gitignore',
-#  '.github', 'setup.py', 'LICENSE', 'docs',
-#  '.git', 'README.md', 'hypothesize']
-
-# git     /home/runner/work/hypothesize/hypothesize
-# git cwd /home/runner/work/hypothesize/hypothesize
-
 try:
     os.chdir('hypothesize/tests')
 except:
     pass
-
 
 def run_all_pkl_funcs():
 
@@ -96,9 +87,6 @@ def check_dict_items_equality(expected_results, actual_results):
     return actual_truth
 
 def test_l2drmci():
-    #os.chdir('tests')
-    print(os.listdir())
-    #print('HHHEEERRREEE', os.getcwd())
 
     np.random.seed(42)
     df = create_example_data(2)
