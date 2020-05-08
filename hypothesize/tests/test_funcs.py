@@ -88,6 +88,7 @@ def check_dict_items_equality(expected_results, actual_results):
 
 def test_l2drmci():
 
+    ### nonsense
     np.random.seed(42)
     df = create_example_data(2)
     results = l2drmci(df.cell_1, df.cell_2, trim_mean, tr)
