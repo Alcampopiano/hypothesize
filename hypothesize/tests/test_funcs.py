@@ -13,11 +13,16 @@ nboot=100
 tr=.2
 beta=.2
 
+#
+# ['examples', 'requirements.txt', 'MANIFEST.in', '.gitignore',
+#  '.github', 'setup.py', 'LICENSE', 'docs',
+#  '.git', 'README.md', 'hypothesize']
+
 # git     /home/runner/work/hypothesize/hypothesize
 # git cwd /home/runner/work/hypothesize/hypothesize
 
 try:
-    os.chdir('tests')
+    os.chdir('hypothesize/tests')
 except:
     pass
 
