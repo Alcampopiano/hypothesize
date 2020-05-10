@@ -69,9 +69,18 @@ Number of bootstrap samples (default is 2000)
 
 Random seed for reprodicible results (default is `False`)
 
-_Return:_
+_Returns:_
 
-Dictonary of results
+Dictionary of results
+
+**ci: list** 
+
+Confidence interval
+
+**p_value: float** 
+
+p-value
+
 
 <a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/l2drmci.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
@@ -116,7 +125,27 @@ Random seed for reprodicible results. Default is `False`.
 
 _Return:_
 
-Dictonary of results
+Dictionary of results
+
+**con: array**
+
+Contrast matrix
+
+**crit: float**
+
+Critical value
+
+**n: list**
+
+Number of observations for each group
+
+**psihat: DataFrame**
+
+Difference score and CI for each contrast
+
+**test: DataFrame**
+
+Test statistic, standard error, and p-value for each contrast
 
 <a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/linconb.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
@@ -161,7 +190,39 @@ Random seed for reprodicible results (default is `False`)
 
 _Return:_
 
-Dictonary of results
+Dictionary of results
+
+**ci: list** 
+
+Confidence interval
+
+**est_1: float**
+
+Estimated value (based on `est`) for group one
+
+**est_2: float**
+
+Estimated value (based on `est`) for group two
+
+**est_dif: float**
+
+Estimated difference between group one and two
+
+**n1: int**
+
+Number of observations in group one
+
+**n2: int**
+
+Number of observations in group two
+
+**p_value: float** 
+
+p-value
+
+**variance: float**
+
+Variance of group one and two
 
 <a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/pb2gen.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
@@ -217,7 +278,19 @@ Random seed for reproducible results. Default is `False`.
 
 _Return:_
 
-Dictonary of results
+Dictionary of results
+
+**con: array**
+
+Contrast matrix
+
+**num_sig: int**
+
+Number of statistically significant results
+
+**output: DataFrame**
+
+Difference score, p-value, critical value, and CI for each contrast
 
 <a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/tmcppb.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
@@ -259,7 +332,31 @@ Random seed for reprodicible results. Default is `False`.
 
 _Return:_
 
-Dictonary of results
+Dictionary of results
+
+**ci: list** 
+
+Confidence interval
+
+**est_dif: float**
+
+Estimated difference between group one and two
+
+**est_1: float**
+
+Estimated value (based on `est`) for group one
+
+**est_2: float**
+
+Estimated value (based on `est`) for group two
+
+**p_value: float** 
+
+p-value
+
+**test_stat: float**
+
+Test statistic
 
 <a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/yuenbt.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
@@ -332,7 +429,19 @@ comparing one-step M-estimators or M-estimators
 
 _Return:_
 
-Dictonary of results
+Dictionary of results
+
+**con: array**
+
+Contrast matrix
+
+**num_sig: int**
+
+Number of statistically significant results
+
+**output: DataFrame**
+
+Difference score, p-value, critical value, and CI for each contrast
 
 <a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/bootdpci.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
@@ -420,7 +529,19 @@ Random seed for reprodicible results (default is `False`)
 
 _Return:_
 
-Dictonary of results
+Dictionary of results
+
+**con: array**
+
+Contrast matrix
+
+**num_sig: int**
+
+Number of statistically significant results
+
+**output: DataFrame**
+
+Difference score, p-value, critical value, and CI for each contrast
 
 <a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/rmmcppb.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
@@ -469,7 +590,24 @@ Random seed for reprodicible results (default is `False`)
 
 _Return:_
 
-Dictonary of results
+Dictionary of results
+
+**con: array**
+
+Contrast matrix
+
+**num_sig: int**
+
+Number of observations for each group
+
+**psihat: DataFrame**
+
+Difference score and CI for each contrast
+
+**test: DataFrame**
+
+Test statistic, p-value, critical value, and standard error
+for each contrast
 
 <a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/lindepbt.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
@@ -515,7 +653,19 @@ Random seed for reprodicible results (default is `False`)
 
 _Return:_
 
-Dictonary of results
+Dictionary of results
+
+**ci: list**
+
+Confidence interval
+
+**dif: float**
+
+Difference between group one and two
+
+**p_value: float**
+
+p-value
 
 <a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/ydbt.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
@@ -606,7 +756,23 @@ Random seed for reprodicible results (default is `False`)
 
 _Return:_
 
-Dictonary of results
+Dictionary of results
+
+The following results are returned for factor A, factor B, 
+and the interaction. See the keys `'factor_A'`, `'factor_A'`, and `'factor_AB'`, 
+respectively.
+
+**con: array**
+
+Contrast matrix
+
+**num_sig: int**
+
+Number of statistically significant results
+
+**output: DataFrame**
+
+Difference score, p-value, critical value, and CI for each contrast
 
 <a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/wwmcppb.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
@@ -674,7 +840,27 @@ Random seed for reprodicible results (default is `False`)
 
 _Return:_
 
-Dictonary of results
+Dictionary of results
+
+The following results are returned for factor A, factor B, 
+and the interaction. See the keys `'factor_A'`, `'factor_A'`, and `'factor_AB'`, 
+respectively.
+
+**con: array**
+
+Contrast matrix
+
+**num_sig: int**
+
+Number of statistically significant results
+
+**psihat: DataFrame**
+
+Difference score and CI for each contrast
+
+**test: DataFrame**
+
+Test statistic, p-value, critical value, and standard error for each contrast
 
 <a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/wwmcpbt.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
@@ -749,7 +935,19 @@ across factor A for each level of factor B.
 
 _Return:_
 
-Dictonary of results
+Dictionary of results
+
+**n: list**
+
+Number of observations for each group
+
+**psihat: DataFrame**
+
+Difference score and CI, amd p-value for each contrast
+
+**test: DataFrame**
+
+Test statistic, critical value, standard error, and degrees of freedom for each contrast
 
 <a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/bwamcp.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
@@ -835,7 +1033,32 @@ rejective method can be used to control FWE
 
 _Return:_
 
-Dictonary of results
+Dictionary or List of Dictionaries depending on `pool` parameter. If `pool`
+is set to False, all pairwise comparisons for Factor B 
+are computed and returned as elements in a list corresponding to 
+each level of Factor A.
+
+**con: array**
+
+Contrast matrix
+
+**n: int**
+
+Number of observations for Factor B
+
+**num_sig: int**
+
+Number of statistically significant results
+
+**psihat: DataFrame**
+
+Difference score between group X and group Y, and CI
+for each contrast
+
+**test: DataFrame**
+
+Test statistic, p-value, critical value, and standard 
+error for each contrast
 
 <a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/bwbmcp.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
@@ -900,7 +1123,28 @@ Random seed for reprodicible results (default is `False`)
 
 _Return:_
 
-Dictonary of results
+Dictionary of results
+
+**contrast_coef: dict**
+
+Dictionary of arrays where each value corresponds to the contrast matrix
+for factor A, factor B, and the interaction
+
+**factor_A: DataFrame**
+
+Difference score, standard error, test statistic, 
+critical value, and p-value for each contrast relating to Factor A
+
+
+**factor_B: DataFrame**
+
+Difference score, standard error, test statistic, 
+critical value, and p-value for each contrast relating to Factor B
+
+**factor_AB: DataFrame**
+
+Difference score, standard error, test statistic, 
+critical value, and p-value for each contrast relating to the interaction
 
 <a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/bwmcp.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
@@ -963,7 +1207,15 @@ Alpha level (default is .05)
 
 _Return:_
 
-Dictonary of results
+Dictionary of results
+
+**con: array**
+
+Contrast matrix
+
+**output: DataFrame**
+
+Difference score, p-value, and critical value for each contrast relating to the interaction
 
 <a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/bwimcp.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
@@ -1045,7 +1297,11 @@ Random seed for reprodicible results (default is `False`)
 
 _Return:_
 
-Dictonary of results
+Dictionary of DataFrames for each Factor and the interaction.
+See the keys `'factor_A'`, `'factor_B'`, and `'factor_AB'`
+
+Each DataFrame contains the difference score, p-value, 
+critical value, and CI for each contrast.
 
 <a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/bwmcppb.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
@@ -1098,7 +1354,19 @@ Random seed for reprodicible results (default is `False`)
 
 _Return:_
 
-Dictonary of results
+Dictionary of results
+
+**con: array**
+
+Contrast matrix
+
+**num_sig: int**
+
+Number of statistically significant results
+
+**output: DataFrame**
+
+Difference score, p-value, critical value, and CI for each contrast
 
 <a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/spmcpa.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
@@ -1148,7 +1416,19 @@ Random seed for reprodicible results (default is `False`)
 
 _Return:_
 
-Dictonary of results
+Dictionary of results
+
+**con: array**
+
+Contrast matrix
+
+**num_sig: int**
+
+Number of statistically significant results
+
+**output: DataFrame**
+
+Difference score, p-value, critical value, and CI for each contrast
 
 <a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/spmcpb.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
@@ -1206,7 +1486,19 @@ Random seed for reprodicible results (default is `False`)
 
 _Return:_
 
-Dictonary of results
+Dictionary of results
+
+**con: array**
+
+Contrast matrix
+
+**num_sig: int**
+
+Number of statistically significant results
+
+**output: DataFrame**
+
+Difference score, p-value, critical value, and CI for each contrast
 
 <a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/spmcpi.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
@@ -1263,7 +1555,19 @@ Random seed for reprodicible results. Default is `False`.
 
 _Return:_
 
-List containing CI, p_value, and correlation estimate
+Dictionary of results
+
+**ci: list**
+
+Confidence interval
+
+**cor: float**
+
+Correlation estimate
+
+**p_value: float**
+
+p-value
 
 <a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/corb.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
@@ -1293,7 +1597,24 @@ calculation.
 
 _Return:_
 
-Dictonary of results
+Dictionary of results
+
+**H: float**
+
+The test statistic $H$.Reject null if $H > \chi^2_{1−\alpha}$ , 
+the 1−α quantile.
+
+**H_p_value: float**
+
+p-value corresponding to the test that all correlations are equal to zero
+
+**p_value: array**
+
+p-value matrix corresponding to each pairwise correlation
+
+**pbcorm: array**
+
+Correlation matrix
 
 <a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/pball.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
@@ -1324,7 +1645,23 @@ calculation.
 
 _Return:_
 
-Dictonary of results
+Dictionary of results
+
+**cor: float**
+
+Correlation
+
+**nval: int**
+
+Number of observations
+
+**p_value**
+
+p-value
+
+**test: float**
+
+Test statistic
 
 <a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/pbcor.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
@@ -1351,7 +1688,23 @@ Proportion to winsorize (default is .2)
 
 _Return:_
 
-Dictonary of results
+Dictionary of results
+
+**center: array**
+
+Trimmed mean for each group
+
+**p_value: array**
+
+p-value array corresponding to the pairwise correlations
+
+**wcor: array**
+
+Winsorized correlation matrix
+
+**wcov: array**
+
+Winsorized covariance matrix
 
 <a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/winall.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
@@ -1379,7 +1732,23 @@ Proportion to winsorize (default is .2)
 
 _Return:_
 
-Dictonary of results
+Dictionary of results
+
+**cor: float**
+
+Winsorized correlation
+
+**nval: int**
+
+Number of observations
+
+**sig: float**
+
+p-value
+
+**wcov: float**
+
+Winsorized covariance
 
 <a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/wincor.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>

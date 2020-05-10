@@ -304,7 +304,9 @@ def bwimcp(J, K, x, tr=.2, alpha=.05):
     MJMK = MJ * MK
     Jm = J - 1
 
-    output = np.zeros([MJMK, 7])
+    #output = np.zeros([MJMK, 7])
+    output = np.zeros([MJMK, 4])
+    _, _, con = con2way(J,K)
 
     m = np.array(np.arange(J*K)).reshape(J,K)
 
@@ -316,17 +318,20 @@ def bwimcp(J, K, x, tr=.2, alpha=.05):
                 for k in range(K):
                     for kk in range(K):
                         if k<kk:
-                            output[ic, 0]=j
-                            output[ic, 1]=jj
-                            output[ic, 2]=k
-                            output[ic, 3]=kk
+                            #output[ic, 0]=j
+                            #output[ic, 1]=jj
+                            #output[ic, 2]=k
+                            output[ic, 0]=ic
                             x1 = x[m[j, k]] - x[m[j, kk]]
                             x2 = x[m[jj, k]] - x[m[jj, kk]]
+                            #print(f'X1 comparing cells {j, k} to {j, kk}')
+                            #print(f'X2 comparing cells {jj, k} to {jj, kk}')
                             temp = yuen(x1, x2)
-                            output[ic, 4] = trim_mean(x1, tr) - trim_mean(x2, tr)
+                            output[ic, 1] = trim_mean(x1, tr) - trim_mean(x2, tr)
+                            #output[ic, 4] = trim_mean(x1, tr) - trim_mean(x2, tr)
                             test=np.append(test, temp['p_value'])
-                            output[ic, 5] = test[ic]
-
+                            output[ic, 2] = test[ic]
+                            #output[ic, 5] = test[ic]
 
                             ic+=1
 
@@ -334,13 +339,18 @@ def bwimcp(J, K, x, tr=.2, alpha=.05):
     dvec = alpha / np.arange(1, ncon+1)
     temp2 = (-test).argsort()
     zvec = dvec[0:ncon]
-    #sigvec = (test[temp2] >= zvec)
-    output[temp2, 6] = zvec
-    output[:, 6] = output[:, 6]
+    #output[temp2, 6] = zvec
+    output[temp2, 3] = zvec
+    #output[:, 6] = output[:, 6]
+    output[:, 3] = output[:, 3]
 
 
-    col_names=["A_x", "A_y", "B_x", "B_y", "psihat", "p_value", "p_crit"]
+    col_names=["con_num", "psihat", "p_value", "p_crit"]
+    #col_names=["A_x", "A_y", "B_x", "B_y", "psihat", "p_value", "p_crit"]
+
     results=pd.DataFrame(output, columns=col_names)
+    results={'con': con, 'output': pd.DataFrame(output, columns=col_names)}
+
 
     return results
 

@@ -6,7 +6,7 @@ Hypothesize is a robust statistics library for
 Python based on Rand R. Wilcox's R package [WRS](https://dornsife.usc.edu/labs/rwilcox/software/). 
 With Hypothesize you can compare groups and 
 measure associations using methods that outperform 
-traditional statistcal approaches in terms of power 
+traditional statistical approaches in terms of power 
 and accuracy. 
 
 For more information on robust methods please see Wilcox's book 
