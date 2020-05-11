@@ -508,6 +508,40 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#other-important-functions" class="md-nav__link">
+    Other important functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Other important functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#trim_mean" class="md-nav__link">
+    trim_mean
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#con1way" class="md-nav__link">
+    con1way
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#con2way" class="md-nav__link">
+    con2way
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -799,6 +833,40 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#other-important-functions" class="md-nav__link">
+    Other important functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Other important functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#trim_mean" class="md-nav__link">
+    trim_mean
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#con1way" class="md-nav__link">
+    con1way
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#con2way" class="md-nav__link">
+    con2way
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -827,6 +895,7 @@ behind any given function here, see Wilcox's books, especially
 <p><strong><a href="./#comparing-groups-with-a-single-factor">Comparing groups with a single factor</a></strong></p>
 <p><strong><a href="./#comparing-groups-with-two-factors">Comparing groups with two factors</a></strong></p>
 <p><strong><a href="./#measuring-associations">Measuring associations</a></strong></p>
+<p><strong><a href="./#other-important-functions">Other important functions</a></strong></p>
 <hr />
 <h2 id="comparing-groups-with-a-single-factor">Comparing groups with a single factor<a class="headerlink" href="#comparing-groups-with-a-single-factor" title="Permanent link">&para;</a></h2>
 <p>Statistical tests analogous to a 1-way ANOVA or T-tests. 
@@ -1277,7 +1346,6 @@ using a bootstrap-t method and trimmed means.
 All linear contrasts relevant to main effects and interactions
 are tested. With trimmed means FWE is
 controlled with Rom's method.</p>
-<p>(currently unsure whether or not <code>dif</code> should be here)</p>
 <p><em>Parameters:</em></p>
 <p><strong>J: int</strong></p>
 <p>Number of J levels associated with Factor A</p>
@@ -1670,6 +1738,10 @@ of Factor B prior to performing the statistical test.
 If <code>False</code>, contrasts are created to test across Factor A
 for each level of Factor B.</p>
 <p><em>Parameters:</em></p>
+<p><strong>J: int</strong></p>
+<p>Number of J levels associated with Factor A</p>
+<p><strong>K: int</strong></p>
+<p>Number of K levels associated with Factor B</p>
 <p><strong>x: Pandas DataFrame</strong></p>
 <p>Data for group one</p>
 <p><strong>est: function</strong></p>
@@ -1706,6 +1778,10 @@ method is used to control FWE.</p>
 method SR is used to control the probability of at 
 least one Type I error. Otherwise, Hochberg is used.</p>
 <p><em>Parameters:</em></p>
+<p><strong>J: int</strong></p>
+<p>Number of J levels associated with Factor A</p>
+<p><strong>K: int</strong></p>
+<p>Number of K levels associated with Factor B</p>
 <p><strong>x: Pandas DataFrame</strong></p>
 <p>Data for group one</p>
 <p><strong>est: function</strong></p>
@@ -1743,6 +1819,10 @@ modification of Hochberg's (1988) "sequentially rejective"
 method can be applied to control FWE, especially when 
 comparing one-step M-estimators or M-estimators.</p>
 <p><em>Parameters:</em></p>
+<p><strong>J: int</strong></p>
+<p>Number of J levels associated with Factor A</p>
+<p><strong>K: int</strong></p>
+<p>Number of K levels associated with Factor B</p>
 <p><strong>x: Pandas DataFrame</strong></p>
 <p>Data for group one</p>
 <p><strong>est: function</strong></p>
@@ -1911,6 +1991,45 @@ This function also returns the winsorized covariance.</p>
 <p>Winsorized covariance</p>
 <p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/wincor.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<h2 id="other-important-functions">Other important functions<a class="headerlink" href="#other-important-functions" title="Permanent link">&para;</a></h2>
+<p>The following functions are sometimes required by Hypothesize
+as input arguments. They are also potentially useful on their own.</p>
+<hr />
+<h3 id="trim_mean">trim_mean<a class="headerlink" href="#trim_mean" title="Permanent link">&para;</a></h3>
+<p>Calculate the sample mean after removing a proportion of values from each tail.
+This is Scipy's implementation of the trimmed mean.</p>
+<p><code class="highlight"><span class="n">trim_mean</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">tr</span><span class="p">)</span></code></p>
+<p><em>Parameters:</em></p>
+<p><strong>x: array or DataFrame</strong></p>
+<p>Array or DataFrame of observations</p>
+<p><strong>tr: float</strong></p>
+<p>Proportion to trim</p>
+<p><em>Return:</em></p>
+<p><strong>float or list</strong></p>
+<p>The trimmed mean(s)</p>
+<hr />
+<h3 id="con1way">con1way<a class="headerlink" href="#con1way" title="Permanent link">&para;</a></h3>
+<p><code class="highlight"><span class="n">con1way</span><span class="p">(</span><span class="n">J</span><span class="p">)</span></code></p>
+<p>Return all linear contrasts for J groups</p>
+<p><em>Parameters:</em></p>
+<p><strong>J: int</strong></p>
+<p>Number of groups</p>
+<p><em>Return:</em></p>
+<p><strong>array</strong></p>
+<p>Array of contrasts where the rows correspond to groups and the columns are the contrasts to be used</p>
+<hr />
+<h3 id="con2way">con2way<a class="headerlink" href="#con2way" title="Permanent link">&para;</a></h3>
+<p><code class="highlight"><span class="n">con2way</span><span class="p">(</span><span class="n">J</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span></code></p>
+<p>Return all linear contrasts for Factor A, Factor B, and the interaction</p>
+<p><em>Parameters:</em></p>
+<p><strong>J: int</strong></p>
+<p>Number of levels for Factor A</p>
+<p><strong>K: int</strong></p>
+<p>Number of levels for Factor B</p>
+<p><em>Return:</em></p>
+<p><strong>list of arrays</strong></p>
+<p>Each item in the list contains the contrasts for Factor A, Factor B, and the interaction, in that order.
+For each array, the rows correspond to groups and the columns are the contrasts to be used</p>
                 
               
               
