@@ -12,16 +12,51 @@ def yuenbt(x, y, tr=.2, alpha=.05, nboot=599, seed=False):
     """
     Compute a 1-alpha confidence interval for the difference between
     the trimmed means corresponding to two independent groups.
-    The bootstrap-t method is used. During the bootstrapping, the absolute value of the test
-    statistic is used (the "two-sided method").
+    The bootstrap-t method is used. During the bootstrapping,
+    the absolute value of the test statistic is used (the "two-sided method").
 
-    :param x: group one data; Pandas Series
-    :param y: group two data; Pandas Series
-    :param tr: proportion to trim
-    :param alpha: alpha level
-    :param nboot: number of bootstrap samples
-    :param seed: seed value to set for reproducible results
-    :return: dict of CI, test_stat, p_value, est_x, est_y, est_dif
+
+    :param x: Pandas Series
+    Data for group one
+
+    :param y: Pandas Series
+    Data for group two
+
+    :param tr: float
+    Proportion to trim (default is .2)
+
+    :param alpha: float
+    Alpha level (default is .05)
+
+    :param nboot: int
+    Number of bootstrap samples (default is 599)
+
+    :param seed: bool
+    Random seed for reprodicible results. Default is `False`.
+
+    :return:
+    Dictionary of results
+
+    ci: list
+
+    Confidence interval
+
+    est_dif: float
+    Estimated difference between group one and two
+
+    est_1: float
+    Estimated value (based on `est`) for group one
+
+    est_2: float
+    Estimated value (based on `est`) for group two
+
+    p_value: float
+
+    p-value
+
+    test_stat: float
+    Test statistic
+
     """
 
     x, y=pandas_to_arrays([x, y])
@@ -71,31 +106,50 @@ def linconb(x, con, tr=.2, alpha=.05, nboot=599, seed=False):
     """
     Compute a 1-alpha confidence interval for a set of d linear contrasts
     involving trimmed means using the bootstrap-t bootstrap method.
-    Independent groups are assumed.
+    Independent groups are assumed. CIs are adjusted to control FWE
+    (p values are not adjusted).
 
-    CIs are adjusted to control FWE (p values are not adjusted)
 
-    x is a Pandas DataFrame where each column represents a group of the data.
+    :param x: DataFrame
+    Each column represents a group of data
 
-    Missing values are automatically removed.
+    :param con: array
+    `con` is a J (number of columns) by d (number of contrasts)
+    matrix containing the contrast coefficents of interest.
+    All linear constrasts can be created automatically by using the function [con1way](J)
+    (the result of which can be used for `con`).
 
-    con is a J by d matrix containing the contrast coefficents of interest.
-    If unspecified, all pairwise comparisons are performed.
-    For example, con[:,0]=[1,1,-1,-1,0,0] and con[:,1]=[1,-1,0,0,1,-1]
-    will test two contrasts: (1) the sum of the first two trimmed means is
-    equal to the sum of the second two, and (2) the difference between
-    the first two is equal to the difference between the trimmed means of
-    groups 5 and 6.
+    :param tr: float
+    Proportion to trim (default is .2)
 
-    The default number of bootstrap samples is nboot=599
+    :param alpha: float
+    Alpha level (default is .05)
 
-    :param x: Pandas DataFrame
-    :param tr: amount of trimming
-    :param con: contrast matrix (see con1way)
-    :param alpha: alpha level
-    :param nboot: number of bootstrap samples
-    :param seed: random seed for reproducibility
-    :return: n for each group, psihat, test statistic, critical value, contrast matrix
+    :param nboot: int
+    Number of bootstrap samples (default is 2000)
+
+    :param seed: bool
+    Random seed for reprodicible results. Default is `False`.
+
+    :return:
+    Dictionary of results
+
+    con: array
+    Contrast matrix
+
+    crit: float
+    Critical value
+
+    n: list
+    Number of observations for each group
+
+    psihat: DataFrame
+    Difference score and CI for each contrast
+
+    test: DataFrame
+    Test statistic, standard error, and p-value for each contrast
+
+
     """
 
     x=pandas_to_arrays(x)
@@ -173,41 +227,80 @@ def rmmcppb(x,  est, *args,  alpha=.05, con=None,
 
     """
     Use a percentile bootstrap method to compare dependent groups.
-    By default,
-    compute a .95 confidence interval for all linear contrasts
-    specified by con, a J-by-C matrix, where  C is the number of
-    contrasts to be tested, and the columns of con are the
-    contrast coefficients.
-    If con is not specified, all pairwise comparisons are done.
+    By default, compute a .95 confidence interval for all linear contrasts
+    specified by con, a J-by-C matrix, where C is the number of
+    contrasts to be tested, and the columns of `con` are the
+    contrast coefficients. If con is not specified,
+    all pairwise comparisons are done.
 
-    If est=onestep or mom (may not be implemeted yet),
-    method SR (see my book on robust methods)
-    is used to control the probability of at least one Type I error.
-    Otherwise, Hochberg is used.
+    If `est` is the function `onestep` or `mom` (these are not implemeted yet),
+    method SR can be used to control the probability of at least one Type I error.
+    Otherwise, Hochberg's method is used.
 
-    dif=True indicates that difference scores are to be used
-    dif=False indicates that measure of location associated with
-    marginal distributions are used instead.
+    If `dif` is `False` and `BA` is `True`, the bias adjusted
+    estimate of the generalized p-value is recommended.
+    Using `BA`=`True` (when `dif`=`False`)
+    is recommended when comparing groups
+    with M-estimators and MOM, but it is not necessary when
+    comparing 20% trimmed means (Wilcox & Keselman, 2002).
 
-    nboot is the bootstrap sample size. If not specified, a value will
-    be chosen depending on the number of contrasts there are.
+    Hochberg's sequentially rejective method can be used and is used
+    if n>=80.
 
-    A sequentially rejective method is used to control alpha using method SR.
 
-    Argument BA: When using dif=False, BA=True uses a correction term
-    when computing a p-value.
+    :param x: Pandas DataFrame
+    Each column represents a group of data
 
-    :param x:
-    :param alpha:
-    :param con:
-    :param est:
-    :param dif:
-    :param nboot:
-    :param BA:
-    :param hoch:
-    :param SR:
-    :param seed:
+    :param est: function
+    Measure of location (currently only `trim_mean` is supported)
+
+    :param args: list/value
+    Parameter(s) for measure of location (e.g., .2)
+
+    :param alpha: float
+    Alpha level (default is .05)
+
+    :param con: array
+    `con` is a J (number of columns) by d (number of contrasts)
+    matrix containing the contrast coefficents of interest.
+    All linear constrasts can be created automatically by using the function [con1way](J)
+    (the result of which can be used for `con`). The default is `None` and in this
+    case all linear contrasts are created automatically.
+
+    :param dif: bool
+    When `True`, use difference scores, otherwise use marginal distributions
+
+    :param nboot: int
+    Number of bootstrap samples. Default is `None`
+    in which case `nboot` will be chosen for you
+    based on the number of contrasts.
+
+    :param BA: bool
+    When `True`, use the bias adjusted estimate of the
+    generalized p-value is applied (e.g., when `dif` is `False`)
+
+    :param hoch: bool
+    When `True`, Hochberg's sequentially rejective method can be used and is used
+    if n>=80.
+
+    :param SR: bool
+    When `True`, use the modified "sequentially rejective", especially when
+    comparing one-step M-estimators or M-estimators.
+
+    :param seed: bool
+    Random seed for reprodicible results (default is `False`)
+
     :return:
+    Dictionary of results
+
+    con: array
+    Contrast matrix
+
+    num_sig: int
+    Number of statistically significant results
+
+    output: DataFrame
+    Difference score, p-value, critical value, and CI for each contrast
     """
 
     called_directly=False
@@ -561,23 +654,49 @@ def rmmcppbd(x,  est, *args, alpha=.05, con=None,
 def lindepbt(x, tr=.2, con=None, alpha=.05, nboot=599, dif=True, seed=False):
 
     """
-    MCP on trimmed means with FWE controlled with Rom's method
+    Multiple comparisons on trimmed means with FWE controlled with Rom's method
     Using a bootstrap-t method.
 
-    dif=T, difference scores are used. And for linear contrasts a simple
-    extension is used.
+    :param x: Pandas DataFrame
+    Each column in the data represents a different group
 
-    dif=F, hypotheses are tested based on the marginal trimmed means.
+    :param tr: float
+    Proportion to trim (default is .2)
 
+    :param con: array
+    `con` is a J (number of groups) by d (number of contrasts)
+    matrix containing the contrast coefficents of interest.
+    All linear constrasts can be created automatically by using the function [con1way](J)
+    (the result of which can be used for `con`). The default is `None` and in this
+    case all linear contrasts are created automatically.
 
-    :param x:
-    :param tr:
-    :param con:
-    :param alpha:
-    :param nboot:
-    :param dif:
-    :param seed:
+    :param alpha: float
+    Alpha level. Default is .05.
+
+    :param nboot: int
+    Number of bootstrap samples (default is 2000)
+
+    :param dif: bool
+    When `True`, use difference scores, otherwise use marginal distributions
+
+    :param seed: bool
+    Random seed for reprodicible results (default is `False`)
+
     :return:
+    Dictionary of results
+
+    con: array
+    Contrast matrix
+
+    num_sig: int
+    Number of observations for each group
+
+    psihat: DataFrame
+    Difference score and CI for each contrast
+
+    test: DataFrame
+    Test statistic, p-value, critical value, and standard error
+    for each contrast
     """
 
     called_directly=False
@@ -730,14 +849,56 @@ def pb2gen(x, y, est, *args, alpha=.05, nboot=2000, seed=False):
     the difference between any two parameters corresponding to two
     independent groups.
 
-    :param x: Series
-    :param y: Series
-    :param est:
-    :param args:
-    :param alpha:
-    :param nboot:
-    :param seed:
+
+    :param x: Pandas Series
+    Data for group one
+
+    :param y: Pandas Series
+    Data for group two
+
+    :param est: function
+    Measure of location (currently only `trim_mean` is supported)
+
+    :param args: list/value
+    Parameter(s) for measure of location (e.g., .2)
+
+    :param alpha: float
+    Alpha level (default is .05)
+
+    :param nboot: int
+    Number of bootstrap samples (default is 2000)
+
+    :param seed: bool
+    Random seed for reprodicible results (default is `False`)
+
     :return:
+    Dictionary of results
+
+    ci: list
+
+    Confidence interval
+
+    est_1: float
+    Estimated value (based on `est`) for group one
+
+    est_2: float
+    Estimated value (based on `est`) for group two
+
+    est_dif: float
+    Estimated difference between group one and two
+
+    n1: int
+    Number of observations in group one
+
+    n2: int
+    Number of observations in group two
+
+    p_value: float
+
+    p-value
+
+    variance: float
+    Variance of group one and two
     """
 
     x, y = pandas_to_arrays([x, y])
@@ -777,20 +938,69 @@ def bootdpci(x, est, *args, nboot=None, alpha=.05,
              dif=True, BA=False, SR=False):
 
     """
-    Use percentile bootstrap method,
-    compute a .95 confidence interval for the difference between
-    a measure of location or scale
+    Use percentile bootstrap method, compute a .95 confidence interval
+    for the difference between a measure of location or scale
     when comparing two dependent groups.
 
-    :param x: Series
-    :param est:
-    :param args:
-    :param nboot:
-    :param alpha:
-    :param dif:
-    :param BA:
-    :param SR:
+    The argument `dif` defaults to `True` indicating
+    that difference scores will be used, in which case Hochberg’s
+    method is used to control FWE. If `dif` is `False`, measures of
+    location associated with the marginal distributions are used
+    instead.
+
+    If `dif` is `False` and `BA` is `True`, the bias adjusted
+    estimate of the generalized p-value is recommended.
+    Using `BA`=`True` (when `dif`=`False`)
+    is recommended when comparing groups
+    with M-estimators and MOM, but it is not necessary when
+    comparing 20% trimmed means (Wilcox & Keselman, 2002).
+
+    The so-called the SR method, which is a slight
+    modification of Hochberg's (1988) "sequentially rejective"
+    method can be applied to control FWE, especially when
+    comparing one-step M-estimators or M-estimators.
+
+
+    :param x: Pandas DataFrame
+    Each column represents a group of data
+
+    :param est: function
+    Measure of location (currently only `trim_mean` is supported)
+
+    :param args: list/value
+    Parameter(s) for measure of location (e.g., .2)
+
+    :param alpha: float
+    Alpha level. Default is .05.
+
+    :param nboot: int
+    Number of bootstrap samples. Default is `None`
+    in which case `nboot` will be chosen for you
+    based on the number of contrasts.
+
+    :param dif: bool
+    When `True`, use difference scores, otherwise use marginal distributions
+
+    :param BA: bool
+    When `True`, use the bias adjusted estimate of the
+    generalized p-value is applied (e.g., when `dif` is `False`)
+
+    :param SR: bool
+    When `True`, use the modified "sequentially rejective", especially when
+    comparing one-step M-estimators or M-estimators
+
     :return:
+    Dictionary of results
+
+    con: array
+    Contrast matrix
+
+    num_sig: int
+    Number of statistically significant results
+
+    output: DataFrame
+    Difference score, p-value, critical value, and CI for each contrast
+
     """
 
     # replace with actual estimators when implemented
@@ -818,22 +1028,44 @@ def bootdpci(x, est, *args, nboot=None, alpha=.05,
 def ydbt(x, y, tr=.2, alpha=.05, nboot=599, side=True, seed=False):
 
     """
-      Using the bootstrap-t method,
-      compute a .95 confidence interval for the difference between
-      the marginal trimmed means of paired data.
-      By default, 20% trimming is used with nboot=599 bootstrap samples.
+    Using the bootstrap-t method,
+    compute a .95 confidence interval for the difference between
+    the marginal trimmed means of paired data.
+    By default, 20% trimming is used with 599 bootstrap samples.
 
-      side=False returns equal-tailed ci (no p value)
-      side=True returns symmetric ci and a p value
 
-    :param x: Series
-    :param y: Series
-    :param tr:
-    :param alpha:
-    :param nboot:
-    :param side:
-    :param seed:
+    :param x: Pandas Series
+    Data for group one
+
+    :param y: Pandas Series
+    Data for group two
+
+    :param tr: float
+    Proportion to trim (default is .2)
+
+    :param alpha: float
+    Alpha level. Default is .05.
+
+    :param nboot: int
+    Number of bootstrap samples (default is 2000)
+
+    :param side: boolWhen `True` the function returns a symmetric CI and a p value,
+    otherwise the function returns equal-tailed CI (no p value)
+
+    :param seed: bool
+    Random seed for reprodicible results (default is `False`)
+
     :return:
+    Dictionary of results
+
+    ci: list
+    Confidence interval
+
+    dif: float
+    Difference between group one and two
+
+    p_value: float
+    p-value
     """
 
     x = pandas_to_arrays([x, y])
@@ -900,22 +1132,53 @@ def tsub(isub, x, y, tr):
 def tmcppb(x, est, *args, con=None, bhop=False, alpha=.05, nboot=None, seed=False):
 
     """
-    Multiple comparisons for  J independent groups using trimmed means
+    Multiple comparisons for J independent groups using trimmed means and
+    the percentile bootstrap method. Rom’s method is used to control the
+    probability of one or more type I errors. For C > 10 hypotheses,
+    or when the goal is to test at some level other than .05 and .01,
+    Hochberg’s method is used. Setting the argument `bhop` to `True` uses the
+    Benjamini–Hochberg method instead.
 
-    A percentile bootstrap method with Rom's method is used.
 
-    est is the measure of location and defaults
-    to the trimmed mean (currently only trimmed mean is implemented)
+    :param x: Pandas DataFrame
+    Each column represents a group of data
 
-    :param x:
-    :param est:
-    :param args:
-    :param con:
-    :param bhop:
-    :param alpha:
-    :param nboot:
-    :param seed:
+    :param est: function
+    Measure of location (currently only `trim_mean` is supported)
+
+    :param args: list/value
+    Parameter(s) for measure of location (e.g., .2)
+
+    :param con: array
+    `con` is a J (number of columns) by d (number of contrasts)
+    matrix containing the contrast coefficents of interest.
+    All linear constrasts can be created automatically by using the function [con1way](J)
+    (the result of which can be used for `con`). The default is `None` and in this
+    case all linear contrasts are created automatically.
+
+    :param bhop: bool
+    If `True`, the Benjamini–Hochberg method is used to control FWE
+
+    :param alpha: float
+    Alpha level. Default is .05.
+
+    :param nboot: int
+    Number of bootstrap samples (default is 2000)
+
+    :param seed: bool
+    Random seed for reproducible results. Default is `False`.
+
     :return:
+    Dictionary of results
+
+    con: array
+    Contrast matrix
+
+    num_sig: int
+    Number of statistically significant results
+
+    output: DataFrame
+    Difference score, p-value, critical value, and CI for each contrast
     """
 
     x=pandas_to_arrays(x)
@@ -1021,29 +1284,47 @@ def tmcppb(x, est, *args, con=None, bhop=False, alpha=.05, nboot=None, seed=Fals
 def l2drmci(x,y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False):
 
     """
-      Compute a bootstrap confidence interval for a
-      measure of location associated with
-      the distribution of x-y. That is, compare x and y by looking at all possible difference scores
-      in random samples of x and y.
-
-      est indicates which measure of location
-      will be used (currently only trimmed mean is implemented)
-
-      x and y are possibly dependent
+    Compute a bootstrap confidence interval for a
+    measure of location associated with the distribution of x-y.
+    That is, compare x and y by looking at all possible difference scores
+    in random samples of `x` and `y`. `x` and `y` are possibly dependent.
 
 
-    :param x:
-    :param y:
-    :param est:
-    :param args:
-    :param pairwise_drop_na: if True,
-        treat data as dependent and remove any row with missing data. If False,
-        remove missing data for each group seperately (cannot deal with unequal sample sizes)
+    :param x: Pandas Series
+    Data for group one
 
-    :param alpha:
-    :param nboot:
-    :param seed:
+    :param y: Pandas Series
+    Data for group two
+
+    :param est: function
+    Measure of location (currently only `trim_mean` is supported)
+
+    :param args: list/value
+    Parameter(s) for measure of location (e.g., .2)
+
+    :param pairwise_drop_na: bool
+    If True, treat data as dependent and remove any row with missing data. If False,
+    remove missing data for each group seperately (cannot deal with unequal sample sizes)
+
+    :param alpha: float
+    Alpha level (default is .05)
+
+    :param nboot: int
+    Number of bootstrap samples (default is 2000)
+
+    :param seed: bool
+    Random seed for reprodicible results (default is `False`)
+
     :return:
+    Dictionary of results
+
+    ci: list
+
+    Confidence interval
+
+    p_value: float
+
+    p-value
     """
 
     x, y = pandas_to_arrays([x, y])

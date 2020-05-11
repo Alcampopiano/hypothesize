@@ -59,4 +59,4 @@ results['factor_AB']
 <br>
 
 <a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a>
+target="_blank" class="button">Try more examples in Colab!</a>

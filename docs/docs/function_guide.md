@@ -16,6 +16,8 @@ Jump to:
 
 **[Measuring associations](function_guide.md#measuring-associations)**
 
+**[Other important functions](function_guide.md#other-important-functions)**
+
 ---
 
 ## Comparing groups with a single factor
@@ -786,8 +788,6 @@ using a bootstrap-t method and trimmed means.
 All linear contrasts relevant to main effects and interactions
 are tested. With trimmed means FWE is
 controlled with Rom's method.
-
-(currently unsure whether or not `dif` should be here)
     
 _Parameters:_
 
@@ -1321,6 +1321,14 @@ for each level of Factor B.
     
 _Parameters:_
 
+**J: int**
+
+Number of J levels associated with Factor A
+
+**K: int**
+
+Number of K levels associated with Factor B
+
 **x: Pandas DataFrame**
 
 Data for group one
@@ -1385,6 +1393,14 @@ method SR is used to control the probability of at
 least one Type I error. Otherwise, Hochberg is used.
 
 _Parameters:_
+
+**J: int**
+
+Number of J levels associated with Factor A
+
+**K: int**
+
+Number of K levels associated with Factor B
 
 **x: Pandas DataFrame**
 
@@ -1451,6 +1467,14 @@ method can be applied to control FWE, especially when
 comparing one-step M-estimators or M-estimators.
 
 _Parameters:_
+
+**J: int**
+
+Number of J levels associated with Factor A
+
+**K: int**
+
+Number of K levels associated with Factor B
 
 **x: Pandas DataFrame**
 
@@ -1752,4 +1776,79 @@ Winsorized covariance
 
 <a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/wincor.ipynb" 
 target="_blank" class="button">Try this example yourself in Colab!</a>
+
+## Other important functions
+
+The following functions are sometimes required by Hypothesize
+as input arguments. They are also potentially useful on their own.
+
+---
+
+### trim_mean
+
+Calculate the sample mean after removing a proportion of values from each tail.
+This is Scipy's implementation of the trimmed mean.
+
+`#!py trim_mean(x, tr)`
+
+_Parameters:_
+
+**x: array or DataFrame**
+
+Array or DataFrame of observations
+
+**tr: float**
+
+Proportion to trim
+
+_Return:_
+
+**float or list**
+
+The trimmed mean(s)
+
+---
+
+### con1way
+
+`#!py con1way(J)`
+
+Return all linear contrasts for J groups
+
+_Parameters:_
+
+**J: int**
+
+Number of groups
+
+_Return:_
+
+**array**
+
+Array of contrasts where the rows correspond to groups and the columns are the contrasts to be used
+
+---
+
+### con2way
+
+`#!py con2way(J, K)`
+
+Return all linear contrasts for Factor A, Factor B, and the interaction
+
+_Parameters:_
+
+**J: int**
+
+Number of levels for Factor A
+
+**K: int**
+
+Number of levels for Factor B
+
+_Return:_
+
+**list of arrays**
+
+Each item in the list contains the contrasts for Factor A, Factor B, and the interaction, in that order.
+For each array, the rows correspond to groups and the columns are the contrasts to be used
 

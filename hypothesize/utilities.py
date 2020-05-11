@@ -10,9 +10,17 @@ import pandas as pd
 def con1way(J):
 
     """
-    Create contrast coefficients for all pairwise comparisons given a 1-way design
-    :param J: The number of levels (i.e., groups)
-    :return con: array of contrast coefficients
+    Return all linear contrasts for J groups
+
+
+    :param J: int
+    Number of groups
+
+    :return:
+
+    array:
+
+    Array of contrasts where the rows correspond to groups and the columns are the contrasts to be used
     """
 
     Ja = (J ** 2 - J) // 2
@@ -31,12 +39,19 @@ def con1way(J):
 def con2way(J,K):
 
     """
-    For a J by K design, create the contrast coefficients for all pairwaise
-    comparisons for each main effect and all interactions
+    :param J: int
+    Number of levels for Factor A
 
-    :param J: The number of levels for the first factor (factor A)
-    :param K: The number of levels for the second factor (factor B)
-    :return conA, conB, conAB: arrays containing contrast coefficients for each factor and the interaction
+    :param K: int
+    Number of levels for Factor B
+
+    :return:
+
+    list of arrays:
+
+    Each item in the list contains the contrasts for Factor A, Factor B, and the interaction, in that order.
+    For each array, the rows correspond to groups and the columns are the contrasts to be used
+
     """
 
     Ja =(J ** 2 - J) // 2
@@ -2238,4 +2253,28 @@ def linhat(x, con, est, *args):
 
     return psihat
 
+def mkdocstrings_to_pycharm_docstrings(mkdocstr):
+
+    """
+    Convert docstrings from mkdocs site to what pycharm uses
+
+    :param mkdocstr: docstring from a function on mkdocs site
+    :return: pycharm-style docstring
+    """
+
+    import re
+
+    mkdocstr=re.sub('_(P|p)arameter(s|):_\\n', '', mkdocstr)
+    mkdocstr = re.sub('_(R|r)eturn(s|):_\\n', ':return:', mkdocstr)
+    mkdocstr = re.sub('(\*\*|\*\*\*)\\b', ':param ', mkdocstr)
+    mkdocstr = re.sub('\*\*($|\\s)', '', mkdocstr)
+
+    ind=mkdocstr.find(':return:')
+
+    start_str=mkdocstr[:ind]
+    end_str=mkdocstr[ind:]
+    end_str=end_str.replace(':param ', '')
+    final_str=start_str+end_str
+
+    return print(final_str)
 

@@ -21,22 +21,66 @@ def bwmcp(J, K, x, alpha=.05, tr=.2, nboot=599, seed=False):
     The analysis is done by generating bootstrap samples and
     using an appropriate linear contrast.
 
-    The variable x is a Pandas DataFrame where the first column
-    contains the data for the first level of both factors: level 1,1.
-    The second column contains the data for level 1 of the
-    first factor and level 2 of the second: level 1,2.
-    x.iloc[:,K] is the data for level 1,K. x.iloc[:,K+1] is the data for level 2,1.
-    x.iloc[:, 2K] is level 2,K, etc.
 
-    :param J: Number of groups in Factor A
-    :param K: Number of groups in Factor B
+    :param J: int
+    Number of J levels associated with Factor A
+
+    :param K: int
+    Number of K levels associated with Factor B
+
     :param x: Pandas DataFrame
-    :param alpha: significance level
-    :param nboot: number of bootstrap samples
-    :param tr: amount to trim
-    :param seed: random seed for reproducibility
-    :return: results dictionary
+    Each column represents a cell in the factorial design. For example,
+    a 2x3 design would correspond to a DataFrame with 6 columns
+    (levels of Factor A x levels of Factor B).
 
+    Order your columns according to the following pattern
+    (traversing each row in a matrix):
+
+     - the first column contains data for level 1 of Factor A
+     and level 1 of Factor B
+
+     - the second column contains data for level 1 of Factor A
+     and level 2 of Factor B
+
+     - column `K` contains the data for level 1 of Factor A
+     and level `K` of Factor B
+
+     - column `K` + 1 contains the data for level 2 of Factor A
+     and level 1 of Factor B
+
+     - and so on ...
+
+    :param alpha: float
+    Alpha level (default is .05)
+
+    :param tr: float
+    Proportion to trim (default is .2)
+
+    :param nboot: int
+    Number of bootstrap samples (default is 500)
+
+    :param seed: bool
+    Random seed for reprodicible results (default is `False`)
+
+    :return:
+    Dictionary of results
+
+    contrast_coef: dict
+    Dictionary of arrays where each value corresponds to the contrast matrix
+    for factor A, factor B, and the interaction
+
+    factor_A: DataFrame
+    Difference score, standard error, test statistic,
+    critical value, and p-value for each contrast relating to Factor A
+
+
+    factor_B: DataFrame
+    Difference score, standard error, test statistic,
+    critical value, and p-value for each contrast relating to Factor B
+
+    factor_AB: DataFrame
+    Difference score, standard error, test statistic,
+    critical value, and p-value for each contrast relating to the interaction
     """
 
     x=pandas_to_arrays(x)
@@ -139,24 +183,61 @@ def bwamcp(J, K, x, tr=.2, alpha=.05, pool=False):
 
     """
     All pairwise comparisons among levels of Factor A
-    in a mixed design using trimmed means.
+    in a mixed design using trimmed means. The `pool`
+    option allows you to pool dependent groups across
+    Factor A for each level of Factor B.
 
-    The variable x is a Pandas DataFrame where the first column
-    contains the data for the first level of both factors: level 1,1.
-    The second column contains the data for level 1 of the
-    first factor and level 2 of the second: level 1,2.
-    x.iloc[:,K] is the data for level 1,K. x.iloc[:,K+1] is the data for level 2,1.
-    x.iloc[:, 2K] is level 2,K, etc.
 
-    :param J: number of levels for factor A
-    :param K: number of levels for factor B
+    :param J: int
+    Number of J levels associated with Factor A
+
+    :param K: int
+    Number of K levels associated with Factor B
+
     :param x: Pandas DataFrame
-    :param tr: amount of trimming
-    :param alpha: alpha level
-    :param pool: if "True", pool dependent groups together.
-        Otherwise generate pairwise contrasts across factor A for each level of factor B
+    Each column represents a cell in the factorial design. For example,
+    a 2x3 design would correspond to a DataFrame with 6 columns
+    (levels of Factor A x levels of Factor B).
+
+    Order your columns according to the following pattern
+    (traversing each row in a matrix):
+
+     - the first column contains data for level 1 of Factor A
+     and level 1 of Factor B
+
+     - the second column contains data for level 1 of Factor A
+     and level 2 of Factor B
+
+     - column `K` contains the data for level 1 of Factor A
+     and level `K` of Factor B
+
+     - column `K` + 1 contains the data for level 2 of Factor A
+     and level 1 of Factor B
+
+     - and so on ...
+
+    :param tr: float
+    Proportion to trim (default is .2)
+
+    :param alpha: float
+    Alpha level (default is .05)
+
+    :param pool: bool
+    If `True`, pool dependent groups together (default is `False`).
+    Otherwise generate pairwise contrasts
+    across factor A for each level of factor B.
 
     :return:
+    Dictionary of results
+
+    n: list
+    Number of observations for each group
+
+    psihat: DataFrame
+    Difference score and CI, amd p-value for each contrast
+
+    test: DataFrame
+    Test statistic, critical value, standard error, and degrees of freedom for each contrast
     """
 
     x = pandas_to_arrays(x)
@@ -197,28 +278,91 @@ def bwbmcp(J, K, x, tr=.2, con=None, alpha=.05,
 
     """
     All pairwise comparisons among levels of Factor B
-    in a split-plot design using trimmed means.
+    in a mixed design using trimmed means. The `pool`
+    option allows you to pool dependent groups across
+    Factor A for each level of Factor B.
 
-    Data can be pooled for each level
-    of Factor B. This function calls rmmcp.
+    Rom's method is used to control for FWE (when alpha is 0.5, .01,
+    or when number of comparisons are > 10).
+    Hochberg's method can also be used. Note that CIs are adjusted based on the
+    corresponding critical p-value after controling for FWE.
 
-    The variable x is a Pandas DataFrame where the first column
-    contains the data for the first level of both factors: level 1,1.
-    The second column contains the data for level 1 of the
-    first factor and level 2 of the second: level 1,2.
-    x.iloc[:,K] is the data for level 1,K. x.iloc[:,K+1] is the data for level 2,1.
-    x.iloc[:, 2K] is level 2,K, etc.
 
-    :param J:
-    :param K:
-    :param x:
-    :param tr:
-    :param con:
-    :param alpha:
-    :param dif:
-    :param pool:
-    :param hoch:
+
+    :param J: int
+    Number of J levels associated with Factor A
+
+    :param K: int
+    Number of K levels associated with Factor B
+
+    :param x: Pandas DataFrame
+    Each column represents a cell in the factorial design. For example,
+    a 2x3 design would correspond to a DataFrame with 6 columns
+    (levels of Factor A x levels of Factor B).
+
+    Order your columns according to the following pattern
+    (traversing each row in a matrix):
+
+     - the first column contains data for level 1 of Factor A
+     and level 1 of Factor B
+
+     - the second column contains data for level 1 of Factor A
+     and level 2 of Factor B
+
+     - column `K` contains the data for level 1 of Factor A
+     and level `K` of Factor B
+
+     - column `K` + 1 contains the data for level 2 of Factor A
+     and level 1 of Factor B
+
+     - and so on ...
+
+    :param tr: float
+    Proportion to trim (default is .2)
+
+    :param con: array
+    `con` is a K by d (number of contrasts)
+    matrix containing the contrast coefficents of interest.
+    All linear constrasts can be created automatically by using the function [con1way](K)
+    (the result of which can be used for `con`).
+
+    :param alpha: float
+    Alpha level (default is .05)
+
+    :param dif: bool
+    When `True`, use difference scores, otherwise use marginal distributions
+
+    :param pool: bool
+    If `True`, pool dependent groups together (default is `False`).
+    Otherwise generate pairwise contrasts
+    across factor A for each level of factor B.
+
+    :param hoch: bool
+    When `True`, Hochberg's sequentially
+    rejective method can be used to control FWE
+
     :return:
+    Dictionary or List of Dictionaries depending on `pool` parameter. If `pool`
+    is set to False, all pairwise comparisons for Factor B
+    are computed and returned as elements in a list corresponding to
+    each level of Factor A.
+
+    con: array
+    Contrast matrix
+
+    n: int
+    Number of observations for Factor B
+
+    num_sig: int
+    Number of statistically significant results
+
+    psihat: DataFrame
+    Difference score between group X and group Y, and CI
+    for each contrast
+
+    test: DataFrame
+    Test statistic, p-value, critical value, and standard
+    error for each contrast
     """
 
     x = pandas_to_arrays(x)
@@ -272,27 +416,54 @@ def bwimcp(J, K, x, tr=.2, alpha=.05):
     among all pairs of dependent groups and
     determining which of
     these differences differ across levels of Factor A
-    using trimmed means.
+    using trimmed means. FWE is controlled via Hochberg's
+    method. For MOM or M-estimators
+    (possibly not implemented yet), use spmcpi which
+    uses a bootstrap method
 
-    FWE is controlled via Hochberg's method
-    To adjusted p-values, use the function p.adjust
 
-    For MOM or M-estimators (possibly not implemented yet),
-    use spmcpi which uses a bootstrap method
+    :param J: int
+    Number of J levels associated with Factor A
 
-    The variable x is a Pandas DataFrame where the first column
-    contains the data for the first level of both factors: level 1,1.
-    The second column contains the data for level 1 of the
-    first factor and level 2 of the second: level 1,2.
-    x.iloc[:,K] is the data for level 1,K. x.iloc[:,K+1] is the data for level 2,1.
-    x.iloc[:, 2K] is level 2,K, etc.
+    :param K: int
+    Number of K levels associated with Factor B
 
-    :param J:
-    :param K:
-    :param x:
-    :param tr:
-    :param alpha:
+    :param x: Pandas DataFrame
+    Each column represents a cell in the factorial design. For example,
+    a 2x3 design would correspond to a DataFrame with 6 columns
+    (levels of Factor A x levels of Factor B).
+
+    Order your columns according to the following pattern
+    (traversing each row in a matrix):
+
+     - the first column contains data for level 1 of Factor A
+     and level 1 of Factor B
+
+     - the second column contains data for level 1 of Factor A
+     and level 2 of Factor B
+
+     - column `K` contains the data for level 1 of Factor A
+     and level `K` of Factor B
+
+     - column `K` + 1 contains the data for level 2 of Factor A
+     and level 1 of Factor B
+
+     - and so on ...
+
+    :param tr: float
+    Proportion to trim (default is .2)
+
+    :param alpha: float
+    Alpha level (default is .05)
+
     :return:
+    Dictionary of results
+
+    con: array
+    Contrast matrix
+
+    output: DataFrame
+    Difference score, p-value, and critical value for each contrast relating to the interaction
     """
 
     x=pandas_to_arrays(x)
@@ -359,15 +530,54 @@ def spmcpa(J, K, x, est, *args,
 
     """
     All pairwise comparisons among levels of Factor A
-    in a mixed design using trimmed means.
+    in a mixed design. A sequentially rejective
+    method is used to control FWE. The `avg` option
+    controls whether or not to average data across levels
+    of Factor B prior to performing the statistical test.
+    If `False`, contrasts are created to test across Factor A
+    for each level of Factor B.
 
-    The variable x is a Pandas DataFrame where the first column
-    contains the data for the first level of both factors: level 1,1.
-    The second column contains the data for level 1 of the
-    first factor and level 2 of the second: level 1,2.
-    x.iloc[:,K] is the data for level 1,K. x.iloc[:,K+1] is the data for level 2,1.
-    x.iloc[:, 2K] is level 2,K, etc.
+    :param J: int
+    Number of J levels associated with Factor A
+
+    :param K: int
+    Number of K levels associated with Factor B
+
+    :param x: Pandas DataFrame
+    Data for group one
+
+    :param est: function
+    Measure of location (currently only `trim_mean` is supported)
+
+    :param args: list/value
+    Parameter(s) for measure of location (e.g., .2)
+
+    :param avg: bool
+    If `False`, contrasts are created to test across Factor A
+    for each level of Factor B (default is `False`)
+
+    :param alpha: float
+    Alpha level (default is .05)
+
+    :param nboot: int
+    Number of bootstrap samples
+    (default is `None` in which case the
+    number is chosen based on the number of contrasts).
+
+    :param seed: bool
+    Random seed for reprodicible results (default is `False`)
+
     :return:
+    Dictionary of results
+
+    con: array
+    Contrast matrix
+
+    num_sig: int
+    Number of statistically significant results
+
+    output: DataFrame
+    Difference score, p-value, critical value, and CI for each contrast
     """
 
     x=pandas_to_arrays(x)
@@ -536,28 +746,51 @@ def spmcpb(J, K, x, est, *args, dif=True, alpha=.05, nboot=599, seed=False):
 
     """
     All pairwise comparisons among levels of Factor B
-    in a split-plot design.
+    in a split-plot design. A sequentially rejective
+    method is used to control FWE.
 
-    The variable x is a Pandas DataFrame where the first column
-    contains the data for the first level of both factors: level 1,1.
-    The second column contains the data for level 1 of the
-    first factor and level 2 of the second: level 1,2.
-    x.iloc[:,K] is the data for level 1,K. x.iloc[:,K+1] is the data for level 2,1.
-    x.iloc[:, 2K] is level 2,K, etc.
+    If `est` is `onestep` or `mom` (not be implemeted yet),
+    method SR is used to control the probability of at
+    least one Type I error. Otherwise, Hochberg is used.
 
-    If dif=True, the analysis is done based on all pairs
-    of difference scores.
-    Otherwise, marginal measures of location are used.
+    :param J: int
+    Number of J levels associated with Factor A
 
-    :param J:
-    :param K:
-    :param x:
-    :param est:
-    :param dif:
-    :param alpha:
-    :param nboot:
-    :param seed:
+    :param K: int
+    Number of K levels associated with Factor B
+
+    :param x: Pandas DataFrame
+    Data for group one
+
+    :param est: function
+    Measure of location (currently only `trim_mean` is supported)
+
+    :param args: list/value
+    Parameter(s) for measure of location (e.g., .2)
+
+    :param dif: bool
+    When `True`, use difference scores, otherwise use marginal distributions
+
+    :param alpha: float
+    Alpha level (default is .05)
+
+    :param nboot: int
+    Number of bootstrap samples (default is 599)
+
+    :param seed: bool
+    Random seed for reprodicible results (default is `False`)
+
     :return:
+    Dictionary of results
+
+    con: array
+    Contrast matrix
+
+    num_sig: int
+    Number of statistically significant results
+
+    output: DataFrame
+    Difference score, p-value, critical value, and CI for each contrast
     """
 
     x=pandas_to_arrays(x)
@@ -598,7 +831,53 @@ def spmcpi(J, K, x, est, *args, alpha=.05, nboot=None, SR=False, seed=False):
     determining which of
     these differences differ across levels of Factor A.
 
+    The so-called the SR method, which is a slight
+    modification of Hochberg's (1988) "sequentially rejective"
+    method can be applied to control FWE, especially when
+    comparing one-step M-estimators or M-estimators.
+
+    :param J: int
+    Number of J levels associated with Factor A
+
+    :param K: int
+    Number of K levels associated with Factor B
+
+    :param x: Pandas DataFrame
+    Data for group one
+
+    :param est: function
+    Measure of location (currently only `trim_mean` is supported)
+
+    :param args: list/value
+    Parameter(s) for measure of location (e.g., .2)
+
+    :param alpha: float
+    Alpha level. Default is .05.
+
+    :param nboot: int
+    Number of bootstrap samples (default is `None`
+    in which case the number is
+    chosen based on the number of contrasts)
+
+    :param SR: bool
+    When `True`, use the slight
+    modification of Hochberg's (1988) "sequentially rejective"
+    method to control FWE
+
+    :param seed: bool
+    Random seed for reprodicible results (default is `False`)
+
     :return:
+    Dictionary of results
+
+    con: array
+    Contrast matrix
+
+    num_sig: int
+    Number of statistically significant results
+
+    output: DataFrame
+    Difference score, p-value, critical value, and CI for each contrast
     """
 
     x=pandas_to_arrays(x)
@@ -760,31 +1039,80 @@ def wwmcppb(J, K, x,  est, *args,  alpha=.05, dif=True,
             nboot=None, BA=True, hoch=True, seed=False):
 
     """
-    Do all multiple comparisons for a within-by-within design using a percentile bootstrap method
+    Do all multiple comparisons for a within-by-within design
+    using a percentile bootstrap method.A sequentially rejective
+    method is used to control alpha.
+    Hochberg's method can be used and is if n>=80.
 
-    The variable x is a Pandas DataFrame where the first column
-    contains the data for the first level of both factors: level 1,1.
-    The second column contains the data for level 1 of the
-    first factor and level 2 of the second: level 1,2.
-    x.iloc[:,K] is the data for level 1,K. x.iloc[:,K+1] is the data for level 2,1.
-    x.iloc[:, 2K] is level 2,K, etc.
+    :param J: int
+    Number of J levels associated with Factor A
 
-    If dif=True, the analysis is done based on all pairs
-    of difference scores.
-    Otherwise, marginal measures of location are used.
+    :param K: int
+    Number of K levels associated with Factor B
 
-    :param J:
-    :param K:
-    :param x:
-    :param est:
-    :param args:
-    :param alpha:
-    :param dif:
-    :param nboot:
-    :param BA:
-    :param hoch:
-    :param seed:
+    :param x: Pandas DataFrame
+    Each column represents a cell in the factorial design. For example,
+    a 2x3 design would correspond to a DataFrame with 6 columns
+    (levels of Factor A x levels of Factor B).
+
+    Order your columns according to the following pattern
+    (traversing each row in a matrix):
+
+     - the first column contains data for level 1 of Factor A
+     and level 1 of Factor B
+
+     - the second column contains data for level 1 of Factor A
+     and level 2 of Factor B
+
+     - column `K` contains the data for level 1 of Factor A
+     and level `K` of Factor B
+
+     - column `K` + 1 contains the data for level 2 of Factor A
+     and level 1 of Factor B
+
+     - and so on ...
+
+    :param est: function
+    Measure of location (currently only `trim_mean` is supported)
+
+    :param args: list/value
+    Parameter(s) for measure of location (e.g., .2)
+
+    :param alpha: float
+    Alpha level (default is .05)
+
+    :param dif: bool
+    When `True`, use difference scores, otherwise use marginal distributions
+
+    :param nboot: int
+    Number of bootstrap samples (default is 599)
+
+    :param BA: bool
+    When `True`, use the bias adjusted estimate of the
+    generalized p-value is applied (e.g., when `dif` is `False`)
+
+    :param hoch: bool
+    When `True`, Hochberg's sequentially
+    rejective method can be used to control FWE
+
+    :param seed: bool
+    Random seed for reprodicible results (default is `False`)
+
     :return:
+    Dictionary of results
+
+    The following results are returned for factor A, factor B,
+    and the interaction. See the keys `'factor_A'`, `'factor_A'`, and `'factor_AB'`,
+    respectively.
+
+    con: array
+    Contrast matrix
+
+    num_sig: int
+    Number of statistically significant results
+
+    output: DataFrame
+    Difference score, p-value, critical value, and CI for each contrast
     """
 
     x=pandas_to_arrays(x)
@@ -816,16 +1144,67 @@ def wwmcpbt(J, K, x, tr=.2, alpha=.05, nboot=599, seed=False):
     Do multiple comparisons for a within-by-within design.
     using a bootstrap-t method and trimmed means.
     All linear contrasts relevant to main effects and interactions
-    are tested.
+    are tested. With trimmed means FWE is
+    controlled with Rom's method.
 
-    :param J:
-    :param K:
-    :param x:
-    :param tr:
-    :param alpha:
-    :param nboot:
-    :param seed:
+    :param J: int
+    Number of J levels associated with Factor A
+
+    :param K: int
+    Number of K levels associated with Factor B
+
+    :param x: Pandas DataFrame
+    Each column represents a cell in the factorial design. For example,
+    a 2x3 design would correspond to a DataFrame with 6 columns
+    (levels of Factor A x levels of Factor B).
+
+    Order your columns according to the following pattern
+    (traversing each row in a matrix):
+
+     - the first column contains data for level 1 of Factor A
+     and level 1 of Factor B
+
+     - the second column contains data for level 1 of Factor A
+     and level 2 of Factor B
+
+     - column `K` contains the data for level 1 of Factor A
+     and level `K` of Factor B
+
+     - column `K` + 1 contains the data for level 2 of Factor A
+     and level 1 of Factor B
+
+     - and so on ...
+
+    :param tr: float
+    Proportion to trim (default is .2)
+
+    :param alpha: float
+    Alpha level (default is .05)
+
+    :param nboot: int
+    Number of bootstrap samples (default is 599)
+
+    :param seed: bool
+    Random seed for reprodicible results (default is `False`)
+
     :return:
+    Dictionary of results
+
+    The following results are returned for factor A, factor B,
+    and the interaction. See the keys `'factor_A'`, `'factor_A'`, and `'factor_AB'`,
+    respectively.
+
+    con: array
+    Contrast matrix
+
+    num_sig: int
+    Number of statistically significant results
+
+    psihat: DataFrame
+    Difference score and CI for each contrast
+
+    test: DataFrame
+    Test statistic, p-value, critical value, and standard error for each contrast
     """
 
     print("ask wilcox if dif is supposed to be a argument here")
@@ -857,28 +1236,72 @@ def bwmcppb(J, K, x, est, *args, alpha=.05,
             nboot=500, bhop=True, seed=True):
 
     """
+    (note: this is for trimmed means only depite the `est` arg.
+    This will be fixed eventually. Use `trim_mean` from SciPy)
+
     A percentile bootstrap for multiple comparisons
     for all main effects and interactions
     The analysis is done by generating bootstrap samples and
     using an appropriate linear contrast.
 
-    The variable x is a Pandas DataFrame where the first column
-    contains the data for the first level of both factors: level 1,1.
-    The second column contains the data for level 1 of the
-    first factor and level 2 of the second: level 1,2.
-    x.iloc[:,K] is the data for level 1,K. x.iloc[:,K+1] is the data for level 2,1.
-    x.iloc[:, 2K] is level 2,K, etc.
+    Uses Rom's method to control FWE. Setting the
+    argument `bhop` to `True` uses the Benjamini–Hochberg
+    method instead.
 
-    :param J: Number of groups in Factor A
-    :param K: Number of groups in Factor B
+
+    :param J: int
+    Number of J levels associated with Factor A
+
+    :param K: int
+    Number of K levels associated with Factor B
+
     :param x: Pandas DataFrame
-    :param est: estimator (e.g., trim_mean)
-    :param args: positional arguments for estimator (e.g., .2 for trim_mean)
-    :param alpha: significance level
-    :param nboot: number of bootstrap samples
-    :param bhop:
-    :param seed: random seed for reproducibility
-    :return: results dictionary
+    Each column represents a cell in the factorial design. For example,
+    a 2x3 design would correspond to a DataFrame with 6 columns
+    (levels of Factor A x levels of Factor B).
+
+    Order your columns according to the following pattern
+    (traversing each row in a matrix):
+
+     - the first column contains data for level 1 of Factor A
+     and level 1 of Factor B
+
+     - the second column contains data for level 1 of Factor A
+     and level 2 of Factor B
+
+     - column `K` contains the data for level 1 of Factor A
+     and level `K` of Factor B
+
+     - column `K` + 1 contains the data for level 2 of Factor A
+     and level 1 of Factor B
+
+     - and so on ...
+
+    :param est: function
+    Measure of location (currently only `trim_mean` is supported)
+
+    :param args: list/value
+    Parameter(s) for measure of location (e.g., .2)
+
+    :param alpha: float
+    Alpha level. Default is .05.
+
+    :param nboot: int
+    Number of bootstrap samples (default is 500)
+
+    :param bhop: bool
+    When `True`, use the Benjamini–Hochberg
+    method to control FWE
+
+    :param seed: bool
+    Random seed for reprodicible results (default is `False`)
+
+    :return:
+    Dictionary of DataFrames for each Factor and the interaction.
+    See the keys `'factor_A'`, `'factor_B'`, and `'factor_AB'`
+
+    Each DataFrame contains the difference score, p-value,
+    critical value, and CI for each contrast.
     """
 
     print("ask wilcox if this is onlly for trimmed means "
