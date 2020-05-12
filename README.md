@@ -7,8 +7,23 @@
 
 <img src="https://github.com/Alcampopiano/hypothesize/blob/master/docs/docs/img/vp_inv.png?raw=true" alt="drawing" width="150"/>
 
-A Python package for comparing groups and measuring associations using robust statistics
+A Python package for hypothesis testing using robust statistics.
 
-Please visit the [Hypothesize documentation site](https://Alcampopiano.github.io/hypothesize/)
+:book: Please visit the [Hypothesize documentation site](https://Alcampopiano.github.io/hypothesize/) for more details.
 
-### :warning: Hypothesize is currently in the beta stage of development
+## Basic Example
+### A robust measure of association using winsorized correlation
+
+```python
+from hypothesize.measuring_associations import wincor
+from hypothesize.utilities import create_example_data
+
+# creating an example DataFrame with columns "cell_1" and "cell_2"
+df=create_example_data(2)
+
+results=wincor(df.cell_1, df.cell_2)
+
+# returning the correlation, number of observations, p-value, and winsorized covariance
+print(results)
+{'cor': 0.11, 'nval': 50, 'sig': 0.44, 'wcov': 0.01}
+```
