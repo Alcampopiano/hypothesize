@@ -3,7 +3,7 @@
 Feedback, bug reports, and contributions are welcome via the 
 [Hypothesize GitHub Repository](http://github.com/Alcampopiano/hypothesize/).
 
-## How To Contribute Code to Hypothesize
+## How to Contribute Code to Hypothesize
 
 ### Working with R and Python, side-by-side
 
@@ -19,9 +19,9 @@ In terms of IDE setup, I use PyCharm's
 Plugin. This allows me to have an interpreter and editor for 
 both languages in the same IDE. Like so:
 
-<img src="https://github.com/Alcampopiano/hypothesize/blob/master/docs/docs/img/ide_pycharm.png?raw=true" alt="drawing" width="150"/>
+<img src="https://github.com/Alcampopiano/hypothesize/blob/master/docs/docs/img/ide_pycharm.png?raw=true" alt="drawing"/>
 
-### Setting Up Your Git Environment
+### Setting up your Git Environment
 
 Install the latest version of Hypothesize locally using 
 ```
@@ -36,8 +36,8 @@ $ git clone https://github.com/YOUR-USERNAME/hypothesize.git
 ```
 
 You can have a single clone of the repository that points to both your fork and
-the main package repository. These pointers to GitHub are called "remotes" .
-On your local clone you should run:
+the main package repository. These pointers to GitHub are called "remotes".
+On your local clone you should run
 
 ```
 $ git remote add upstream https://github.com/Alcampopiano/hypothesize.git
@@ -59,7 +59,7 @@ $ git checkout -b <branch-name>
 ```
 
 With this branch checked-out, make the desired changes to the package.
-When you are happy with your changes, you can commit them to your branch by runing
+When you are happy with your changes, you can commit them to your branch by running
 
 ```
 $ git add <modified-file>
@@ -93,5 +93,5 @@ way to test your code.
 When you submit a pull request, the continuous integration test suite will
 run tests to validate the correctness of certain functions. It is a good 
 idea run these existing tests locally to see if they pass. 
-Feel free to pickle new results and same them in the "test_data" folder
+Feel free to pickle new results and save them in the "test_data" folder
 if this is needed for testing purposes.
