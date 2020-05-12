@@ -29,3 +29,7 @@ on [GitHub](https://github.com/Alcampopiano/hypothesize).
 For issues and questions, 
 please use [GitHub Issues](https://github.com/Alcampopiano/hypothesize/issues).
 
+## Contributing to Hypothesize
+
+Please see [CONTRIBUTING.md](https://github.com/Alcampopiano/hypothesize/blob/master/CONTRIBUTING.md) 
+in the GitHub repository for instructions. 
