@@ -43,7 +43,7 @@ of making robust computations as easy as possible for researchers.
 Hypothesize keeps the barrier-to-entry low, for example,
 
  - To easily incorporate Hypothesize with standard data processing tools
- [see @reback2020pandas; also @mckinney-proc-scipy-2010], all top-level 
+ [see @mckinney-proc-scipy-2010], all top-level 
  functions take a Pandas DataFrame/Series as input and return a Python Dictionary.
  
  - The API maps cleanly onto features of the user's statistical design. 
