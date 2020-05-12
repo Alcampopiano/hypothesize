@@ -1,4 +1,5 @@
 # Hypothesize
+![tests](https://github.com/Alcampopiano/hypothesize/workflows/tests/badge.svg)
 [![PyPI version](https://img.shields.io/pypi/v/hypothesize?style=flat-square)](https://pypi.org/project/hypothesize/)
 [![PyPI - Downloads](https://img.shields.io/pypi/dw/hypothesize?style=flat-square)](https://pypistats.org/packages/hypothesize)
 [![license](https://img.shields.io/pypi/l/hypothesize?style=flat-square)](https://github.com/Alcampopiano/hypothesize/blob/master/LICENSE)
