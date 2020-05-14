@@ -1819,20 +1819,28 @@ def create_example_data(design_values, missing_data_proportion=0, save_array_pat
 
     """
     Create a Pandas DataFrame of random data with a certain number of columns which
-    correspond to a design of a certain shape (e.g., 1-way, two groups, 2-way design).
-
+    correspond to a design of a given shape (e.g., 1-way, two groups, 2-way design).
     There is also an option to randomly add a proportion of null values.
-
     The purpose of this function is to make it easy to demonstrate and test the package.
 
-    :param design_values: a list or integer indicating the design shape. For example, [2,3] would
-        indicate a 2-by-3 design and will produce a six column DataFrame with appropriately named columns.
+    :param design_values: list or int
 
-    :param missing_data_proportion:
-    :param save_array_path: save each group as an array for loading into R to path (e.g. , /home/allan/)
-    :param seed:
+    An integer or list indicating the design shape. For example, `[2,3]` indicates
+    a 2-by-3 design and will produce a six column DataFrame
+    with appropriately named columns
 
-    :return:
+    :param missing_data_proportion: float
+
+    Proportion of randomly missing data
+
+    :param save_array_path: str (default is `None`)
+
+    Save each group as an array for loading into R by specifying a path (e.g. , `'/home/allan/'`).
+    If left unset (i.e., `None`), no arrays will be saved.
+
+    :param seed: bool
+
+    Set random seed for reproducible results
     """
 
     if seed:

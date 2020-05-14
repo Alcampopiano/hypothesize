@@ -31,5 +31,7 @@ please use [GitHub Issues](https://github.com/Alcampopiano/hypothesize/issues).
 
 ## Contributing to Hypothesize
 
-Please see [CONTRIBUTING.md](https://github.com/Alcampopiano/hypothesize/blob/master/CONTRIBUTING.md) 
-in the GitHub repository for instructions. 
+The best way to contribute to Hypothesize is to take any function from the WRS collection 
+and convert it to Python. For more details, please see 
+[CONTRIBUTING.md](https://github.com/Alcampopiano/hypothesize/blob/master/CONTRIBUTING.md)
+in the GitHub repository.
