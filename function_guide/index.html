@@ -537,6 +537,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#create_example_data" class="md-nav__link">
+    create_example_data
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -858,6 +865,13 @@
           <li class="md-nav__item">
   <a href="#con2way" class="md-nav__link">
     con2way
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create_example_data" class="md-nav__link">
+    create_example_data
   </a>
   
 </li>
@@ -2030,6 +2044,24 @@ This is Scipy's implementation of the trimmed mean.</p>
 <p><strong>list of arrays</strong></p>
 <p>Each item in the list contains the contrasts for Factor A, Factor B, and the interaction, in that order.
 For each array, the rows correspond to groups and the columns are the contrasts to be used</p>
+<h3 id="create_example_data">create_example_data<a class="headerlink" href="#create_example_data" title="Permanent link">&para;</a></h3>
+<p><code class="highlight"><span class="n">create_example_data</span><span class="p">(</span><span class="n">design_values</span><span class="p">,</span> <span class="n">missing_data_proportion</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">save_array_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code></p>
+<p>Create a Pandas DataFrame of random data with a certain number of columns which
+correspond to a design of a given shape (e.g., 1-way, two groups, 2-way design).
+There is also an option to randomly add a proportion of null values.
+The purpose of this function is to make it easy to demonstrate and test the package.</p>
+<p><em>Parameters:</em></p>
+<p><strong>design_values: int or list</strong></p>
+<p>An integer or list indicating the design shape. For example, <code>[2,3]</code> indicates
+a 2-by-3 design and will produce a six column DataFrame 
+with appropriately named columns.</p>
+<p><strong>missing_data_proportion: float</strong></p>
+<p>Proportion of randomly missing data</p>
+<p><strong>save_array_path: str (default is <code>None</code>)</strong></p>
+<p>Save each group as an array for loading into R by specifying a path (e.g. , <code>'/home/allan/'</code>).
+If left unset (i.e., <code>None</code>), no arrays will be saved.</p>
+<p><strong>seed: bool</strong></p>
+<p>Set random seed for reproducible results</p>
                 
               
               
