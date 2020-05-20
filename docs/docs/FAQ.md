@@ -159,8 +159,8 @@ contrast matrix.
     
 !!! success "Not a fan of contrast matrices?"
     Don't worry, Hypothesize can generate all linear
-    contrasts automatically (see functions [con1Way]()
-    and [con2way]()). However, it is useful to 
+    contrasts automatically (see functions [con1Way](https://alcampopiano.github.io/hypothesize/function_guide/#con1way)
+    and [con2way](https://alcampopiano.github.io/hypothesize/function_guide/#con2way)). However, it is useful to 
     understand this concept so that you know
     which comparisons are being made and 
     how to specify your own if necessary.
