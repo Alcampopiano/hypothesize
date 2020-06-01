@@ -1,4 +1,5 @@
 # Hypothesize <a href="https://Alcampopiano.github.io/hypothesize/"><img align="right" src="https://github.com/Alcampopiano/hypothesize/blob/master/docs/docs/img/vp_inv.png" height="50"></img></a>
+[![status](https://joss.theoj.org/papers/caf4095b3cdcc3adbb0252c995d59926/status.svg)](https://joss.theoj.org/papers/caf4095b3cdcc3adbb0252c995d59926)
 ![tests](https://github.com/Alcampopiano/hypothesize/workflows/tests/badge.svg)
 [![PyPI version](https://img.shields.io/pypi/v/hypothesize?style=flat-square)](https://pypi.org/project/hypothesize/)
 [![PyPI - Downloads](https://img.shields.io/pypi/dw/hypothesize?style=flat-square)](https://pypistats.org/packages/hypothesize)
