@@ -30,8 +30,9 @@ bibliography: paper.bib
 
 # Summary
 
-Hypothesize is a robust null hypothesis significance testing (NHST) library for Python.
-Robust methods, in particular those based on the trimmed mean [@20000755025] 
+Hypothesize is a robust null hypothesis significance testing (NHST) library for Python. In general,
+robust hypothesis testing uses techniques which minimize the effects of violating standard statistical 
+assumptions. In particular, robust methods based on the trimmed mean [@20000755025] 
 and/or bootstrapping [@bradley1993introduction], routinely outperform traditional statistical 
 approaches in terms of power and accuracy. This is especially true when dealing with
 distributions that produce outliers [@wilcox1998many; @wilcox2013introduction].
@@ -40,9 +41,10 @@ Hypothesize is based on Rand R. Wilcox's collection of [R functions](https://dor
 which contains hundreds of robust methods developed since the 1960's. 
 Hypothesize brings many of these functions into the Python library ecosystem with the goal
 of making robust hypothesis testing easy for researchers, even
-if they have not had extensive training in statistics or computer science. 
-While other statistical libraries in Python provide useful options 
-for robust model fitting [@seabold2010statsmodels] and visualizations [@ho2019moving], 
+if they have not had extensive training in statistics or computer science. It is, however, assumed 
+that users have a basic understanding of the concepts and terms related to statistical hypothesis 
+testing. While other statistical libraries in Python provide some useful options 
+for robust statistics [@Vallat2018; @seabold2010statsmodels; @ho2019moving], 
 Hypothesize focuses on providing a larger selection of robust methods 
 for comparing groups and measuring associations, especially those that are 
 analogous to traditional NHST approaches.
