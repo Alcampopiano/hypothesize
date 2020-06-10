@@ -29,7 +29,8 @@ That is, group tests that have a single factor.
 
 ### l2drmci
 
-`#!py l2drmci(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)`
+`#!py hypothesize.compare_groups_with_single_factor.l2drmci
+(x, y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=False)`
 
 Compute a bootstrap confidence interval for a
 measure of location associated with the distribution of x-y. 
@@ -89,7 +90,7 @@ target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### linconb
 
-`#!py linconb(x, con, tr=.2, alpha=.05, nboot=599, seed=False)`
+`#!py hypothesize.compare_groups_with_single_factor.linconb(x, con, tr=.2, alpha=.05, nboot=599, seed=False)`
 
 Compute a 1-alpha confidence interval for a set of d linear contrasts
 involving trimmed means using the bootstrap-t bootstrap method.
@@ -154,7 +155,7 @@ target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### pb2gen
 
-`#!py pb2gen(x, y, est, *args, alpha=.05, nboot=2000, seed=False)`
+`#!py hypothesize.compare_groups_with_single_factor.pb2gen(x, y, est, *args, alpha=.05, nboot=2000, seed=False)`
 
 Compute a bootstrap confidence interval for the
 the difference between any two parameters corresponding to two
@@ -231,7 +232,7 @@ target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### tmcppb
 
-`#!py tmcppb(x, est, *args, con=None, bhop=False, alpha=.05, nboot=None, seed=False)`
+`#!py hypothesize.compare_groups_with_single_factor.tmcppb(x, est, *args, con=None, bhop=False, alpha=.05, nboot=None, seed=False)`
 
 Multiple comparisons for J independent groups using trimmed means and
 the percentile bootstrap method. Rom’s method is used to control the 
@@ -299,7 +300,7 @@ target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### yuenbt
 
-`#!py yuenbt(x, y, tr=.2, alpha=.05, nboot=599, seed=False)`
+`#!py hypothesize.compare_groups_with_single_factor.yuenbt(x, y, tr=.2, alpha=.05, nboot=599, seed=False)`
 
 Compute a 1-alpha confidence interval for the difference between
 the trimmed means corresponding to two independent groups.
@@ -367,7 +368,7 @@ target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### bootdpci
 
-`#!py bootdpci(x, est, *args, nboot=None, alpha=.05, dif=True, BA=False, SR=False)`
+`#!py hypothesize.compare_groups_with_single_factor.bootdpci(x, est, *args, nboot=None, alpha=.05, dif=True, BA=False, SR=False)`
 
 Use percentile bootstrap method, compute a .95 confidence interval 
 for the difference between a measure of location or scale 
@@ -450,7 +451,7 @@ target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### rmmcppb
 
-`#!py rmmcppb(x, est, *args,  alpha=.05, con=None, dif=True, nboot=None, BA=False,
+`#!py hypothesize.compare_groups_with_single_factor.rmmcppb(x, est, *args,  alpha=.05, con=None, dif=True, nboot=None, BA=False,
     hoch=False, SR=False, seed=False)`
 
 Use a percentile bootstrap method to compare dependent groups.
@@ -550,7 +551,7 @@ target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### lindepbt
 
-`#!py lindepbt(x, tr=.2, con=None, alpha=.05, nboot=599, dif=True, seed=False)`
+`#!py hypothesize.compare_groups_with_single_factor.lindepbt(x, tr=.2, con=None, alpha=.05, nboot=599, dif=True, seed=False)`
 
 Multiple comparisons on trimmed means with FWE controlled with Rom's method
 Using a bootstrap-t method.
@@ -616,7 +617,7 @@ target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### ydbt
 
-`#!py ydbt(x, y, tr=.2, alpha=.05, nboot=599, side=True, seed=False)`
+`#!py hypothesize.compare_groups_with_single_factor.ydbt(x, y, tr=.2, alpha=.05, nboot=599, side=True, seed=False)`
 
 Using the bootstrap-t method,
 compute a .95 confidence interval for the difference between
@@ -681,7 +682,7 @@ That is, group tests that have a two factors.
 
 ### wwmcppb
 
-`#!py wwmcppb(J, K, x,  est, *args,  alpha=.05, dif=True,
+`#!py hypothesize.compare_groups_with_two_factors.wwmcppb(J, K, x,  est, *args,  alpha=.05, dif=True,
             nboot=None, BA=True, hoch=True, seed=False)`
 
 Do all multiple comparisons for a within-by-within design 
@@ -781,7 +782,7 @@ target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### wwmcpbt
 
-`#!py wwmcpbt(J, K, x, tr=.2, alpha=.05, nboot=599, seed=False)`
+`#!py hypothesize.compare_groups_with_two_factors.wwmcpbt(J, K, x, tr=.2, alpha=.05, nboot=599, seed=False)`
 
 Do multiple comparisons for a within-by-within design.
 using a bootstrap-t method and trimmed means.
@@ -879,7 +880,7 @@ there are 3 within-subjects conditions.
 
 ### bwamcp
 
-`#!py bwamcp(J, K, x, tr=.2, alpha=.05, pool=False)`
+`#!py hypothesize.compare_groups_with_two_factors.bwamcp(J, K, x, tr=.2, alpha=.05, pool=False)`
 
 All pairwise comparisons among levels of Factor A
 in a mixed design using trimmed means. The `pool`
@@ -954,7 +955,7 @@ target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### bwbmcp
 
-`#!py bwbmcp(J, K, x, tr=.2, con=None, alpha=.05,
+`#!py hypothesize.compare_groups_with_two_factors.bwbmcp(J, K, x, tr=.2, con=None, alpha=.05,
            dif=True, pool=False, hoch=False)`
 
 All pairwise comparisons among levels of Factor B
@@ -1065,7 +1066,7 @@ target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### bwmcp
 
-`#!py bwmcp(J, K, x, alpha=.05, tr=.2, nboot=599, seed=False)`
+`#!py hypothesize.compare_groups_with_two_factors.bwmcp(J, K, x, alpha=.05, tr=.2, nboot=599, seed=False)`
 
 A bootstrap-t for multiple comparisons among
 for all main effects and interactions in a between-by-within design.
@@ -1151,7 +1152,7 @@ target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### bwimcp
 
-`#!py bwimcp(J, K, x, tr=.2, alpha=.05)`
+`#!py hypothesize.compare_groups_with_two_factors.bwimcp(J, K, x, tr=.2, alpha=.05)`
 
 Multiple comparisons for interactions
 in a split-plot design.
@@ -1222,7 +1223,7 @@ target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### bwmcppb
 
-`#!py bwmcppb(J, K, x, est, *args, alpha=.05,
+`#!py hypothesize.compare_groups_with_two_factors.bwmcppb(J, K, x, est, *args, alpha=.05,
             nboot=500, bhop=True, seed=True)`
 
 (note: this is for trimmed means only depite the `est` arg. 
@@ -1308,7 +1309,7 @@ target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### spmcpa
 
-`#!py spmcpa(J, K, x, est, *args,
+`#!py hypothesize.compare_groups_with_two_factors.spmcpa(J, K, x, est, *args,
            avg=False, alpha=.05, nboot=None, seed=False)`
 
 All pairwise comparisons among levels of Factor A 
@@ -1381,7 +1382,7 @@ target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### spmcpb
 
-`#!py spmcpb(J, K, x, est, *args, dif=True, 
+`#!py hypothesize.compare_groups_with_two_factors.spmcpb(J, K, x, est, *args, dif=True, 
 alpha=.05, nboot=599, seed=False)`
 
 All pairwise comparisons among levels of Factor B
@@ -1451,7 +1452,7 @@ target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### spmcpi
 
-`#!py spmcpi(J, K, x, est, *args, alpha=.05, 
+`#!py hypothesize.compare_groups_with_two_factors.spmcpi(J, K, x, est, *args, alpha=.05, 
 nboot=None, SR=False, seed=False)`
 
 Multiple comparisons for interactions
@@ -1537,7 +1538,7 @@ Note that regression functions will be added here eventually.
 
 ### corb
 
-`#!py corb(corfun, x, y, alpha, nboot, *args, seed=False)`
+`#!py hypothesize.measuring_associations.corb(corfun, x, y, alpha, nboot, *args, seed=False)`
 
 Compute a 1-alpha confidence interval for a 
 correlation using percentile bootstrap method
@@ -1598,7 +1599,7 @@ target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### pball
 
-`#!py pball(x, beta=.2)`
+`#!py hypothesize.measuring_associations.pball(x, beta=.2)`
 
 Compute the percentage bend correlation matrix 
 for all pairs of columns in `x`. This function also 
@@ -1645,7 +1646,7 @@ target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### pbcor
 
-`#!py pbcor(x, y, beta=.2)`
+`#!py hypothesize.measuring_associations.pbcor(x, y, beta=.2)`
 
 Compute the percentage bend 
 correlation between `x` and `y`
@@ -1692,7 +1693,7 @@ target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### winall
 
-`#!py winall(x, tr=.2)`
+`#!py hypothesize.measuring_associations.winall(x, tr=.2)`
 
 Compute the Winsorized correlation and covariance matrix 
 for all pairs of columns in `x`. This function also 
@@ -1735,7 +1736,7 @@ target="_blank" class="button">Try this example yourself in Colab!</a>
 
 ### wincor
 
-`#!py wincor(x, y, tr=.2)`
+`#!py hypothesize.measuring_associations.wincor(x, y, tr=.2)`
 
 Compute the winsorized correlation between `x` and `y`.
 This function also returns the winsorized covariance.
@@ -1789,7 +1790,7 @@ as input arguments. They are also potentially useful on their own.
 Calculate the sample mean after removing a proportion of values from each tail.
 This is Scipy's implementation of the trimmed mean.
 
-`#!py trim_mean(x, tr)`
+`#!py hypothesize.utilities.trim_mean(x, tr)`
 
 _Parameters:_
 
@@ -1811,7 +1812,7 @@ The trimmed mean(s)
 
 ### con1way
 
-`#!py con1way(J)`
+`#!py hypothesize.utilities.con1way(J)`
 
 Return all linear contrasts for J groups
 
@@ -1831,7 +1832,7 @@ Array of contrasts where the rows correspond to groups and the columns are the c
 
 ### con2way
 
-`#!py con2way(J, K)`
+`#!py hypothesize.utilities.con2way(J, K)`
 
 Return all linear contrasts for Factor A, Factor B, and the interaction
 
@@ -1854,7 +1855,7 @@ For each array, the rows correspond to groups and the columns are the contrasts 
 
 ### create_example_data
 
-`#!py create_example_data(design_values, missing_data_proportion=0, save_array_path=None, seed=False)`
+`#!py hypothesize.utilities.create_example_data(design_values, missing_data_proportion=0, save_array_path=None, seed=False)`
 
 Create a Pandas DataFrame of random data with a certain number of columns which
 correspond to a design of a given shape (e.g., 1-way, two groups, 2-way design).
