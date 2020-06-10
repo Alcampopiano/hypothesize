@@ -922,6 +922,7 @@ That is, group tests that have a single factor.</p>
 measure of location associated with the distribution of x-y. 
 That is, compare x and y by looking at all possible difference scores
 in random samples of <code>x</code> and <code>y</code>. <code>x</code> and <code>y</code> are possibly dependent.</p>
+<p>Note that arguments up to and including <code>args</code> are positional arguments</p>
 <p><em>Parameters:</em></p>
 <p><strong>x: Pandas Series</strong></p>
 <p>Data for group one</p>
@@ -989,6 +990,7 @@ target="_blank" class="button">Try this example yourself in Colab!</a></p>
 <p>Compute a bootstrap confidence interval for the
 the difference between any two parameters corresponding to two
 independent groups.</p>
+<p>Note that arguments up to and including <code>args</code> are positional arguments</p>
 <p><em>Parameters:</em></p>
 <p><strong>x: Pandas Series</strong></p>
 <p>Data for group one</p>
@@ -1032,6 +1034,7 @@ probability of one or more type I errors. For C &gt; 10 hypotheses,
 or when the goal is to test at some level other than .05 and .01, 
 Hochberg’s method is used. Setting the argument <code>bhop</code> to <code>True</code> uses the
 Benjamini–Hochberg method instead.</p>
+<p>Note that arguments up to and including <code>args</code> are positional arguments</p>
 <p><em>Parameters:</em></p>
 <p><strong>x: Pandas DataFrame</strong></p>
 <p>Each column represents a group of data</p>
@@ -1104,6 +1107,7 @@ target="_blank" class="button">Try this example yourself in Colab!</a></p>
 <p>Use percentile bootstrap method, compute a .95 confidence interval 
 for the difference between a measure of location or scale 
 when comparing two dependent groups.</p>
+<p>Note that arguments up to and including <code>args</code> are positional arguments</p>
 <p>The argument <code>dif</code> defaults to <code>True</code> indicating 
 that difference scores will be used, in which case Hochberg’s 
 method is used to control FWE. If <code>dif</code> is <code>False</code>, measures of 
@@ -1169,6 +1173,7 @@ with M-estimators and MOM, but it is not necessary when
 comparing 20% trimmed means (Wilcox &amp; Keselman, 2002). </p>
 <p>Hochberg's sequentially rejective method can be used and is used 
 if n&gt;=80.</p>
+<p>Note that arguments up to and including <code>args</code> are positional arguments</p>
 <p><em>Parameters:</em></p>
 <p><strong>x: Pandas DataFrame</strong></p>
 <p>Each column represents a group of data</p>
@@ -1290,6 +1295,7 @@ That is, group tests that have a two factors.</p>
 using a percentile bootstrap method.A sequentially rejective 
 method is used to control alpha.
 Hochberg's method can be used and is if n&gt;=80.</p>
+<p>Note that arguments up to and including <code>args</code> are positional arguments</p>
 <p><em>Parameters:</em></p>
 <p><strong>J: int</strong></p>
 <p>Number of J levels associated with Factor A</p>
@@ -1690,6 +1696,7 @@ using an appropriate linear contrast.</p>
 <p>Uses Rom's method to control FWE. Setting the 
 argument <code>bhop</code> to <code>True</code> uses the Benjamini–Hochberg 
 method instead.</p>
+<p>Note that arguments up to and including <code>args</code> are positional arguments</p>
 <p><em>Parameters:</em></p>
 <p><strong>J: int</strong></p>
 <p>Number of J levels associated with Factor A</p>
@@ -1751,6 +1758,7 @@ controls whether or not to average data across levels
 of Factor B prior to performing the statistical test. 
 If <code>False</code>, contrasts are created to test across Factor A
 for each level of Factor B.</p>
+<p>Note that arguments up to and including <code>args</code> are positional arguments</p>
 <p><em>Parameters:</em></p>
 <p><strong>J: int</strong></p>
 <p>Number of J levels associated with Factor A</p>
@@ -1791,6 +1799,7 @@ method is used to control FWE.</p>
 <p>If <code>est</code> is <code>onestep</code> or <code>mom</code> (not be implemeted yet),
 method SR is used to control the probability of at 
 least one Type I error. Otherwise, Hochberg is used.</p>
+<p>Note that arguments up to and including <code>args</code> are positional arguments</p>
 <p><em>Parameters:</em></p>
 <p><strong>J: int</strong></p>
 <p>Number of J levels associated with Factor A</p>
@@ -1832,6 +1841,7 @@ these differences differ across levels of Factor A.</p>
 modification of Hochberg's (1988) "sequentially rejective" 
 method can be applied to control FWE, especially when 
 comparing one-step M-estimators or M-estimators.</p>
+<p>Note that arguments up to and including <code>args</code> are positional arguments</p>
 <p><em>Parameters:</em></p>
 <p><strong>J: int</strong></p>
 <p>Number of J levels associated with Factor A</p>
@@ -1879,6 +1889,7 @@ correlation coefficient. The functions pbcor and
 wincor follow this convention. When using 
 Pearson's correlation, and when n&lt;250, use
 lsfitci instead (not yet implemented).</p>
+<p>Note that arguments up to and including <code>args</code> are positional arguments</p>
 <p><em>Parameters:</em></p>
 <p><strong>corfun: function</strong></p>
 <p>corfun is any function that returns a correlation coefficient</p>
@@ -2012,12 +2023,15 @@ as input arguments. They are also potentially useful on their own.</p>
 <h3 id="trim_mean">trim_mean<a class="headerlink" href="#trim_mean" title="Permanent link">&para;</a></h3>
 <p>Calculate the sample mean after removing a proportion of values from each tail.
 This is Scipy's implementation of the trimmed mean.</p>
-<p><code class="highlight"><span class="n">hypothesize</span><span class="o">.</span><span class="n">utilities</span><span class="o">.</span><span class="n">trim_mean</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">tr</span><span class="p">)</span></code></p>
+<p><code class="highlight"><span class="n">hypothesize</span><span class="o">.</span><span class="n">utilities</span><span class="o">.</span><span class="n">trim_mean</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">proportiontocut</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code></p>
 <p><em>Parameters:</em></p>
 <p><strong>x: array or DataFrame</strong></p>
 <p>Array or DataFrame of observations</p>
-<p><strong>tr: float</strong></p>
-<p>Proportion to trim</p>
+<p><strong>proportiontocut: float</strong></p>
+<p>Proportion to trim from both tails of the distribution</p>
+<p><strong>axis: int or <code>None</code></strong></p>
+<p>Axis along which the trimmed means are computed. Default is 0.
+If None, compute over the whole array/DataFrame.</p>
 <p><em>Return:</em></p>
 <p><strong>float or list</strong></p>
 <p>The trimmed mean(s)</p>
