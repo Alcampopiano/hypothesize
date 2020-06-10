@@ -42,8 +42,9 @@ which contains hundreds of robust methods developed since the 1960's.
 Hypothesize brings many of these functions into the Python library ecosystem with the goal
 of making robust hypothesis testing easy for researchers, even
 if they have not had extensive training in statistics or computer science. It is, however, assumed 
-that users have a basic understanding of the concepts and terms related to statistical hypothesis 
-testing. While other statistical libraries in Python provide some useful options 
+that users have a basic understanding of the concepts and terms related to robust hypothesis 
+testing (e.g., trimmmed mean and bootstrapping).
+While other statistical libraries in Python provide some useful options 
 for robust statistics [@Vallat2018; @seabold2010statsmodels; @ho2019moving], 
 Hypothesize focuses on providing a larger selection of robust methods 
 for comparing groups and measuring associations, especially those that are 
