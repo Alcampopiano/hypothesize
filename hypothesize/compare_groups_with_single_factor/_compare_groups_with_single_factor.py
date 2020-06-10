@@ -247,6 +247,7 @@ def rmmcppb(x,  est, *args,  alpha=.05, con=None,
     Hochberg's sequentially rejective method can be used and is used
     if n>=80.
 
+    Note that arguments up to and including `args` are positional arguments
 
     :param x: Pandas DataFrame
     Each column represents a group of data
@@ -512,20 +513,22 @@ def rmmcppbd(x,  est, *args, alpha=.05, con=None,
              nboot=None, hoch=True, seed=False):
 
     """
-      Use a percentile bootstrap method to compare dependent groups
-      based on difference scores.
-      By default,
-      compute a .95 confidence interval for all linear contrasts
-      specified by con, a J by C matrix, where  C is the number of
-      contrasts to be tested, and the columns of con are the
-      contrast coefficients.
-      If con is not specified, all pairwise comparisons are done.
+    Use a percentile bootstrap method to compare dependent groups
+    based on difference scores.
+    By default,
+    compute a .95 confidence interval for all linear contrasts
+    specified by con, a J by C matrix, where  C is the number of
+    contrasts to be tested, and the columns of con are the
+    contrast coefficients.
+    If con is not specified, all pairwise comparisons are done.
 
-      nboot is the bootstrap sample size. If not specified, a value will
-      be chosen depending on the number of contrasts there are.
+    nboot is the bootstrap sample size. If not specified, a value will
+    be chosen depending on the number of contrasts there are.
 
-      A sequentially rejective method is used to control alpha.
-      If n>=80, hochberg's method is used.
+    A sequentially rejective method is used to control alpha.
+    If n>=80, hochberg's method is used.
+
+    Note that arguments up to and including `args` are positional arguments
 
     :param x:
     :param y:
@@ -849,6 +852,7 @@ def pb2gen(x, y, est, *args, alpha=.05, nboot=2000, seed=False):
     the difference between any two parameters corresponding to two
     independent groups.
 
+    Note that arguments up to and including `args` are positional arguments
 
     :param x: Pandas Series
     Data for group one
@@ -960,6 +964,7 @@ def bootdpci(x, est, *args, nboot=None, alpha=.05,
     method can be applied to control FWE, especially when
     comparing one-step M-estimators or M-estimators.
 
+    Note that arguments up to and including `args` are positional arguments
 
     :param x: Pandas DataFrame
     Each column represents a group of data
@@ -1139,6 +1144,7 @@ def tmcppb(x, est, *args, con=None, bhop=False, alpha=.05, nboot=None, seed=Fals
     Hochberg’s method is used. Setting the argument `bhop` to `True` uses the
     Benjamini–Hochberg method instead.
 
+    Note that arguments up to and including `args` are positional arguments
 
     :param x: Pandas DataFrame
     Each column represents a group of data
@@ -1289,6 +1295,7 @@ def l2drmci(x,y, est, *args, pairwise_drop_na=True, alpha=.05, nboot=2000, seed=
     That is, compare x and y by looking at all possible difference scores
     in random samples of `x` and `y`. `x` and `y` are possibly dependent.
 
+    Note that arguments up to and including `args` are positional arguments
 
     :param x: Pandas Series
     Data for group one

@@ -537,6 +537,8 @@ def spmcpa(J, K, x, est, *args,
     If `False`, contrasts are created to test across Factor A
     for each level of Factor B.
 
+    Note that arguments up to and including `args` are positional arguments
+
     :param J: int
     Number of J levels associated with Factor A
 
@@ -753,6 +755,8 @@ def spmcpb(J, K, x, est, *args, dif=True, alpha=.05, nboot=599, seed=False):
     method SR is used to control the probability of at
     least one Type I error. Otherwise, Hochberg is used.
 
+    Note that arguments up to and including `args` are positional arguments
+
     :param J: int
     Number of J levels associated with Factor A
 
@@ -835,6 +839,8 @@ def spmcpi(J, K, x, est, *args, alpha=.05, nboot=None, SR=False, seed=False):
     modification of Hochberg's (1988) "sequentially rejective"
     method can be applied to control FWE, especially when
     comparing one-step M-estimators or M-estimators.
+
+    Note that arguments up to and including `args` are positional arguments
 
     :param J: int
     Number of J levels associated with Factor A
@@ -1044,6 +1050,8 @@ def wwmcppb(J, K, x,  est, *args,  alpha=.05, dif=True,
     method is used to control alpha.
     Hochberg's method can be used and is if n>=80.
 
+    Note that arguments up to and including `args` are positional arguments
+
     :param J: int
     Number of J levels associated with Factor A
 
@@ -1248,6 +1256,7 @@ def bwmcppb(J, K, x, est, *args, alpha=.05,
     argument `bhop` to `True` uses the Benjamini–Hochberg
     method instead.
 
+    Note that arguments up to and including `args` are positional arguments
 
     :param J: int
     Number of J levels associated with Factor A

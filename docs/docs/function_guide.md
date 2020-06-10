@@ -37,6 +37,8 @@ measure of location associated with the distribution of x-y.
 That is, compare x and y by looking at all possible difference scores
 in random samples of `x` and `y`. `x` and `y` are possibly dependent.
 
+Note that arguments up to and including `args` are positional arguments
+
 _Parameters:_
 
 **x: Pandas Series**
@@ -161,6 +163,9 @@ Compute a bootstrap confidence interval for the
 the difference between any two parameters corresponding to two
 independent groups.
 
+Note that arguments up to and including `args` are positional arguments
+
+
 _Parameters:_
 
 **x: Pandas Series**
@@ -240,6 +245,8 @@ probability of one or more type I errors. For C > 10 hypotheses,
 or when the goal is to test at some level other than .05 and .01, 
 Hochberg’s method is used. Setting the argument `bhop` to `True` uses the
 Benjamini–Hochberg method instead.
+
+Note that arguments up to and including `args` are positional arguments
 
 _Parameters:_
 
@@ -374,6 +381,8 @@ Use percentile bootstrap method, compute a .95 confidence interval
 for the difference between a measure of location or scale 
 when comparing two dependent groups.
 
+Note that arguments up to and including `args` are positional arguments
+
 The argument `dif` defaults to `True` indicating 
 that difference scores will be used, in which case Hochberg’s 
 method is used to control FWE. If `dif` is `False`, measures of 
@@ -474,6 +483,8 @@ comparing 20% trimmed means (Wilcox & Keselman, 2002).
 
 Hochberg's sequentially rejective method can be used and is used 
 if n>=80.
+
+Note that arguments up to and including `args` are positional arguments
 
 _Parameters:_
 
@@ -689,6 +700,8 @@ Do all multiple comparisons for a within-by-within design
 using a percentile bootstrap method.A sequentially rejective 
 method is used to control alpha.
 Hochberg's method can be used and is if n>=80.
+
+Note that arguments up to and including `args` are positional arguments
 
 _Parameters:_
 
@@ -1238,6 +1251,8 @@ Uses Rom's method to control FWE. Setting the
 argument `bhop` to `True` uses the Benjamini–Hochberg 
 method instead.
 
+Note that arguments up to and including `args` are positional arguments
+
 _Parameters:_
 
 **J: int**
@@ -1319,6 +1334,8 @@ controls whether or not to average data across levels
 of Factor B prior to performing the statistical test. 
 If `False`, contrasts are created to test across Factor A
 for each level of Factor B.
+
+Note that arguments up to and including `args` are positional arguments
     
 _Parameters:_
 
@@ -1393,6 +1410,8 @@ If `est` is `onestep` or `mom` (not be implemeted yet),
 method SR is used to control the probability of at 
 least one Type I error. Otherwise, Hochberg is used.
 
+Note that arguments up to and including `args` are positional arguments
+
 _Parameters:_
 
 **J: int**
@@ -1466,6 +1485,8 @@ The so-called the SR method, which is a slight
 modification of Hochberg's (1988) "sequentially rejective" 
 method can be applied to control FWE, especially when 
 comparing one-step M-estimators or M-estimators.
+
+Note that arguments up to and including `args` are positional arguments
 
 _Parameters:_
 
@@ -1547,6 +1568,8 @@ correlation coefficient. The functions pbcor and
 wincor follow this convention. When using 
 Pearson's correlation, and when n<250, use
 lsfitci instead (not yet implemented).
+
+Note that arguments up to and including `args` are positional arguments
 
 _Parameters:_
 
@@ -1790,7 +1813,7 @@ as input arguments. They are also potentially useful on their own.
 Calculate the sample mean after removing a proportion of values from each tail.
 This is Scipy's implementation of the trimmed mean.
 
-`#!py hypothesize.utilities.trim_mean(x, tr)`
+`#!py hypothesize.utilities.trim_mean(x, proportiontocut, axis=0)`
 
 _Parameters:_
 
@@ -1798,9 +1821,14 @@ _Parameters:_
 
 Array or DataFrame of observations
 
-**tr: float**
+**proportiontocut: float**
 
-Proportion to trim
+Proportion to trim from both tails of the distribution
+
+**axis: int or `None`**
+
+Axis along which the trimmed means are computed. Default is 0.
+If None, compute over the whole array/DataFrame.
 
 _Return:_
 

@@ -158,6 +158,7 @@ def corb(corfun, x, y, alpha, nboot, *args, seed=False):
     Pearson's correlation, and when n<250, use
     lsfitci instead (not yet implemented).
 
+    Note that arguments up to and including `args` are positional arguments
 
     :param corfun: function
     corfun is any function that returns a correlation coefficient
