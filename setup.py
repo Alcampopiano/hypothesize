@@ -26,6 +26,7 @@ setup(
     include_package_data=True,
     install_requires=get_install_requirements("requirements.txt"),
     python_requires=">=3.6",
+    tests_require=['pytest'],
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Environment :: Console",
