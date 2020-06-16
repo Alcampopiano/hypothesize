@@ -44,11 +44,19 @@ of making robust hypothesis testing easy for researchers, even
 if they have not had extensive training in statistics or computer science. It is, however, assumed 
 that users have a basic understanding of the concepts and terms related to robust hypothesis 
 testing (e.g., trimmed mean and bootstrapping).
-While other statistical libraries in Python provide some useful options 
-for robust statistics [@Vallat2018; @seabold2010statsmodels; @ho2019moving], 
-Hypothesize focuses on providing a larger selection of robust methods 
-for comparing groups and measuring associations, especially those that are 
-analogous to traditional NHST approaches.
+
+In contrast to other statistical libraries in Python [@Vallat2018; @seabold2010statsmodels; @ho2019moving],
+Hypothesize is focused solely on robust methods, especially those that are analogous to traditional NHST 
+approaches (e.g., t-test, ANOVA, Pearson's correlation). Hypothesize also provides many flexible options for 
+controlling how hypothesis tests are carried out. For example,
+
+- Several estimators are available, including the trimmed mean, 
+    mean, median, winsorized correlation and percentage bend correlation 
+    (estimators from other statistics packages, or user defined estimators, can also be used in some cases).
+    
+- For many designs, users can choose between using the percentile bootstrap or the bootstrap-t test.
+ 
+- To control family-wise error, robust sequentially rejective methods can be applied.
 
 In terms of using the software, Hypothesize keeps the barrier to entry low for researchers, for example,
 
