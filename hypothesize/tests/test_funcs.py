@@ -65,14 +65,20 @@ def check_dict_items_equality(expected_results, actual_results):
 
             if type(expected_results[k]) is np.ndarray:
 
-                truth=True if not np.testing.assert_array_equal(expected_results[k], actual_results[k]) \
+                # truth=True if not np.testing.assert_array_equal(expected_results[k], actual_results[k]) \
+                #     else False
+
+                truth=True if not np.testing.assert_allclose(expected_results[k], actual_results[k]) \
                     else False
 
                 actual_truth.append(truth)
 
             elif type(expected_results[k]) is pd.DataFrame:
 
-                truth=True if not assert_frame_equal(expected_results[k], actual_results[k]) \
+                # truth=True if not assert_frame_equal(expected_results[k], actual_results[k]) \
+                #     else False
+
+                truth=True if not assert_frame_equal(expected_results[k], actual_results[k], check_less_precise=True) \
                     else False
 
                 actual_truth.append(truth)
