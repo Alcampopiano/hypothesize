@@ -90,7 +90,8 @@ working directly on your master branch.
     against fresh results from the modified code (see the
     [tests](https://github.com/Alcampopiano/hypothesize/tree/master/hypothesize/tests) folder for examples).
     If you would like to write a test for your new code, you may follow the strategy 
-    described above or come up with another way to test your code.
+    described above or come up with another way to test your code. To run the test suite,
+    first navigate to the "tests" directory then use the `pytest` command from your terminal.
 
 3. Submit a pull request (PR) to merge your new branch to Hypothesize's master branch
 
