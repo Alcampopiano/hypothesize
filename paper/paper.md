@@ -86,7 +86,7 @@ Martina G. Vilas,
 Andrew Bennett, 
 Charlotte Soneson, 
 Whedon,
-the Journal of Open-Source Software,
+the Journal of Open Source Software,
 and the Halton Catholic District School Board 
 for their support of this project.
 
