@@ -46,19 +46,23 @@ that users have a basic understanding of the concepts and terms related to robus
 testing (e.g., trimmed mean and bootstrapping).
 
 In contrast to other statistical libraries in Python [@Vallat2018; @seabold2010statsmodels; @ho2019moving],
-Hypothesize is focused solely on robust methods, especially those that are analogous to traditional NHST 
-approaches (e.g., t-test, ANOVA, Pearson's correlation). Hypothesize also provides many flexible options for 
-controlling how hypothesis tests are carried out. For example,
-
-- Several estimators are available, including the trimmed mean, 
-    mean, median, winsorized correlation and percentage bend correlation 
-    (estimators from other statistics packages, or user defined estimators, can also be used in some cases).
-    
-- For many designs, users can choose between using the percentile bootstrap or the bootstrap-t test.
+Hypothesize is focused solely on robust methods for comparing groups and measuring associations. Researchers
+who are familiar with traditional NHST and related concepts (e.g., t-test, ANOVA, Pearson's correlation) 
+will find analogous approaches in Hypothesize. A broad range of choices exist in Hypothesize both in terms of the
+supported statistical designs as well as options for fine-grained control over how tests are computed.
+For example:
  
-- To control family-wise error, robust sequentially rejective methods can be applied.
+- Where applicable, many hypothesis tests allow the specification of an estimator. That is, users may 
+choose when to use the mean, median, trimmed mean, winsorized correlation, percentage bend correlation, 
+or any other compatible statistical estimator.
 
-In terms of using the software, Hypothesize keeps the barrier to entry low for researchers, for example,
+- Single- and multi-factor designs are supported, and this includes supporting 
+    independent, dependent, and mixed groups.
+
+- Family-wise error can be robustly controlled with sequentially 
+    rejective methods [rom1990sequentially; hochberg1988sharper; benjamni1995controlling].
+
+In terms of learning to use the software, Hypothesize keeps the barrier to entry low for researchers. For example:
 
  - To easily incorporate Hypothesize with standard data processing tools
  [see @mckinney-proc-scipy-2010], all top-level 
@@ -74,8 +78,16 @@ In terms of using the software, Hypothesize keeps the barrier to entry low for r
 
 # Acknowledgements
 
-The authors would like to thank Lisa Collimore, James Desjardins, 
-and the Halton Catholic District School Board for their support
-of this project.
+The authors would like to thank 
+James Desjardins, 
+Stefon van Noordt, 
+Lisa Collimore, 
+Martina G. Vilas, 
+Andrew Bennett, 
+Charlotte Soneson, 
+Whedon,
+the Journal of Open-Source Software,
+and the Halton Catholic District School Board 
+for their support of this project.
 
 # References
