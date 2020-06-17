@@ -60,7 +60,7 @@ or any other compatible statistical estimator.
     independent, dependent, and mixed groups.
 
 - Family-wise error can be robustly controlled with sequentially 
-    rejective methods [rom1990sequentially; hochberg1988sharper; benjamni1995controlling].
+    rejective methods [@rom1990sequentially; @hochberg1988sharper; @benjamni1995controlling].
 
 In terms of learning to use the software, Hypothesize keeps the barrier to entry low for researchers. For example:
 
