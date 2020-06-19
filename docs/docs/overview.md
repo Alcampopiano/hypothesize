@@ -54,28 +54,18 @@ D --> H7(f<sub>n</sub>)
 ---
 ## Hypothesize is flexible and powerful
 
-Depending on the statistical test, 
-Hypothesize allows you to specify parameters to control the
-following (not an exhaustive list):
+A broad range of choices exist in Hypothesize both in
+terms of the supported statistical designs as well as options for fine-grained control over how
+tests are computed. For example:
 
-- the estimator
-    - trimmed mean
-    - winsorized correlation
-    - percentage bend correlation
-    - mean
-    - median
-    
-    !!! note "Hypothesize focuses on methods that relate to the trimmed mean"
-        However, in places where Hypothesize accepts a function as an input,
-        there is a good chance that other estimators will also work
-        (e.g., one-step M-estimator, MOM)
+- Where applicable, many hypothesis tests allow the specification of an estimator. That is,
+users may choose when to use the mean, median, trimmed mean, winsorized correlation,
+percentage bend correlation, or any other compatible statistical estimator.
 
+- Single- and multi-factor designs are supported, and this includes supporting independent,
+dependent, and mixed groups.
 
-- family-wise error (FWE) using sequentially rejective methods
-- how group differences are calculated (e.g., marginal, pairwise, all combinations of differences)
-- linear contrasts
-- the alpha level
-- the random seed (for reprodicible results when using bootstrap-based tests)
+- Family-wise error can be robustly controlled with sequentially rejective methods (Benjamini & Hochberg, 1995; Hochberg, 1988; Rom, 1990).
 
 <br>
 
