@@ -420,33 +420,22 @@ D --&gt; H7(f&lt;sub&gt;n&lt;/sub&gt;)</div>
 <p><img alt="Screenshot" src="../img/package_import_viz.gif" /></p>
 <hr />
 <h2 id="hypothesize-is-flexible-and-powerful">Hypothesize is flexible and powerful<a class="headerlink" href="#hypothesize-is-flexible-and-powerful" title="Permanent link">&para;</a></h2>
-<p>Depending on the statistical test, 
-Hypothesize allows you to specify parameters to control the
-following (not an exhaustive list):</p>
+<p>A broad range of choices exist in Hypothesize both in
+terms of the supported statistical designs as well as options for fine-grained control over how
+tests are computed. For example:</p>
 <ul>
 <li>
-<p>the estimator</p>
-<ul>
-<li>trimmed mean</li>
-<li>winsorized correlation</li>
-<li>percentage bend correlation</li>
-<li>mean</li>
-<li>median</li>
-</ul>
-<div class="admonition note">
-<p class="admonition-title">Hypothesize focuses on methods that relate to the trimmed mean</p>
-<p>However, in places where Hypothesize accepts a function as an input,
-there is a good chance that other estimators will also work
-(e.g., one-step M-estimator, MOM)</p>
-</div>
+<p>Where applicable, many hypothesis tests allow the specification of an estimator. That is,
+users may choose when to use the mean, median, trimmed mean, winsorized correlation,
+percentage bend correlation, or any other compatible statistical estimator.</p>
 </li>
 <li>
-<p>family-wise error (FWE) using sequentially rejective methods</p>
+<p>Single- and multi-factor designs are supported, and this includes supporting independent,
+dependent, and mixed groups.</p>
 </li>
-<li>how group differences are calculated (e.g., marginal, pairwise, all combinations of differences)</li>
-<li>linear contrasts</li>
-<li>the alpha level</li>
-<li>the random seed (for reprodicible results when using bootstrap-based tests)</li>
+<li>
+<p>Family-wise error can be robustly controlled with sequentially rejective methods (Benjamini &amp; Hochberg, 1995; Hochberg, 1988; Rom, 1990).</p>
+</li>
 </ul>
 <p><br></p>
 <p>Visit the <a href="../basic_tutorial/">tutorial section</a> and the 
