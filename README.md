@@ -35,7 +35,7 @@ print(results)
 
 If you use Hypothesize in Academic work, please use the following citation:
 
-Campopiano et al., (2020). Hypothesize: Robust Statistics for Python. 
+Campopiano, A., & Wilcox, R. R. (2020). Hypothesize: Robust Statistics for Python. 
 Journal of Open Source Software, 5(50), 2241, https://doi.org/10.21105/joss.02241
 
 BibTex:
