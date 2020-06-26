@@ -29,6 +29,32 @@ on [GitHub](https://github.com/Alcampopiano/hypothesize).
 For issues and questions, 
 please use [GitHub Issues](https://github.com/Alcampopiano/hypothesize/issues).
 
+## Citing Hypothesize
+
+[![status](https://joss.theoj.org/papers/caf4095b3cdcc3adbb0252c995d59926/status.svg)](https://joss.theoj.org/papers/caf4095b3cdcc3adbb0252c995d59926)
+
+If you use Hypothesize in Academic work, please use the following citation:
+
+Campopiano et al., (2020). Hypothesize: Robust Statistics for Python. 
+Journal of Open Source Software, 5(50), 2241, https://doi.org/10.21105/joss.02241
+
+BibTex:
+
+```bib
+@article{Campopiano2020,
+  doi = {10.21105/joss.02241},
+  url = {https://doi.org/10.21105/joss.02241},
+  year = {2020},
+  publisher = {The Open Journal},
+  volume = {5},
+  number = {50},
+  pages = {2241},
+  author = {Allan Campopiano and Rand R. Wilcox},
+  title = {Hypothesize: Robust Statistics for Python},
+  journal = {Journal of Open Source Software}
+}
+```
+
 ## Contributing to Hypothesize
 
 The best way to contribute to Hypothesize is to take any function from the WRS collection 
