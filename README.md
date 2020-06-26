@@ -8,8 +8,6 @@
 
 A Python package for hypothesis testing using robust statistics.
 
-:book: Please visit the [Hypothesize documentation site](https://Alcampopiano.github.io/hypothesize/) for more details.
-
 ## Basic Example
 ### A robust measure of association using winsorized correlation
 
@@ -26,6 +24,10 @@ results=wincor(df.cell_1, df.cell_2)
 print(results)
 {'cor': 0.11, 'nval': 50, 'sig': 0.44, 'wcov': 0.01}
 ```
+
+## Documentation
+
+:book: Please visit the [Hypothesize documentation site](https://Alcampopiano.github.io/hypothesize/).
 
 ## Citing Hypothesize
 
