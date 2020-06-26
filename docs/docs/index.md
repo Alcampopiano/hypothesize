@@ -33,7 +33,7 @@ please use [GitHub Issues](https://github.com/Alcampopiano/hypothesize/issues).
 
 [![status](https://joss.theoj.org/papers/caf4095b3cdcc3adbb0252c995d59926/status.svg)](https://joss.theoj.org/papers/caf4095b3cdcc3adbb0252c995d59926)
 
-If you use Hypothesize in Academic work, please use the following citation:
+If you use Hypothesize in academic work, please use the following citation:
 
 Campopiano, A., & Wilcox, R. R. (2020). Hypothesize: Robust Statistics for Python. 
 Journal of Open Source Software, 5(50), 2241, https://doi.org/10.21105/joss.02241
