@@ -88,8 +88,8 @@ def bwmcp(J, K, x, alpha=.05, tr=.2, nboot=599, seed=False):
     conA, conB, conAB=con2way(J,K)
     p=J*K
     v=np.zeros([p,p])
-    data=[xi-trim_mean(xi, tr) for xi in x]
     x=remove_nans_based_on_design(x, design_values=[J,K], design_type='between_within')
+    data = [xi - trim_mean(xi, tr) for xi in x]
 
     ilow=0
     iup=K
