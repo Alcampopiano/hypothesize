@@ -2261,6 +2261,33 @@ def linhat(x, con, est, *args):
 
     return psihat
 
+def mcpKadjp(p,proc="Holm"):
+    
+    """
+    P-value adjustment procedure based on Holms method..
+
+    :param p: list of p-values to be adjusted
+    :return: pandas dataframe
+    """
+    m = len(p)
+    n = 1
+    sorted_p = p[:] 
+    sorted_p.sort()
+    index_list = [p.index(val) for val in sorted_p]
+    adjp = np.zeros((m,n+1))
+    adjp[:,0] = p
+    
+    crit = [1/(m-k+1) for k in range(1,m+1)]
+    tmp=[]
+    for count, c in enumerate(crit):
+       tmp.append((1/(c))*sorted_p[count])
+    tmp = [t if t<=1 else 1 for t in tmp]
+    for i in range(1,m):
+        tmp[i] = max(tmp[i-1],tmp[i])
+        
+    adjp[:,1] = [tmp[s] for s in index_list]
+    return pd.DataFrame(adjp)
+
 def mkdocstrings_to_pycharm_docstrings(mkdocstr):
 
     """
