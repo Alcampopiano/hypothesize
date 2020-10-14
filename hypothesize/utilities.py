@@ -3,6 +3,7 @@ from scipy.stats.mstats import winsorize
 from scipy.stats import trim_mean
 from scipy.stats import t
 import pandas as pd
+import sys
 # pd.set_option('display.max_rows', 500)
 # pd.set_option('display.max_columns', 500)
 # pd.set_option('display.width', 1000)
@@ -2261,32 +2262,69 @@ def linhat(x, con, est, *args):
 
     return psihat
 
-def mcpKadjp(p,proc="Holm"):
-    
-    """
-    P-value adjustment procedure based on Holms method..
+def mcpKadjp(p, k=1, proc = 'Holm'):
+    '''
+    MCP method based on results in Keselman, H. J., Miller, C. E., & Holland, 
+    B. (2011). Many tests of significance: New methods for controlling Type 
+    I errors. Psychological Methods, 16, 420-431.
 
-    :param p: list of p-values to be adjusted
-    :return: pandas dataframe
-    """
+    Also see
+    Keselman, H. J., & Miller, C. E. (2012). 
+    Correction to many tests of significance: 
+    New methods for controlling Type I errors. Psychological Methods, 17(4), 679.
+
+    Note.
+    Generalized Hochberg is valid under MTP2 condition of the joint null 
+    distribution of the p-values
+    
+
+    :param p: list
+    The p-values to be adjusted.
+    
+    :param k: int
+    The  value for k-FWER. Defaults at to 1.
+    
+    :param proc: str
+    Indicates the method to be used. Choices are: ' Holm' ,'Hochberg'.
+    
+    :return: Pandas DataFrame object
+    DataFrame containing raw and adjusted p-values.
+
+    '''
     m = len(p)
     n = 1
     sorted_p = p[:] 
     sorted_p.sort()
-    index_list = [p.index(val) for val in sorted_p]
+    index_list = [sorted_p.index(val) for val in p]
     adjp = np.zeros((m,n+1))
     adjp[:,0] = p
     
-    crit = [1/(m-k+1) for k in range(1,m+1)]
-    tmp=[]
-    for count, c in enumerate(crit):
-       tmp.append((1/(c))*sorted_p[count])
-    tmp = [t if t<=1 else 1 for t in tmp]
-    for i in range(1,m):
-        tmp[i] = max(tmp[i-1],tmp[i])
-        
+    if proc.lower() == 'holm':
+        crit = [1/(m-k+1) for k in range(1,m+1)]
+        tmp=[]
+        for count, c in enumerate(crit):
+           tmp.append((1/(c))*sorted_p[count])
+        tmp = [t if t<=1 else 1 for t in tmp]
+        for i in range(1,m):
+            tmp[i] = max(tmp[i-1],tmp[i])
+    elif proc.lower() == 'hochberg':
+        crit = [1/(m-k+1) for k in range(1,m+1)]
+        tmp=[]
+        for count, c in enumerate(crit):
+           tmp.append((1/(c))*sorted_p[count])
+        tmp = [t if t<=1 else 1 for t in tmp]
+        #for (i in (m-1):1) tmp[i] <- min(tmp[i+1], tmp[i])
+        it_list = list(range(m-1))
+        it_list.reverse()
+        for i in it_list:
+            tmp[i] = min(tmp[i+1],tmp[i])
+    else:
+        sys.SystemError('Please select a correct correction method!')
+    
     adjp[:,1] = [tmp[s] for s in index_list]
-    return pd.DataFrame(adjp)
+    adjp = pd.DataFrame(adjp)
+    adjp.columns = ['rawp', f'{proc}']
+    print(adjp)
 
 def mkdocstrings_to_pycharm_docstrings(mkdocstr):
 
