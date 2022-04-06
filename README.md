@@ -9,7 +9,7 @@
 A Python package for hypothesis testing using robust statistics
 
 ## Basic Example
-### A robust measure of association using winsorized correlation
+### A robust measure of association with winsorized correlation
 
 ```python
 from hypothesize.measuring_associations import wincor
