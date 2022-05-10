@@ -1,15 +1,17 @@
 # Hypothesize <a href="https://Alcampopiano.github.io/hypothesize/"><img align="right" src="https://github.com/Alcampopiano/hypothesize/blob/master/docs/docs/img/vp_inv.png" height="50"></img></a>
+
 [![status](https://joss.theoj.org/papers/caf4095b3cdcc3adbb0252c995d59926/status.svg)](https://joss.theoj.org/papers/caf4095b3cdcc3adbb0252c995d59926)
 ![tests](https://github.com/Alcampopiano/hypothesize/workflows/tests/badge.svg)
 [![PyPI version](https://img.shields.io/pypi/v/hypothesize?style=flat-square)](https://pypi.org/project/hypothesize/)
 [![PyPI - Downloads](https://img.shields.io/pypi/dw/hypothesize?style=flat-square)](https://pypistats.org/packages/hypothesize)
 [![license](https://img.shields.io/pypi/l/hypothesize?style=flat-square)](https://github.com/Alcampopiano/hypothesize/blob/master/LICENSE)
-[![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb)
 
 A Python package for hypothesis testing using robust statistics
 
 ## Basic Example
+
 ### A robust measure of association with winsorized correlation
+[<img src="https://deepnote.com/buttons/launch-in-deepnote-white-small.svg">](https://github.com/Alcampopiano/hypothesize/blob/master/examples/wincor.ipynb)
 
 ```python
 from hypothesize.measuring_associations import wincor
@@ -24,6 +26,13 @@ results=wincor(df.cell_1, df.cell_2)
 print(results)
 {'cor': 0.11, 'nval': 50, 'sig': 0.44, 'wcov': 0.01}
 ```
+
+## Getting started
+To help you get started with Hypothesize, each statistical test can be launched 
+directly in [Deepnote's](deepnote.com) hosted notebook environment—complete with sample data 
+(as shown in the example above 👆). 
+Check out the [docs](https://alcampopiano.github.io/hypothesize/) 
+and [examples](https://github.com/Alcampopiano/hypothesize/tree/master/examples) for more Deepnote launch links.
 
 ## Documentation
 
