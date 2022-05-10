@@ -11,7 +11,8 @@ A Python package for hypothesis testing using robust statistics
 ## Basic Example
 
 ### A robust measure of association with winsorized correlation
-[<img src="https://deepnote.com/buttons/launch-in-deepnote-white-small.svg">](https://github.com/Alcampopiano/hypothesize/blob/master/examples/wincor.ipynb)
+[<img src="https://deepnote.com/buttons/launch-in-deepnote-white-small.svg">](https://deepnote.com/launch?name=wincor&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/wincor.ipynb
+)
 
 ```python
 from hypothesize.measuring_associations import wincor
