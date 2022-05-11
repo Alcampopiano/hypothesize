@@ -2,7 +2,7 @@
 
 The benefits of using robust methods for hypothesis testing 
 have been known for the last half century. 
-They have been shown to subtantially increase power and accuracy when compared to 
+They have been shown to substantially increase power and accuracy when compared to 
 traditional approaches.
 The issues of robustness and the functions in this library are described in detail in Rand R. Wilcox's book 
 [Introduction to Robust Estimation and Hypothesis Testing](https://play.google.com/store/books/details?id=8f8nBb4__EYC&gl=ca&hl=en-CA&source=productsearch&utm_source=HA_Desktop_US&utm_medium=SEM&utm_campaign=PLA&pcampaignid=MKTAD0930BO1&gclid=CjwKCAiA44LzBRB-EiwA-jJipJzyqx9kwNMq5MMU7fG2RrwBK9F7sirX4pfhS8wO7k9Uz_Sqf2P28BoCYzcQAvD_BwE&gclsrc=aw.ds).

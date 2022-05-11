@@ -72,7 +72,7 @@ Number of bootstrap samples (default is 2000)
 
 **seed: bool**
 
-Random seed for reprodicible results (default is `False`)
+Random seed for reproducible results (default is `False`)
 
 _Returns:_
 
@@ -86,9 +86,9 @@ Confidence interval
 
 p-value
 
-
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/l2drmci.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a>
+<a href="https://deepnote.com/launch?name=l2drmci&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/l2drmci.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a>
 
 ### linconb
 
@@ -126,7 +126,7 @@ Number of bootstrap samples (default is 2000)
 
 **seed: bool**
 
-Random seed for reprodicible results. Default is `False`.
+Random seed for reproducible results. Default is `False`.
 
 _Return:_
 
@@ -152,8 +152,9 @@ Difference score and CI for each contrast
 
 Test statistic, standard error, and p-value for each contrast
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/linconb.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a>
+<a href="https://deepnote.com/launch?name=linconb&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/linconb.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a>
 
 ### pb2gen
 
@@ -194,7 +195,7 @@ Number of bootstrap samples (default is 2000)
 
 **seed: bool**
 
-Random seed for reprodicible results (default is `False`)
+Random seed for reproducible results (default is `False`)
 
 _Return:_
 
@@ -232,8 +233,9 @@ p-value
 
 Variance of group one and two
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/pb2gen.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a>
+<a href="https://deepnote.com/launch?name=pb2gen&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/pb2gen.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a>
 
 ### tmcppb
 
@@ -302,8 +304,9 @@ Number of statistically significant results
 
 Difference score, p-value, critical value, and CI for each contrast
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/tmcppb.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a>
+<a href="https://deepnote.com/launch?name=tmcppb&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/tmcppb.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a>
 
 ### yuenbt
 
@@ -338,7 +341,7 @@ Number of bootstrap samples (default is 599)
 
 **seed: bool**
 
-Random seed for reprodicible results. Default is `False`.
+Random seed for reproducible results. Default is `False`.
 
 _Return:_
 
@@ -368,8 +371,9 @@ p-value
 
 Test statistic
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/yuenbt.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a>
+<a href="https://deepnote.com/launch?name=yuenbt&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/yuenbt.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a>
 
 ## Dependent groups
 
@@ -455,8 +459,9 @@ Number of statistically significant results
 
 Difference score, p-value, critical value, and CI for each contrast
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/bootdpci.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a>
+<a href="https://deepnote.com/launch?name=bootdpci&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/bootdpci.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a>
 
 ### rmmcppb
 
@@ -539,7 +544,7 @@ comparing one-step M-estimators or M-estimators.
 
 **seed: bool**
 
-Random seed for reprodicible results (default is `False`)
+Random seed for reproducible results (default is `False`)
 
 _Return:_
 
@@ -557,8 +562,9 @@ Number of statistically significant results
 
 Difference score, p-value, critical value, and CI for each contrast
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/rmmcppb.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a>
+<a href="https://deepnote.com/launch?name=rmmcppb&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/rmmcppb.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a>
 
 ### lindepbt
 
@@ -600,7 +606,7 @@ When `True`, use difference scores, otherwise use marginal distributions
 
 **seed: bool**
 
-Random seed for reprodicible results (default is `False`)
+Random seed for reproducible results (default is `False`)
 
 _Return:_
 
@@ -623,8 +629,9 @@ Difference score and CI for each contrast
 Test statistic, p-value, critical value, and standard error
 for each contrast
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/lindepbt.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a>
+<a href="https://deepnote.com/launch?name=lindepbt&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/lindepbt.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a>
 
 ### ydbt
 
@@ -663,7 +670,7 @@ otherwise the function returns equal-tailed CI (no p value)
 
 **seed: bool**
 
-Random seed for reprodicible results (default is `False`)
+Random seed for reproducible results (default is `False`)
 
 _Return:_
 
@@ -681,8 +688,9 @@ Difference between group one and two
 
 p-value
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/ydbt.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a>
+<a href="https://deepnote.com/launch?name=ydbt&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/ydbt.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a>
 
 ## Comparing groups with two factors
 Statistical tests analogous to a 2-way ANOVA. 
@@ -768,7 +776,7 @@ rejective method can be used to control FWE
 
 **seed: bool**
 
-Random seed for reprodicible results (default is `False`)
+Random seed for reproducible results (default is `False`)
 
 _Return:_
 
@@ -790,8 +798,9 @@ Number of statistically significant results
 
 Difference score, p-value, critical value, and CI for each contrast
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/wwmcppb.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a>
+<a href="https://deepnote.com/launch?name=wwmcppb&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/wwmcppb.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a>
 
 ### wwmcpbt
 
@@ -850,7 +859,7 @@ Number of bootstrap samples (default is 599)
 
 **seed: bool**
 
-Random seed for reprodicible results (default is `False`)
+Random seed for reproducible results (default is `False`)
 
 _Return:_
 
@@ -876,8 +885,9 @@ Difference score and CI for each contrast
 
 Test statistic, p-value, critical value, and standard error for each contrast
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/wwmcpbt.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a>
+<a href="https://deepnote.com/launch?name=wwmcpbt&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/wwmcpbt.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a>
 
 ## Mixed designs
 
@@ -963,8 +973,9 @@ Difference score and CI, amd p-value for each contrast
 
 Test statistic, critical value, standard error, and degrees of freedom for each contrast
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/bwamcp.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a>
+<a href="https://deepnote.com/launch?name=bwamcp&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/bwamcp.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a>
 
 ### bwbmcp
 
@@ -1074,8 +1085,9 @@ for each contrast
 Test statistic, p-value, critical value, and standard 
 error for each contrast
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/bwbmcp.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a>
+<a href="https://deepnote.com/launch?name=bwbmcp&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/bwbmcp.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a>
 
 ### bwmcp
 
@@ -1133,7 +1145,7 @@ Number of bootstrap samples (default is 500)
 
 **seed: bool**
 
-Random seed for reprodicible results (default is `False`)
+Random seed for reproducible results (default is `False`)
 
 _Return:_
 
@@ -1160,8 +1172,9 @@ critical value, and p-value for each contrast relating to Factor B
 Difference score, standard error, test statistic, 
 critical value, and p-value for each contrast relating to the interaction
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/bwmcp.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a>
+<a href="https://deepnote.com/launch?name=bwmcp&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/bwmcp.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a>
 
 ### bwimcp
 
@@ -1231,8 +1244,9 @@ Contrast matrix
 
 Difference score, p-value, and critical value for each contrast relating to the interaction
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/bwimcp.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a>
+<a href="https://deepnote.com/launch?name=bwimcp&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/bwimcp.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a>
 
 ### bwmcppb
 
@@ -1309,7 +1323,7 @@ method to control FWE
 
 **seed: bool**
 
-Random seed for reprodicible results (default is `False`)
+Random seed for reproducible results (default is `False`)
 
 _Return:_
 
@@ -1319,8 +1333,9 @@ See the keys `'factor_A'`, `'factor_B'`, and `'factor_AB'`
 Each DataFrame contains the difference score, p-value, 
 critical value, and CI for each contrast.
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/bwmcppb.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a>
+<a href="https://deepnote.com/launch?name=bwmcppb&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/bwmcppb.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a>
 
 ### spmcpa
 
@@ -1376,7 +1391,7 @@ number is chosen based on the number of contrasts).
 
 **seed: bool**
 
-Random seed for reprodicible results (default is `False`)
+Random seed for reproducible results (default is `False`)
 
 _Return:_
 
@@ -1394,8 +1409,9 @@ Number of statistically significant results
 
 Difference score, p-value, critical value, and CI for each contrast
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/spmcpa.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a>
+<a href="https://deepnote.com/launch?name=spmcpa&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/spmcpa.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a>
 
 ### spmcpb
 
@@ -1448,7 +1464,7 @@ Number of bootstrap samples (default is 599)
 
 **seed: bool**
 
-Random seed for reprodicible results (default is `False`)
+Random seed for reproducible results (default is `False`)
 
 _Return:_
 
@@ -1466,8 +1482,9 @@ Number of statistically significant results
 
 Difference score, p-value, critical value, and CI for each contrast
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/spmcpb.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a>
+<a href="https://deepnote.com/launch?name=spmcpb&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/spmcpb.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a>
 
 ### spmcpi
 
@@ -1528,7 +1545,7 @@ method to control FWE
 
 **seed: bool**
 
-Random seed for reprodicible results (default is `False`)
+Random seed for reproducible results (default is `False`)
 
 _Return:_
 
@@ -1546,8 +1563,9 @@ Number of statistically significant results
 
 Difference score, p-value, critical value, and CI for each contrast
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/spmcpi.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a>
+<a href="https://deepnote.com/launch?name=spmcpi&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/spmcpi.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a>
 
 ## Measuring associations
 
@@ -1599,7 +1617,7 @@ List of arguments to corfun (e.g., .2)
 
 **seed: bool**
 
-Random seed for reprodicible results. Default is `False`.
+Random seed for reproducible results. Default is `False`.
 
 _Return:_
 
@@ -1617,8 +1635,9 @@ Correlation estimate
 
 p-value
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/corb.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a>
+<a href="https://deepnote.com/launch?name=corb&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/corb.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a>
 
 ### pball
 
@@ -1664,8 +1683,9 @@ p-value matrix corresponding to each pairwise correlation
 
 Correlation matrix
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/pball.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a>
+<a href="https://deepnote.com/launch?name=pball&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/pball.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a>
 
 ### pbcor
 
@@ -1711,8 +1731,9 @@ p-value
 
 Test statistic
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/pbcor.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a>
+<a href="https://deepnote.com/launch?name=pbcor&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/pbcor.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a>
 
 ### winall
 
@@ -1754,8 +1775,9 @@ Winsorized correlation matrix
 
 Winsorized covariance matrix
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/winall.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a>
+<a href="https://deepnote.com/launch?name=winall&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/winall.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a>
 
 ### wincor
 
@@ -1798,8 +1820,9 @@ p-value
 
 Winsorized covariance
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/wincor.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a>
+<a href="https://deepnote.com/launch?name=wincor&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/wincor.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a>
 
 ## Other important functions
 
