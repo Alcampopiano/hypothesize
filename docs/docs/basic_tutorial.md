@@ -56,7 +56,7 @@ results['factor_AB']
 |         1 | -0.037972  | 0.151841 | -0.250078 |       2.3771 |  0.804674 |
 |         2 |  0.0627261 | 0.135392 |  0.463291 |       2.3771 |  0.659432 |
 
-<br>
 
-<a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_for_colab.ipynb" 
-target="_blank" class="button">Try more examples in Colab!</a>
+<a href="https://deepnote.com/launch?name=hypothesize_examples&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/hypothesize_notebook_general_examples.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a>

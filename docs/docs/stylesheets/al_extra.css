@@ -1,3 +1,4 @@
+/*
 .button {
   display: block;
   width: 100%;
@@ -10,12 +11,20 @@
   text-align: center;
   border: none;
 }
+*/
 
+.button {
+  display: block;
+  text-align: center;
+}
+
+/*
 .button:hover {
   background-color: grey;
   color: white !important;
 
 }
+*/
 
 .mermaid svg {
   text-align: center !important;
