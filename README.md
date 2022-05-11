@@ -28,16 +28,11 @@ print(results)
 {'cor': 0.11, 'nval': 50, 'sig': 0.44, 'wcov': 0.01}
 ```
 
-## Getting started
-To help you get started with Hypothesize, each statistical test can be launched 
+## Documentation
+:book: Please visit the [Hypothesize documentation site](https://Alcampopiano.github.io/hypothesize/).
+Note that each statistical test in the can be launched 
 directly in [Deepnote's](deepnote.com) hosted notebook environment—complete with sample data 
 (as shown in the example above 👆). 
-Check out the [docs](https://alcampopiano.github.io/hypothesize/) 
-and [examples](https://github.com/Alcampopiano/hypothesize/tree/master/examples) for more Deepnote launch links.
-
-## Documentation
-
-:book: Please visit the [Hypothesize documentation site](https://Alcampopiano.github.io/hypothesize/).
 
 ## Citing Hypothesize
 
