@@ -968,15 +968,16 @@ remove missing data for each group seperately (cannot deal with unequal sample s
 <p><strong>nboot: int</strong></p>
 <p>Number of bootstrap samples (default is 2000)</p>
 <p><strong>seed: bool</strong></p>
-<p>Random seed for reprodicible results (default is <code>False</code>)</p>
+<p>Random seed for reproducible results (default is <code>False</code>)</p>
 <p><em>Returns:</em></p>
 <p>Dictionary of results</p>
 <p><strong>ci: list</strong> </p>
 <p>Confidence interval</p>
 <p><strong>p_value: float</strong> </p>
 <p>p-value</p>
-<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/l2drmci.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<p><a href="https://deepnote.com/launch?name=l2drmci&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/l2drmci.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a></p>
 <h3 id="linconb">linconb<a class="headerlink" href="#linconb" title="Permanent link">&para;</a></h3>
 <p><code class="highlight"><span class="n">hypothesize</span><span class="o">.</span><span class="n">compare_groups_with_single_factor</span><span class="o">.</span><span class="n">linconb</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">con</span><span class="p">,</span> <span class="n">tr</span><span class="o">=</span><span class="mf">.2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.05</span><span class="p">,</span> <span class="n">nboot</span><span class="o">=</span><span class="mi">599</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code></p>
 <p>Compute a 1-alpha confidence interval for a set of d linear contrasts
@@ -998,7 +999,7 @@ All linear constrasts can be created automatically by using the function <a href
 <p><strong>nboot: int</strong></p>
 <p>Number of bootstrap samples (default is 2000)</p>
 <p><strong>seed: bool</strong></p>
-<p>Random seed for reprodicible results. Default is <code>False</code>.</p>
+<p>Random seed for reproducible results. Default is <code>False</code>.</p>
 <p><em>Return:</em></p>
 <p>Dictionary of results</p>
 <p><strong>con: array</strong></p>
@@ -1011,8 +1012,9 @@ All linear constrasts can be created automatically by using the function <a href
 <p>Difference score and CI for each contrast</p>
 <p><strong>test: DataFrame</strong></p>
 <p>Test statistic, standard error, and p-value for each contrast</p>
-<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/linconb.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<p><a href="https://deepnote.com/launch?name=linconb&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/linconb.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a></p>
 <h3 id="pb2gen">pb2gen<a class="headerlink" href="#pb2gen" title="Permanent link">&para;</a></h3>
 <p><code class="highlight"><span class="n">hypothesize</span><span class="o">.</span><span class="n">compare_groups_with_single_factor</span><span class="o">.</span><span class="n">pb2gen</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">est</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.05</span><span class="p">,</span> <span class="n">nboot</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code></p>
 <p>Compute a bootstrap confidence interval for the
@@ -1033,7 +1035,7 @@ independent groups.</p>
 <p><strong>nboot: int</strong></p>
 <p>Number of bootstrap samples (default is 2000)</p>
 <p><strong>seed: bool</strong></p>
-<p>Random seed for reprodicible results (default is <code>False</code>)</p>
+<p>Random seed for reproducible results (default is <code>False</code>)</p>
 <p><em>Return:</em></p>
 <p>Dictionary of results</p>
 <p><strong>ci: list</strong> </p>
@@ -1052,8 +1054,9 @@ independent groups.</p>
 <p>p-value</p>
 <p><strong>variance: float</strong></p>
 <p>Variance of group one and two</p>
-<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/pb2gen.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<p><a href="https://deepnote.com/launch?name=pb2gen&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/pb2gen.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a></p>
 <h3 id="tmcppb">tmcppb<a class="headerlink" href="#tmcppb" title="Permanent link">&para;</a></h3>
 <p><code class="highlight"><span class="n">hypothesize</span><span class="o">.</span><span class="n">compare_groups_with_single_factor</span><span class="o">.</span><span class="n">tmcppb</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">est</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">con</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bhop</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.05</span><span class="p">,</span> <span class="n">nboot</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code></p>
 <p>Multiple comparisons for J independent groups using trimmed means and
@@ -1092,8 +1095,9 @@ case all linear contrasts are created automatically.</p>
 <p>Number of statistically significant results</p>
 <p><strong>output: DataFrame</strong></p>
 <p>Difference score, p-value, critical value, and CI for each contrast</p>
-<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/tmcppb.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<p><a href="https://deepnote.com/launch?name=tmcppb&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/tmcppb.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a></p>
 <h3 id="yuenbt">yuenbt<a class="headerlink" href="#yuenbt" title="Permanent link">&para;</a></h3>
 <p><code class="highlight"><span class="n">hypothesize</span><span class="o">.</span><span class="n">compare_groups_with_single_factor</span><span class="o">.</span><span class="n">yuenbt</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">tr</span><span class="o">=</span><span class="mf">.2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.05</span><span class="p">,</span> <span class="n">nboot</span><span class="o">=</span><span class="mi">599</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code></p>
 <p>Compute a 1-alpha confidence interval for the difference between
@@ -1112,7 +1116,7 @@ the absolute value of the test statistic is used (the "two-sided method").</p>
 <p><strong>nboot: int</strong></p>
 <p>Number of bootstrap samples (default is 599)</p>
 <p><strong>seed: bool</strong></p>
-<p>Random seed for reprodicible results. Default is <code>False</code>.</p>
+<p>Random seed for reproducible results. Default is <code>False</code>.</p>
 <p><em>Return:</em></p>
 <p>Dictionary of results</p>
 <p><strong>ci: list</strong> </p>
@@ -1127,8 +1131,9 @@ the absolute value of the test statistic is used (the "two-sided method").</p>
 <p>p-value</p>
 <p><strong>test_stat: float</strong></p>
 <p>Test statistic</p>
-<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/yuenbt.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<p><a href="https://deepnote.com/launch?name=yuenbt&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/yuenbt.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a></p>
 <h2 id="dependent-groups">Dependent groups<a class="headerlink" href="#dependent-groups" title="Permanent link">&para;</a></h2>
 <h3 id="bootdpci">bootdpci<a class="headerlink" href="#bootdpci" title="Permanent link">&para;</a></h3>
 <p><code class="highlight"><span class="n">hypothesize</span><span class="o">.</span><span class="n">compare_groups_with_single_factor</span><span class="o">.</span><span class="n">bootdpci</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">est</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">nboot</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.05</span><span class="p">,</span> <span class="n">dif</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">BA</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">SR</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code></p>
@@ -1180,8 +1185,9 @@ comparing one-step M-estimators or M-estimators</p>
 <p>Number of statistically significant results</p>
 <p><strong>output: DataFrame</strong></p>
 <p>Difference score, p-value, critical value, and CI for each contrast</p>
-<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/bootdpci.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<p><a href="https://deepnote.com/launch?name=bootdpci&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/bootdpci.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a></p>
 <h3 id="rmmcppb">rmmcppb<a class="headerlink" href="#rmmcppb" title="Permanent link">&para;</a></h3>
 <p><code class="highlight"><span class="n">hypothesize</span><span class="o">.</span><span class="n">compare_groups_with_single_factor</span><span class="o">.</span><span class="n">rmmcppb</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">est</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span>  <span class="n">alpha</span><span class="o">=</span><span class="mf">.05</span><span class="p">,</span> <span class="n">con</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dif</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">nboot</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">BA</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">hoch</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">SR</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code></p>
 <p>Use a percentile bootstrap method to compare dependent groups.
@@ -1233,7 +1239,7 @@ if n&gt;=80.</p>
 <p>When <code>True</code>, use the modified "sequentially rejective", especially when 
 comparing one-step M-estimators or M-estimators.</p>
 <p><strong>seed: bool</strong></p>
-<p>Random seed for reprodicible results (default is <code>False</code>)</p>
+<p>Random seed for reproducible results (default is <code>False</code>)</p>
 <p><em>Return:</em></p>
 <p>Dictionary of results</p>
 <p><strong>con: array</strong></p>
@@ -1242,8 +1248,9 @@ comparing one-step M-estimators or M-estimators.</p>
 <p>Number of statistically significant results</p>
 <p><strong>output: DataFrame</strong></p>
 <p>Difference score, p-value, critical value, and CI for each contrast</p>
-<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/rmmcppb.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<p><a href="https://deepnote.com/launch?name=rmmcppb&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/rmmcppb.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a></p>
 <h3 id="lindepbt">lindepbt<a class="headerlink" href="#lindepbt" title="Permanent link">&para;</a></h3>
 <p><code class="highlight"><span class="n">hypothesize</span><span class="o">.</span><span class="n">compare_groups_with_single_factor</span><span class="o">.</span><span class="n">lindepbt</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">tr</span><span class="o">=</span><span class="mf">.2</span><span class="p">,</span> <span class="n">con</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.05</span><span class="p">,</span> <span class="n">nboot</span><span class="o">=</span><span class="mi">599</span><span class="p">,</span> <span class="n">dif</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code></p>
 <p>Multiple comparisons on trimmed means with FWE controlled with Rom's method
@@ -1266,7 +1273,7 @@ case all linear contrasts are created automatically.</p>
 <p><strong>dif: bool</strong></p>
 <p>When <code>True</code>, use difference scores, otherwise use marginal distributions</p>
 <p><strong>seed: bool</strong></p>
-<p>Random seed for reprodicible results (default is <code>False</code>)</p>
+<p>Random seed for reproducible results (default is <code>False</code>)</p>
 <p><em>Return:</em></p>
 <p>Dictionary of results</p>
 <p><strong>con: array</strong></p>
@@ -1278,8 +1285,9 @@ case all linear contrasts are created automatically.</p>
 <p><strong>test: DataFrame</strong></p>
 <p>Test statistic, p-value, critical value, and standard error
 for each contrast</p>
-<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/lindepbt.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<p><a href="https://deepnote.com/launch?name=lindepbt&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/lindepbt.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a></p>
 <h3 id="ydbt">ydbt<a class="headerlink" href="#ydbt" title="Permanent link">&para;</a></h3>
 <p><code class="highlight"><span class="n">hypothesize</span><span class="o">.</span><span class="n">compare_groups_with_single_factor</span><span class="o">.</span><span class="n">ydbt</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">tr</span><span class="o">=</span><span class="mf">.2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.05</span><span class="p">,</span> <span class="n">nboot</span><span class="o">=</span><span class="mi">599</span><span class="p">,</span> <span class="n">side</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code></p>
 <p>Using the bootstrap-t method,
@@ -1301,7 +1309,7 @@ By default, 20% trimming is used with 599 bootstrap samples.</p>
 When <code>True</code> the function returns a symmetric CI and a p value, 
 otherwise the function returns equal-tailed CI (no p value)</p>
 <p><strong>seed: bool</strong></p>
-<p>Random seed for reprodicible results (default is <code>False</code>)</p>
+<p>Random seed for reproducible results (default is <code>False</code>)</p>
 <p><em>Return:</em></p>
 <p>Dictionary of results</p>
 <p><strong>ci: list</strong></p>
@@ -1310,8 +1318,9 @@ otherwise the function returns equal-tailed CI (no p value)</p>
 <p>Difference between group one and two</p>
 <p><strong>p_value: float</strong></p>
 <p>p-value</p>
-<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/ydbt.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<p><a href="https://deepnote.com/launch?name=ydbt&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/ydbt.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a></p>
 <h2 id="comparing-groups-with-two-factors">Comparing groups with two factors<a class="headerlink" href="#comparing-groups-with-two-factors" title="Permanent link">&para;</a></h2>
 <p>Statistical tests analogous to a 2-way ANOVA. 
 That is, group tests that have a two factors.</p>
@@ -1373,7 +1382,7 @@ generalized p-value is applied (e.g., when <code>dif</code> is <code>False</code
 <p>When <code>True</code>, Hochberg's sequentially 
 rejective method can be used to control FWE</p>
 <p><strong>seed: bool</strong></p>
-<p>Random seed for reprodicible results (default is <code>False</code>)</p>
+<p>Random seed for reproducible results (default is <code>False</code>)</p>
 <p><em>Return:</em></p>
 <p>Dictionary of results</p>
 <p>The following results are returned for factor A, factor B, 
@@ -1385,8 +1394,9 @@ respectively.</p>
 <p>Number of statistically significant results</p>
 <p><strong>output: DataFrame</strong></p>
 <p>Difference score, p-value, critical value, and CI for each contrast</p>
-<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/wwmcppb.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<p><a href="https://deepnote.com/launch?name=wwmcppb&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/wwmcppb.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a></p>
 <h3 id="wwmcpbt">wwmcpbt<a class="headerlink" href="#wwmcpbt" title="Permanent link">&para;</a></h3>
 <p><code class="highlight"><span class="n">hypothesize</span><span class="o">.</span><span class="n">compare_groups_with_two_factors</span><span class="o">.</span><span class="n">wwmcpbt</span><span class="p">(</span><span class="n">J</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">tr</span><span class="o">=</span><span class="mf">.2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.05</span><span class="p">,</span> <span class="n">nboot</span><span class="o">=</span><span class="mi">599</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code></p>
 <p>Do multiple comparisons for a within-by-within design.
@@ -1433,7 +1443,7 @@ a 2x3 design would correspond to a DataFrame with 6 columns
 <p><strong>nboot: int</strong></p>
 <p>Number of bootstrap samples (default is 599)</p>
 <p><strong>seed: bool</strong></p>
-<p>Random seed for reprodicible results (default is <code>False</code>)</p>
+<p>Random seed for reproducible results (default is <code>False</code>)</p>
 <p><em>Return:</em></p>
 <p>Dictionary of results</p>
 <p>The following results are returned for factor A, factor B, 
@@ -1447,8 +1457,9 @@ respectively.</p>
 <p>Difference score and CI for each contrast</p>
 <p><strong>test: DataFrame</strong></p>
 <p>Test statistic, p-value, critical value, and standard error for each contrast</p>
-<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/wwmcpbt.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<p><a href="https://deepnote.com/launch?name=wwmcpbt&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/wwmcpbt.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a></p>
 <h2 id="mixed-designs">Mixed designs<a class="headerlink" href="#mixed-designs" title="Permanent link">&para;</a></h2>
 <p>These designs are also known as "split-plot" or "between-within" desgins.
 Hypothesize follws the common convention that assumes that the between-subjects
@@ -1514,8 +1525,9 @@ across factor A for each level of factor B.</p>
 <p>Difference score and CI, amd p-value for each contrast</p>
 <p><strong>test: DataFrame</strong></p>
 <p>Test statistic, critical value, standard error, and degrees of freedom for each contrast</p>
-<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/bwamcp.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<p><a href="https://deepnote.com/launch?name=bwamcp&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/bwamcp.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a></p>
 <h3 id="bwbmcp">bwbmcp<a class="headerlink" href="#bwbmcp" title="Permanent link">&para;</a></h3>
 <p><code class="highlight"><span class="n">hypothesize</span><span class="o">.</span><span class="n">compare_groups_with_two_factors</span><span class="o">.</span><span class="n">bwbmcp</span><span class="p">(</span><span class="n">J</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">tr</span><span class="o">=</span><span class="mf">.2</span><span class="p">,</span> <span class="n">con</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.05</span><span class="p">,</span><span class="n">dif</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">pool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">hoch</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code></p>
 <p>All pairwise comparisons among levels of Factor B
@@ -1593,8 +1605,9 @@ for each contrast</p>
 <p><strong>test: DataFrame</strong></p>
 <p>Test statistic, p-value, critical value, and standard 
 error for each contrast</p>
-<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/bwbmcp.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<p><a href="https://deepnote.com/launch?name=bwbmcp&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/bwbmcp.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a></p>
 <h3 id="bwmcp">bwmcp<a class="headerlink" href="#bwmcp" title="Permanent link">&para;</a></h3>
 <p><code class="highlight"><span class="n">hypothesize</span><span class="o">.</span><span class="n">compare_groups_with_two_factors</span><span class="o">.</span><span class="n">bwmcp</span><span class="p">(</span><span class="n">J</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.05</span><span class="p">,</span> <span class="n">tr</span><span class="o">=</span><span class="mf">.2</span><span class="p">,</span> <span class="n">nboot</span><span class="o">=</span><span class="mi">599</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code></p>
 <p>A bootstrap-t for multiple comparisons among
@@ -1640,7 +1653,7 @@ a 2x3 design would correspond to a DataFrame with 6 columns
 <p><strong>nboot: int</strong></p>
 <p>Number of bootstrap samples (default is 500)</p>
 <p><strong>seed: bool</strong></p>
-<p>Random seed for reprodicible results (default is <code>False</code>)</p>
+<p>Random seed for reproducible results (default is <code>False</code>)</p>
 <p><em>Return:</em></p>
 <p>Dictionary of results</p>
 <p><strong>contrast_coef: dict</strong></p>
@@ -1655,8 +1668,9 @@ critical value, and p-value for each contrast relating to Factor B</p>
 <p><strong>factor_AB: DataFrame</strong></p>
 <p>Difference score, standard error, test statistic, 
 critical value, and p-value for each contrast relating to the interaction</p>
-<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/bwmcp.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<p><a href="https://deepnote.com/launch?name=bwmcp&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/bwmcp.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a></p>
 <h3 id="bwimcp">bwimcp<a class="headerlink" href="#bwimcp" title="Permanent link">&para;</a></h3>
 <p><code class="highlight"><span class="n">hypothesize</span><span class="o">.</span><span class="n">compare_groups_with_two_factors</span><span class="o">.</span><span class="n">bwimcp</span><span class="p">(</span><span class="n">J</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">tr</span><span class="o">=</span><span class="mf">.2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.05</span><span class="p">)</span></code></p>
 <p>Multiple comparisons for interactions
@@ -1711,8 +1725,9 @@ a 2x3 design would correspond to a DataFrame with 6 columns
 <p>Contrast matrix</p>
 <p><strong>output: DataFrame</strong></p>
 <p>Difference score, p-value, and critical value for each contrast relating to the interaction</p>
-<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/bwimcp.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<p><a href="https://deepnote.com/launch?name=bwimcp&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/bwimcp.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a></p>
 <h3 id="bwmcppb">bwmcppb<a class="headerlink" href="#bwmcppb" title="Permanent link">&para;</a></h3>
 <p><code class="highlight"><span class="n">hypothesize</span><span class="o">.</span><span class="n">compare_groups_with_two_factors</span><span class="o">.</span><span class="n">bwmcppb</span><span class="p">(</span><span class="n">J</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">est</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.05</span><span class="p">,</span><span class="n">nboot</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">bhop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code></p>
 <p>(note: this is for trimmed means only depite the <code>est</code> arg. 
@@ -1769,14 +1784,15 @@ a 2x3 design would correspond to a DataFrame with 6 columns
 <p>When <code>True</code>, use the Benjamini–Hochberg 
 method to control FWE</p>
 <p><strong>seed: bool</strong></p>
-<p>Random seed for reprodicible results (default is <code>False</code>)</p>
+<p>Random seed for reproducible results (default is <code>False</code>)</p>
 <p><em>Return:</em></p>
 <p>Dictionary of DataFrames for each Factor and the interaction.
 See the keys <code>'factor_A'</code>, <code>'factor_B'</code>, and <code>'factor_AB'</code></p>
 <p>Each DataFrame contains the difference score, p-value, 
 critical value, and CI for each contrast.</p>
-<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/bwmcppb.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<p><a href="https://deepnote.com/launch?name=bwmcppb&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/bwmcppb.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a></p>
 <h3 id="spmcpa">spmcpa<a class="headerlink" href="#spmcpa" title="Permanent link">&para;</a></h3>
 <p><code class="highlight"><span class="n">hypothesize</span><span class="o">.</span><span class="n">compare_groups_with_two_factors</span><span class="o">.</span><span class="n">spmcpa</span><span class="p">(</span><span class="n">J</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">est</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="n">avg</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.05</span><span class="p">,</span> <span class="n">nboot</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code></p>
 <p>All pairwise comparisons among levels of Factor A 
@@ -1808,7 +1824,7 @@ for each level of Factor B (default is <code>False</code>)</p>
 (default is <code>None</code> in which case the 
 number is chosen based on the number of contrasts). </p>
 <p><strong>seed: bool</strong></p>
-<p>Random seed for reprodicible results (default is <code>False</code>)</p>
+<p>Random seed for reproducible results (default is <code>False</code>)</p>
 <p><em>Return:</em></p>
 <p>Dictionary of results</p>
 <p><strong>con: array</strong></p>
@@ -1817,8 +1833,9 @@ number is chosen based on the number of contrasts). </p>
 <p>Number of statistically significant results</p>
 <p><strong>output: DataFrame</strong></p>
 <p>Difference score, p-value, critical value, and CI for each contrast</p>
-<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/spmcpa.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<p><a href="https://deepnote.com/launch?name=spmcpa&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/spmcpa.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a></p>
 <h3 id="spmcpb">spmcpb<a class="headerlink" href="#spmcpb" title="Permanent link">&para;</a></h3>
 <p><code class="highlight"><span class="n">hypothesize</span><span class="o">.</span><span class="n">compare_groups_with_two_factors</span><span class="o">.</span><span class="n">spmcpb</span><span class="p">(</span><span class="n">J</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">est</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">dif</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">.05</span><span class="p">,</span> <span class="n">nboot</span><span class="o">=</span><span class="mi">599</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code></p>
 <p>All pairwise comparisons among levels of Factor B
@@ -1846,7 +1863,7 @@ least one Type I error. Otherwise, Hochberg is used.</p>
 <p><strong>nboot: int</strong></p>
 <p>Number of bootstrap samples (default is 599)</p>
 <p><strong>seed: bool</strong></p>
-<p>Random seed for reprodicible results (default is <code>False</code>)</p>
+<p>Random seed for reproducible results (default is <code>False</code>)</p>
 <p><em>Return:</em></p>
 <p>Dictionary of results</p>
 <p><strong>con: array</strong></p>
@@ -1855,8 +1872,9 @@ least one Type I error. Otherwise, Hochberg is used.</p>
 <p>Number of statistically significant results</p>
 <p><strong>output: DataFrame</strong></p>
 <p>Difference score, p-value, critical value, and CI for each contrast</p>
-<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/spmcpb.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<p><a href="https://deepnote.com/launch?name=spmcpb&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/spmcpb.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a></p>
 <h3 id="spmcpi">spmcpi<a class="headerlink" href="#spmcpi" title="Permanent link">&para;</a></h3>
 <p><code class="highlight"><span class="n">hypothesize</span><span class="o">.</span><span class="n">compare_groups_with_two_factors</span><span class="o">.</span><span class="n">spmcpi</span><span class="p">(</span><span class="n">J</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">est</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.05</span><span class="p">,</span><span class="n">nboot</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">SR</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code></p>
 <p>Multiple comparisons for interactions
@@ -1892,7 +1910,7 @@ chosen based on the number of contrasts)</p>
 modification of Hochberg's (1988) "sequentially rejective" 
 method to control FWE</p>
 <p><strong>seed: bool</strong></p>
-<p>Random seed for reprodicible results (default is <code>False</code>)</p>
+<p>Random seed for reproducible results (default is <code>False</code>)</p>
 <p><em>Return:</em></p>
 <p>Dictionary of results</p>
 <p><strong>con: array</strong></p>
@@ -1901,8 +1919,9 @@ method to control FWE</p>
 <p>Number of statistically significant results</p>
 <p><strong>output: DataFrame</strong></p>
 <p>Difference score, p-value, critical value, and CI for each contrast</p>
-<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/spmcpi.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<p><a href="https://deepnote.com/launch?name=spmcpi&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/spmcpi.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a></p>
 <h2 id="measuring-associations">Measuring associations<a class="headerlink" href="#measuring-associations" title="Permanent link">&para;</a></h2>
 <p>For statistical tests and measurements that 
 include robust correlations and tests of independence.
@@ -1932,7 +1951,7 @@ lsfitci instead (not yet implemented).</p>
 <p><strong>*args: list/value</strong></p>
 <p>List of arguments to corfun (e.g., .2)</p>
 <p><strong>seed: bool</strong></p>
-<p>Random seed for reprodicible results. Default is <code>False</code>.</p>
+<p>Random seed for reproducible results. Default is <code>False</code>.</p>
 <p><em>Return:</em></p>
 <p>Dictionary of results</p>
 <p><strong>ci: list</strong></p>
@@ -1941,8 +1960,9 @@ lsfitci instead (not yet implemented).</p>
 <p>Correlation estimate</p>
 <p><strong>p_value: float</strong></p>
 <p>p-value</p>
-<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/corb.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<p><a href="https://deepnote.com/launch?name=corb&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/corb.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a></p>
 <h3 id="pball">pball<a class="headerlink" href="#pball" title="Permanent link">&para;</a></h3>
 <p><code class="highlight"><span class="n">hypothesize</span><span class="o">.</span><span class="n">measuring_associations</span><span class="o">.</span><span class="n">pball</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mf">.2</span><span class="p">)</span></code></p>
 <p>Compute the percentage bend correlation matrix 
@@ -1969,8 +1989,9 @@ the 1−α quantile.</p>
 <p>p-value matrix corresponding to each pairwise correlation</p>
 <p><strong>pbcorm: array</strong></p>
 <p>Correlation matrix</p>
-<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/pball.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<p><a href="https://deepnote.com/launch?name=pball&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/pball.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a></p>
 <h3 id="pbcor">pbcor<a class="headerlink" href="#pbcor" title="Permanent link">&para;</a></h3>
 <p><code class="highlight"><span class="n">hypothesize</span><span class="o">.</span><span class="n">measuring_associations</span><span class="o">.</span><span class="n">pbcor</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mf">.2</span><span class="p">)</span></code></p>
 <p>Compute the percentage bend 
@@ -1995,8 +2016,9 @@ calculation.</p>
 <p>p-value</p>
 <p><strong>test: float</strong></p>
 <p>Test statistic</p>
-<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/pbcor.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<p><a href="https://deepnote.com/launch?name=pbcor&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/pbcor.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a></p>
 <h3 id="winall">winall<a class="headerlink" href="#winall" title="Permanent link">&para;</a></h3>
 <p><code class="highlight"><span class="n">hypothesize</span><span class="o">.</span><span class="n">measuring_associations</span><span class="o">.</span><span class="n">winall</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">tr</span><span class="o">=</span><span class="mf">.2</span><span class="p">)</span></code></p>
 <p>Compute the Winsorized correlation and covariance matrix 
@@ -2019,8 +2041,9 @@ among all pairs.</p>
 <p>Winsorized correlation matrix</p>
 <p><strong>wcov: array</strong></p>
 <p>Winsorized covariance matrix</p>
-<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/winall.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<p><a href="https://deepnote.com/launch?name=winall&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/winall.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a></p>
 <h3 id="wincor">wincor<a class="headerlink" href="#wincor" title="Permanent link">&para;</a></h3>
 <p><code class="highlight"><span class="n">hypothesize</span><span class="o">.</span><span class="n">measuring_associations</span><span class="o">.</span><span class="n">wincor</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">tr</span><span class="o">=</span><span class="mf">.2</span><span class="p">)</span></code></p>
 <p>Compute the winsorized correlation between <code>x</code> and <code>y</code>.
@@ -2042,8 +2065,9 @@ This function also returns the winsorized covariance.</p>
 <p>p-value</p>
 <p><strong>wcov: float</strong></p>
 <p>Winsorized covariance</p>
-<p><a href="https://colab.research.google.com/github/Alcampopiano/hypothesize/blob/master/examples/wincor.ipynb" 
-target="_blank" class="button">Try this example yourself in Colab!</a></p>
+<p><a href="https://deepnote.com/launch?name=wincor&url=https://github.com/Alcampopiano/hypothesize/blob/master/examples/wincor.ipynb"
+target="_blank" class="button"><img src="https://deepnote.com/buttons/launch-in-deepnote-white.svg">
+</a></p>
 <h2 id="other-important-functions">Other important functions<a class="headerlink" href="#other-important-functions" title="Permanent link">&para;</a></h2>
 <p>The following functions are sometimes required by Hypothesize
 as input arguments. They are also potentially useful on their own.</p>
