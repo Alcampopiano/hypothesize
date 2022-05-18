@@ -275,7 +275,7 @@ def lincon(x, con=None, tr=.2, alpha=.05, seed=False):
                                        'est_2': psihat[:, 7]
                                        })
 
-        return {'n': sam, 'test': results_test, 'psihat': results_psihat}
+        #return {'contrast_matrix': con, 'n': sam, 'test': results_test, 'psihat': results_psihat}
 
     elif type(con) is np.ndarray:
 
@@ -326,9 +326,9 @@ def lincon(x, con=None, tr=.2, alpha=.05, seed=False):
                                        'p_value': psihat[:, 4]
                                        })
 
-        results = {'n': sam, 'test': results_test, 'psihat': results_psihat}
+    results = {'con': con, 'n': sam, 'test': results_test, 'psihat': results_psihat}
 
-        return results
+    return results
 
 def smmcrit(nuhat, C):
 

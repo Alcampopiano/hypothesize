@@ -230,6 +230,10 @@ def bwamcp(J, K, x, tr=.2, alpha=.05, pool=False):
     :return:
     Dictionary of results
 
+    con: array
+    Contrast matrix. When pool==True, the contrasts are indicated directly along
+    with the results (rather than in a separate variable).
+
     n: list
     Number of observations for each group
 
@@ -250,26 +254,31 @@ def bwamcp(J, K, x, tr=.2, alpha=.05, pool=False):
     elif not pool:
 
         MJK = K * (J ** 2 - J) // 2
-        c=np.zeros([J*K,MJK])
-        n_idioms=J-1
-        idioms=[]
-        K_mult=K
-        for i in range(n_idioms):
-            tmp=np.concatenate([[1], np.repeat(0, K_mult-1), [-1]])
-            idioms.append(tmp)
-            K_mult*=2
+        JK = J*K
+        MJ = (J ** 2 - J) // 2
+        cont = np.zeros([J, MJ])
 
-        col_ind=0
-        for idiom in idioms:
-            num_rep_idiom=len(list(mit.windowed(c[:,0], n=len(idiom))))
+        ic=0
+        for j in range(J):
+            for jj in range(J):
+                if j < jj:
+                    cont[j,ic]=1
+                    cont[jj,ic]=0-1
+                    ic+=1
 
-            row_start=0
-            for _ in range(num_rep_idiom):
-                c[row_start:row_start+len(idiom),col_ind]=idiom
-                row_start+=1
-                col_ind+=1
+        tempv = np.zeros([K-1, MJ])
+        con1 = np.vstack([cont[0,:], tempv])
 
-        results = lincon(x, con=c, tr=tr, alpha=alpha)
+        for j in range(1,J):
+            con2=np.vstack([cont[j,:], tempv])
+            con1=np.vstack([con1,con2])
+
+        con=con1
+        for k in range(1,K):
+            con1=np.vstack([np.zeros([1,con1.shape[1]]), con1[:-1]])
+            con = np.hstack([con, con1])
+
+        results = lincon(x, con=con, tr=tr, alpha=alpha)
 
     return results
 
@@ -596,25 +605,28 @@ def spmcpa(J, K, x, est, *args,
     elif not avg:
 
         MJK = K * (J ** 2 - J) // 2
-        con=np.zeros([J*K,MJK])
-        n_idioms=J-1
-        idioms=[]
-        K_mult=K
+        JK = J * K
+        MJ = (J ** 2 - J) // 2
+        cont = np.zeros([J, MJ])
+        ic=0
+        for j in range(J):
+            for jj in range(J):
+                if j < jj:
+                    cont[j,ic]=1
+                    cont[jj,ic]=0-1
+                    ic+=1
 
-        for i in range(n_idioms):
-            tmp=np.concatenate([[1], np.repeat(0, K_mult-1), [-1]])
-            idioms.append(tmp)
-            K_mult*=2
+        tempv = np.zeros([K-1, MJ])
+        con1 = np.vstack([cont[0,:], tempv])
 
-        col_ind=0
-        for idiom in idioms:
-            num_rep_idiom=len(list(mit.windowed(con[:,0], n=len(idiom))))
+        for j in range(1,J):
+            con2=np.vstack([cont[j,:], tempv])
+            con1=np.vstack([con1,con2])
 
-            row_start=0
-            for _ in range(num_rep_idiom):
-                con[row_start:row_start+len(idiom),col_ind]=idiom
-                row_start+=1
-                col_ind+=1
+        con=con1
+        for k in range(1,K):
+            con1=np.vstack([np.zeros([1,con1.shape[1]]), con1[:-1]])
+            con = np.hstack([con, con1])
 
     d=con.shape[1]
 
@@ -894,26 +906,32 @@ def spmcpi(J, K, x, est, *args, alpha=.05, nboot=None, SR=False, seed=False):
 
     nvec=[len(nj) for nj in x[:J*K:K]]
     MK = (K ** 2 - K) // 2
-    MJK = K * (J ** 2 - J) // 2
-    con = np.zeros([J * K, MJK])
-    n_idioms = J - 1
-    idioms = []
-    K_mult = K
+    MJ = (J ** 2 - J) // 2
+    JMK = J * MK
+    MJMK = MJ * MK
+    con = np.zeros([JMK, MJMK])
+    cont = np.zeros([J, MJ])
 
-    for i in range(n_idioms):
-        tmp = np.concatenate([[1], np.repeat(0, K_mult - 1), [-1]])
-        idioms.append(tmp)
-        K_mult *= 2
+    ic = 0
+    for j in range(J):
+        for jj in range(J):
+            if j < jj:
+                cont[j, ic] = 1
+                cont[jj, ic] = 0 - 1
+                ic += 1
 
-    col_ind = 0
-    for idiom in idioms:
-        num_rep_idiom = len(list(mit.windowed(con[:, 0], n=len(idiom))))
+    tempv = np.zeros([MK-1, MJ])
+    con1 = np.vstack([cont[0, :], tempv])
 
-        row_start = 0
-        for _ in range(num_rep_idiom):
-            con[row_start:row_start + len(idiom), col_ind] = idiom
-            row_start += 1
-            col_ind += 1
+    for j in range(1, J):
+        con2 = np.vstack([cont[j, :], tempv])
+        con1 = np.vstack([con1, con2])
+
+    con = con1
+
+    for k in range(1, MK):
+        con1 = np.vstack([np.zeros([1, con1.shape[1]]), con1[:-1]])
+        con = np.hstack([con, con1])
 
     d=con.shape[1]
 
@@ -1432,10 +1450,6 @@ def bwmcppb_sub(J, K, x, est, *args, con=None, alpha=.05,
             "ci_lower": outputA[:,4],
             "ci_upper": outputA[:,5]
             }
-
-
-
-
 
 
 
