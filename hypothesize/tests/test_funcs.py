@@ -357,6 +357,9 @@ def test_wincor():
     df = create_example_data(2)
     results = wincor(df.cell_1, df.cell_2)
     expected = pickle.load(open("test_data/wincor.pkl", "rb"))
+    #expected = pickle.load(open("/Users/alcampopiano/Desktop/wincor_tmp.pkl", "rb"))
+    print(results)
+    print(expected)
     expected_truth = build_truth_list(expected)
     actual_truth = check_dict_items_equality(expected, results)
 
