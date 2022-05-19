@@ -7,6 +7,7 @@ import pandas as pd
 from pandas._testing import assert_frame_equal
 import pickle
 import os
+from pytest import approx
 
 alpha=.05
 nboot=100
@@ -98,8 +99,11 @@ def test_l2drmci():
     df = create_example_data(2)
     results = l2drmci(df.cell_1, df.cell_2, trim_mean, tr)
     expected = pickle.load(open("test_data/l2drmci.pkl", "rb"))
+    expected_truth=build_truth_list(expected)
+    actual_truth = check_dict_items_equality(expected, results)
 
-    assert results == expected
+    #assert results == expected
+    assert actual_truth == expected_truth
 
 def test_linconb():
 
@@ -118,8 +122,11 @@ def test_pb2gen():
     df = create_example_data(2)
     results = pb2gen(df.cell_1, df.cell_2, trim_mean, tr)
     expected = pickle.load(open("test_data/pb2gen.pkl", "rb"))
+    expected_truth=build_truth_list(expected)
+    actual_truth = check_dict_items_equality(expected, results)
 
-    assert results == expected
+    #assert results == expected
+    assert actual_truth == expected_truth
 
 def test_tmcppb():
 
@@ -138,8 +145,11 @@ def test_yuenbt():
     df = create_example_data(2)
     results = yuenbt(df.cell_1, df.cell_2)
     expected = pickle.load(open("test_data/yuenbt.pkl", "rb"))
+    expected_truth=build_truth_list(expected)
+    actual_truth = check_dict_items_equality(expected, results)
 
-    assert results == expected
+    #assert results == expected
+    assert actual_truth == expected_truth
 
 def test_bootdpci():
 
@@ -180,8 +190,11 @@ def test_ydbt():
     df = create_example_data(2)
     results = ydbt(df.cell_1, df.cell_2)
     expected = pickle.load(open("test_data/ydbt.pkl", "rb"))
+    expected_truth=build_truth_list(expected)
+    actual_truth = check_dict_items_equality(expected, results)
 
-    assert results == expected
+    #assert results == expected
+    assert actual_truth == expected_truth
 
 def test_wwmcppb():
 
@@ -299,8 +312,11 @@ def test_corb():
     df = create_example_data(2)
     results = corb(wincor, df.cell_1, df.cell_2, alpha, nboot, tr)
     expected = pickle.load(open("test_data/corb.pkl", "rb"))
+    expected_truth = build_truth_list(expected)
+    actual_truth = check_dict_items_equality(expected, results)
 
-    assert results == expected
+    #assert results  == expected
+    assert actual_truth == expected_truth
 
 def test_pball():
 
@@ -319,8 +335,11 @@ def test_pbcor():
     df = create_example_data(2)
     results = pbcor(df.cell_1, df.cell_2)
     expected = pickle.load(open("test_data/pbcor.pkl", "rb"))
+    expected_truth=build_truth_list(expected)
+    actual_truth = check_dict_items_equality(expected, results)
 
-    assert results == expected
+    #assert results == expected
+    assert actual_truth == expected_truth
 
 def test_winall():
 
@@ -339,5 +358,11 @@ def test_wincor():
     df = create_example_data(2)
     results = wincor(df.cell_1, df.cell_2)
     expected = pickle.load(open("test_data/wincor.pkl", "rb"))
+    expected_truth = build_truth_list(expected)
+    actual_truth = check_dict_items_equality(expected, results)
 
-    assert results == expected
+    #assert results  == expected
+    assert actual_truth == expected_truth
+
+
+
