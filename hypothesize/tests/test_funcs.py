@@ -7,7 +7,6 @@ import pandas as pd
 from pandas._testing import assert_frame_equal
 import pickle
 import os
-from pytest import approx
 
 alpha=.05
 nboot=100

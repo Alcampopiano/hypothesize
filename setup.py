@@ -1,8 +1,6 @@
 from setuptools import find_packages, setup
 import io
 import os
-import re
-from pytest import approx
 
 def get_install_requirements(path):
     content = read(path)
