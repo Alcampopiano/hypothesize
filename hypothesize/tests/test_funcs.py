@@ -88,7 +88,14 @@ def check_dict_items_equality(expected_results, actual_results):
                 actual_truth.append(nested_truth)
 
             else:
-                actual_truth.append(expected_results[k]==actual_results[k])
+
+                if expected_results[k] is None and actual_results[k] is None: \
+                    truth = True
+                else:
+                    truth=True if not np.testing.assert_almost_equal(expected_results[k], actual_results[k]) \
+                        else False
+
+                actual_truth.append(truth)
 
     return actual_truth
 
@@ -234,6 +241,9 @@ def test_bwbmcp():
     df = create_example_data(6)
     results = bwbmcp(2, 3, df)
     expected = pickle.load(open("test_data/bwbmcp.pkl", "rb"))
+
+    print(results)
+    print(expected)
     expected_truth=build_truth_list(expected)
     actual_truth = check_dict_items_equality(expected, results)
 
@@ -357,7 +367,6 @@ def test_wincor():
     df = create_example_data(2)
     results = wincor(df.cell_1, df.cell_2)
     expected = pickle.load(open("test_data/wincor.pkl", "rb"))
-    #expected = pickle.load(open("/Users/alcampopiano/Desktop/wincor_tmp.pkl", "rb"))
     print(results)
     print(expected)
     expected_truth = build_truth_list(expected)
