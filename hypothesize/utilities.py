@@ -2286,3 +2286,43 @@ def mkdocstrings_to_pycharm_docstrings(mkdocstr):
 
     return print(final_str)
 
+def load_data_into_R_reference():
+
+    """
+    This is simply a comment that holds a code snippet. The code
+    is used to load data into R once Hypothesize's create_example_data
+    has been run. This ensures that the data in R matches the data in Python
+    when testing against functions in WRS.
+
+    J=2
+    K=3
+    JK=J*K
+    grp=c(1:JK)
+    alpha=.05
+    nboot=NA
+    SR=FALSE
+    SEED=FALSE
+    pr=TRUE
+    est=tmean
+
+
+    get_np_data = function(){
+      library("RcppCNPy")
+      x=list()
+      for (i in 1:JK){
+        fname=paste("/Users/alcampopiano/Desktop/test_", i, ".npy", sep='')
+        x[[i]]=npyLoad(fname)
+        x[[i]][is.nan(x[[i]])] = NA
+      }
+    }
+    """
+
+def push_to_pyPI_reference():
+
+    """
+    This is simply a code snippet that holds code to push to PyPI for reference
+
+    python setup.py sdist bdist_wheel
+    twine upload dist/*
+
+    """
