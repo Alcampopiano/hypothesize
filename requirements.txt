@@ -1,4 +1,4 @@
-scipy==1.7.3
+scipy==1.10.0
 pandas==1.4.2
 numpy==1.22.0
 more-itertools==8.12.0
