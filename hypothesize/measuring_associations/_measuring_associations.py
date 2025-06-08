@@ -262,8 +262,8 @@ def pball(x, beta=.2):
     Dictionary of results
 
     H: float
-    The test statistic $H$.Reject null if $H > \chi^2_{1−lpha}$ ,
-    the 1−α quantile.
+    The test statistic $H$.Reject null if $H > \chi^2_{1-alpha}$ ,
+    the 1-alpha quantile.
 
     H_p_value: float
     p-value corresponding to the test that all correlations are equal to zero
