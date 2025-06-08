@@ -2,6 +2,9 @@
 __pycache__/
 *.py[cod]
 
+# temp testing notebook
+tmp_testing.ipynb
+
 # C extensions
 *.so
 

@@ -19,7 +19,7 @@ jobs:
     - name: Set up Python version 3.9.13
       uses: actions/setup-python@v1
       with:
-        python-version: 3.9.13
+        python-version: 3.13.3
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
